@@ -201,6 +201,7 @@ export default function GetInvolved() {
 										</span>
 									)}
 								</Button>
+								{renderStatusMessage()}
 							</form>
 							<div className="hidden lg:block">
 								<Image
@@ -299,6 +300,7 @@ export default function GetInvolved() {
 										</span>
 									)}
 								</Button>
+								{renderStatusMessage()}
 							</form>
 							<div className="hidden lg:block">
 								<Image
@@ -395,6 +397,7 @@ export default function GetInvolved() {
 										</span>
 									)}
 								</Button>
+								{renderStatusMessage()}
 							</form>
 							<div className="hidden lg:block">
 								<Image
@@ -445,6 +448,7 @@ export default function GetInvolved() {
 										Subscribe <ArrowRight className="w-4 h-4" />
 									</span>
 								</Button>
+								{renderStatusMessage()}
 							</form>
 							<div className="hidden lg:block">
 								<Image
