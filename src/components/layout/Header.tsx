@@ -10,6 +10,17 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { Leaf } from "lucide-react";
 
+type DropdownItem = {
+  label: string;
+  href: string;
+};
+
+type NavItem = {
+  label: string;
+  href: string;
+  dropdown?: DropdownItem[];
+};
+
 // Define navigation structure with dropdown capabilities
 const NAV_ITEMS = [
 	{
@@ -82,56 +93,56 @@ const dropdownVariants = {
 	},
 };
 
-const MobileDropdown = ({ item }: { item: any }) => {
-	const [isOpen, setIsOpen] = useState(false);
-	const pathname = usePathname();
+const MobileDropdown = ({ item }: { item: NavItem }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
 
-	if (!item.dropdown) return null;
+  if (!item.dropdown) return null;
 
-	return (
-		<div>
-			<button
-				onClick={() => setIsOpen(!isOpen)}
-				className="w-full text-left flex justify-between items-center p-4 border-b hover:bg-green-50 transition-colors"
-				aria-expanded={isOpen}
-				aria-haspopup="true"
-			>
-				{item.label}
-				<ChevronDown
-					className={cn(
-						"h-5 w-5 transition-transform duration-200",
-						isOpen ? "rotate-180" : ""
-					)}
-				/>
-			</button>
-			<AnimatePresence>
-				{isOpen && (
-					<motion.div
-						initial={{ opacity: 0, height: 0 }}
-						animate={{ opacity: 1, height: "auto" }}
-						exit={{ opacity: 0, height: 0 }}
-						transition={{ duration: 0.2 }}
-						className="pl-4 overflow-hidden"
-					>
-						{item.dropdown.map((dropItem: any) => (
-							<Link
-								key={dropItem.href}
-								href={dropItem.href}
-								className={cn(
-									"block p-4 border-b text-green-700 hover:bg-green-50 transition-colors",
-									pathname === dropItem.href
-										? "border-b-2 border-green-700 font-semibold"
-										: ""
-								)}
-							>
-								{dropItem.label}
-							</Link>
-						))}
-					</motion.div>
-				)}
-			</AnimatePresence>
-		</div>
-	);
+  return (
+    <div>
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="w-full text-left flex justify-between items-center p-4 border-b hover:bg-green-50 transition-colors"
+        aria-expanded={isOpen}
+        aria-haspopup="true"
+      >
+        {item.label}
+        <ChevronDown
+          className={cn(
+            "h-5 w-5 transition-transform duration-200",
+            isOpen ? "rotate-180" : ""
+          )}
+        />
+      </button>
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.2 }}
+            className="pl-4 overflow-hidden"
+          >
+            {item.dropdown.map((dropItem: DropdownItem) => (
+              <Link
+                key={dropItem.href}
+                href={dropItem.href}
+                className={cn(
+                  "block p-4 border-b text-green-700 hover:bg-green-50 transition-colors",
+                  pathname === dropItem.href
+                    ? "border-b-2 border-green-700 font-semibold"
+                    : ""
+                )}
+              >
+                {dropItem.label}
+              </Link>
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
 };
 
 export default function Header() {
@@ -155,7 +166,7 @@ export default function Header() {
 		setActiveDropdown(null);
 	}, [pathname]);
 
-	const DesktopDropdown = ({ item }: { item: any }) => {
+	const DesktopDropdown = ({ item }: { item: NavItem }) => {
 		const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 		const dropdownRef = useRef<HTMLDivElement>(null);
 	
@@ -166,7 +177,7 @@ export default function Header() {
 			if (!isMovingToDropdown) {
 				timeoutRef.current = setTimeout(() => {
 					setActiveDropdown(null);
-				}, 300); // 300ms delay before closing
+				}, 300);
 			}
 		};
 	
@@ -185,62 +196,62 @@ export default function Header() {
 		};
 	
 		if (!item.dropdown) return null;
-
+	
 		return (
 			<div
-      className="group relative"
-      onMouseEnter={() => {
-        setActiveDropdown(item.label);
-        if (timeoutRef.current) {
-          clearTimeout(timeoutRef.current);
-          timeoutRef.current = null;
-        }
-      }}
-      onMouseLeave={handleParentLeave}
-    >
-      <button
-        className={cn(
-          "flex items-center gap-1 px-4 py-2 rounded-md text-base font-medium lg:text-base transition-all duration-200 hover:bg-green-50",
-          pathname.startsWith(item.href)
-            ? "border-b-2 border-primary font-semibold"
-            : ""
-        )}
-        aria-expanded={activeDropdown === item.label}
-        aria-haspopup="true"
-      >
-        {item.label}
-        <ChevronDown className="w-4 h-4 transition-transform duration-200 group-hover:rotate-180" />
-      </button>
-      <AnimatePresence>
-        {activeDropdown === item.label && (
-          <motion.div
-            ref={dropdownRef}
-            variants={dropdownVariants}
-            initial="closed"
-            animate="open"
-            exit="closed"
-            className="absolute bg-white rounded-lg shadow-lg mt-2 py-2 w-80 border border-green-100"
-            onMouseEnter={handleDropdownEnter}
-            onMouseLeave={handleDropdownLeave}
-          >
-            {item.dropdown.map((dropItem: any) => (
-              <Link
-                key={dropItem.href}
-                href={dropItem.href}
-                className={cn(
-                  "block px-4 py-3 text-sm lg:text-base font-medium hover:bg-green-50 transition-colors",
-                  pathname === dropItem.href
-                    ? "border-l-4 border-primary font-semibold"
-                    : ""
-                )}
-              >
-                {dropItem.label}
-              </Link>
-            ))}
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
+				className="group relative"
+				onMouseEnter={() => {
+					setActiveDropdown(item.label);
+					if (timeoutRef.current) {
+						clearTimeout(timeoutRef.current);
+						timeoutRef.current = null;
+					}
+				}}
+				onMouseLeave={handleParentLeave}
+			>
+				<button
+					className={cn(
+						"flex items-center gap-1 px-4 py-2 rounded-md text-base font-medium lg:text-base transition-all duration-200 hover:bg-green-50",
+						pathname.startsWith(item.href)
+							? "border-b-2 border-primary font-semibold"
+							: ""
+					)}
+					aria-expanded={activeDropdown === item.label}
+					aria-haspopup="true"
+				>
+					{item.label}
+					<ChevronDown className="w-4 h-4 transition-transform duration-200 group-hover:rotate-180" />
+				</button>
+				<AnimatePresence>
+					{activeDropdown === item.label && (
+						<motion.div
+							ref={dropdownRef}
+							variants={dropdownVariants}
+							initial="closed"
+							animate="open"
+							exit="closed"
+							className="absolute bg-white rounded-lg shadow-lg mt-2 py-2 w-80 border border-green-100"
+							onMouseEnter={handleDropdownEnter}
+							onMouseLeave={handleDropdownLeave}
+						>
+							{item.dropdown.map((dropItem: DropdownItem) => (
+								<Link
+									key={dropItem.href}
+									href={dropItem.href}
+									className={cn(
+										"block px-4 py-3 text-sm lg:text-base font-medium hover:bg-green-50 transition-colors",
+										pathname === dropItem.href
+											? "border-l-4 border-primary font-semibold"
+											: ""
+									)}
+								>
+									{dropItem.label}
+								</Link>
+							))}
+						</motion.div>
+					)}
+				</AnimatePresence>
+			</div>
 		);
 	};
 

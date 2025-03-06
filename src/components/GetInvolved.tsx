@@ -13,101 +13,108 @@ import Image from "next/image";
 
 // Partnership Form Schema
 const partnershipSchema = z.object({
-	organizationName: z
-		.string()
-		.min(2, { message: "Organization name is required" }),
-	contactPerson: z
-		.string()
-		.min(2, { message: "Contact person name is required" }),
-	email: z.string().email({ message: "Invalid email address" }),
-	phone: z.string().min(10, { message: "Phone number is required" }),
-	message: z.string().min(10, {
-		message: "Please provide more details about potential partnership",
-	}),
+  organizationName: z.string().min(2, { message: "Organization name is required" }),
+  contactPerson: z.string().min(2, { message: "Contact person name is required" }),
+  email: z.string().email({ message: "Invalid email address" }),
+  phone: z.string().min(10, { message: "Phone number is required" }),
+  message: z.string().min(10, {
+    message: "Please provide more details about potential partnership",
+  }),
 });
 
 // Volunteer Form Schema
 const volunteerSchema = z.object({
-	name: z.string().min(2, { message: "Name is required" }),
-	email: z.string().email({ message: "Invalid email address" }),
-	phone: z.string().min(10, { message: "Phone number is required" }),
-	skills: z.string().optional(),
-	availability: z
-		.string()
-		.min(10, { message: "Please describe your availability" }),
+  name: z.string().min(2, { message: "Name is required" }),
+  email: z.string().email({ message: "Invalid email address" }),
+  phone: z.string().min(10, { message: "Phone number is required" }),
+  skills: z.string().optional(),
+  availability: z.string().min(10, { message: "Please describe your availability" }),
 });
 
 // Donation Form Schema
 const donationSchema = z.object({
-	name: z.string().min(2, { message: "Name is required" }),
-	email: z.string().email({ message: "Invalid email address" }),
-	amount: z.number().min(5, { message: "Minimum donation is $5" }),
-	message: z.string().optional(),
+  name: z.string().min(2, { message: "Name is required" }),
+  email: z.string().email({ message: "Invalid email address" }),
+  amount: z.number().min(5, { message: "Minimum donation is $5" }),
+  message: z.string().optional(),
 });
 
 type GetInvolvedSection = "partner" | "donate" | "volunteer" | "subscribe";
 
+type FormData = z.infer<typeof partnershipSchema> 
+  | z.infer<typeof volunteerSchema> 
+  | z.infer<typeof donationSchema>;
+
 export default function GetInvolved() {
-	const [activeSection, setActiveSection] =
-		useState<GetInvolvedSection>("partner");
-	const [isSubmitting, setIsSubmitting] = useState(false);
-	const [submitStatus, setSubmitStatus] = useState<
-		"idle" | "success" | "error"
-	>("idle");
+  const [activeSection, setActiveSection] = useState<GetInvolvedSection>("partner");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
 
-	// Partnership Form Hook
-	const partnershipForm = useForm({
-		resolver: zodResolver(partnershipSchema),
-	});
+  // Partnership Form Hook
+  const partnershipForm = useForm({
+    resolver: zodResolver(partnershipSchema),
+  });
 
-	// Volunteer Form Hook
-	const volunteerForm = useForm({
-		resolver: zodResolver(volunteerSchema),
-	});
+  // Volunteer Form Hook
+  const volunteerForm = useForm({
+    resolver: zodResolver(volunteerSchema),
+  });
 
-	// Donation Form Hook
-	const donationForm = useForm({
-		resolver: zodResolver(donationSchema),
-	});
+  // Donation Form Hook
+  const donationForm = useForm({
+    resolver: zodResolver(donationSchema),
+  });
 
-	// Form Submission Handler
-	const handleFormSubmission = async (
-		data: any,
-		formType: GetInvolvedSection
-	) => {
-		setIsSubmitting(true);
-		setSubmitStatus("idle");
+  // Form Submission Handler
+  const handleFormSubmission = async (
+    data: FormData,
+    formType: GetInvolvedSection
+  ) => {
+    setIsSubmitting(true);
+    setSubmitStatus("idle");
 
-		try {
-			// Simulate form submission
-			await new Promise((resolve) => setTimeout(resolve, 1500));
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+      setSubmitStatus("success");
 
-			// Here you would typically send the form data to your backend
-			// const response = await fetch(`/api/get-involved/${formType}`, {
-			//   method: 'POST',
-			//   body: JSON.stringify(data)
-			// })
+      switch (formType) {
+        case "partner":
+          partnershipForm.reset();
+          break;
+        case "volunteer":
+          volunteerForm.reset();
+          break;
+        case "donate":
+          donationForm.reset();
+          break;
+      }
+    } catch (error) {
+      setSubmitStatus("error");
+      console.error("Form submission error:", error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
-			setSubmitStatus("success");
+  // Add status display component
+  const renderStatusMessage = () => {
+    if (submitStatus === "success") {
+      return (
+        <div className="p-4 mb-4 bg-green-50 text-green-700 rounded-lg">
+          Form submitted successfully!
+        </div>
+      );
+    }
+    if (submitStatus === "error") {
+      return (
+        <div className="p-4 mb-4 bg-red-50 text-red-700 rounded-lg">
+          Error submitting form. Please try again.
+        </div>
+      );
+    }
+    return null;
+  };
 
-			// Reset form based on type
-			switch (formType) {
-				case "partner":
-					partnershipForm.reset();
-					break;
-				case "volunteer":
-					volunteerForm.reset();
-					break;
-				case "donate":
-					donationForm.reset();
-					break;
-			}
-		} catch (error) {
-			setSubmitStatus("error");
-		} finally {
-			setIsSubmitting(false);
-		}
-	};
 
 	// Render Active Section
 	const renderActiveSection = () => {
