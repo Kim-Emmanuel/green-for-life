@@ -123,7 +123,7 @@ export default function GetInvolved() {
 						</div>
 						<p className="text-gray-700 mb-6">
 							Collaborate with Green for Life to create sustainable solutions.
-							Whether you're a business, NGO, or community group, we welcome
+							Whether you&apos;re a business, NGO, or community group, we welcome
 							partnerships that align with our mission.
 						</p>
 						<div className="grid lg:grid-cols-[1fr,400px] gap-12">
@@ -317,7 +317,7 @@ export default function GetInvolved() {
 						</div>
             <p className="text-gray-700 mb-6">
 								Join our team of passionate volunteers and make a tangible
-								impact. Whether you're on the ground or behind the scenes, your
+								impact. Whether you&apos;re on the ground or behind the scenes, your
 								skills and time are invaluable.
 							</p>
 						<div className="grid lg:grid-cols-[1fr,400px] gap-12">
@@ -468,7 +468,7 @@ export default function GetInvolved() {
 					</motion.h1>
 					<p className="max-w-3xl mx-auto text-lg text-green-700">
 						Join us in creating a sustainable future. Whether you want to
-						partner, donate, volunteer, or stay updated, there's a place for you
+						partner, donate, volunteer, or stay updated, there&apos;s a place for you
 						in our mission.
 					</p>
 				</div>

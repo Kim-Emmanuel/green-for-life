@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -11,7 +11,6 @@ import {
 	Send,
 	MessageCircle,
 	Globe,
-	Clock,
 	CheckCircle,
 	AlertCircle,
 } from "lucide-react";
@@ -264,7 +263,7 @@ export default function Contact() {
 									className="bg-green-50 p-4 rounded-lg flex items-center text-green-700"
 								>
 									<CheckCircle className="mr-2 h-5 w-5" />
-									Message sent! We'll respond via{" "}
+									Message sent! We&apos;ll respond via{" "}
 									{preferredContact === "phone" ? "phone" : "email"} within 24
 									hours.
 								</motion.div>
@@ -430,17 +429,5 @@ export default function Contact() {
 				)}
 			</section>
 		</div>
-	);
-}
-
-function SocialLink({ icon: Icon, href }: { icon: any; href: string }) {
-	return (
-		<a
-			href={href}
-			className="p-2 rounded-full bg-green-100 hover:bg-green-200 transition-colors"
-			aria-label="Social media link"
-		>
-			<Icon className="h-6 w-6 text-green-700" />
-		</a>
 	);
 }

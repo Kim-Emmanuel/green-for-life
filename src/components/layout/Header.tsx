@@ -138,7 +138,6 @@ export default function Header() {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 	const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
 	const [isScrolled, setIsScrolled] = useState(false);
-	const dropdownRef = useRef<HTMLDivElement>(null);
 	const pathname = usePathname();
 
 	// Handle scroll effect

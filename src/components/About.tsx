@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { TreePine, Users, Target, BookOpen, Globe, Heart } from "lucide-react";
+import { TreePine, Users, Globe } from "lucide-react";
 
 // Team Member Type
 type TeamMember = {

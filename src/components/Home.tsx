@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { Trees, Users, Globe, Heart } from "lucide-react";
+import { Trees, Users, Globe } from "lucide-react";
 import { Typewriter } from "react-simple-typewriter";
 import { Button } from "./ui/button";
 // import { Leaf } from "lucide-react";
