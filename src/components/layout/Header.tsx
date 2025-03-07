@@ -363,13 +363,13 @@ export default function Header() {
 						<motion.div
 							whileHover={{ scale: 1.05 }}
 							transition={{ type: "spring", stiffness: 300 }}
-							className="relative w-[100px] h-[40px] md:w-[110px] md:h-[50px] lg:w-[130px] lg:h-[80px]"
+							className="relative w-[100px] h-[60px] md:w-[110px] md:h-[70px] lg:w-[130px] lg:h-[80px]"
 						>
 							<Image
 								src="/green-for-life.svg"
 								alt="Green For Life"
 								width={130}
-								height={60}
+								height={80}
 								priority
 								className="object-contain"
 							/>

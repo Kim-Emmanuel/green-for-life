@@ -138,7 +138,7 @@ export default function About() {
 				</div>
 			</section>
 
-			{/* Mission */}
+			{/* Mission & Vision */}
 			<section className="py-16">
 				<div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
 					<motion.h2
@@ -148,34 +148,65 @@ export default function About() {
 						transition={{ duration: 0.8 }}
 						className="text-[clamp(2rem,5vw,3rem)] font-bold text-green-800 text-center mb-12"
 					>
-						Our Mission
+						Our Mission & Vision
 					</motion.h2>
 
-					<motion.div
-						initial={{ opacity: 0, scale: 0.9 }}
-						whileInView={{ opacity: 1, scale: 1 }}
-						viewport={{ once: true }}
-						transition={{ duration: 0.8 }}
-						className="max-w-2xl mx-auto bg-green-50 p-8 rounded-lg shadow-md hover:shadow-lg transition-shadow backdrop-blur-sm"
-					>
-						<div className="flex justify-center mb-4">
-							<Image
-								alt="Leaf"
-								width={40}
-								height={40}
-								src="/icons/leaf-1.svg"
-								priority
-								className="w-16 h-16"
-							/>
-						</div>
-						<h3 className="text-[clamp(1.5rem,4vw,2rem)] font-semibold text-green-700 mb-4 text-center">
-							Mission
-						</h3>
-						<p className="text-gray-700 text-lg text-center">
-							To empower communities to create sustainable environmental
-							solutions that protect our planet and improve human lives.
-						</p>
-					</motion.div>
+					<div className="grid md:grid-cols-2 gap-8">
+						<motion.div
+							initial={{ opacity: 0, scale: 0.9 }}
+							whileInView={{ opacity: 1, scale: 1 }}
+							viewport={{ once: true }}
+							transition={{ duration: 0.8 }}
+							className="bg-green-50 p-8 rounded-lg shadow-md hover:shadow-lg transition-shadow backdrop-blur-sm"
+						>
+							<div className="flex justify-center mb-4">
+								<Image
+									alt="Leaf"
+									width={40}
+									height={40}
+									src="/icons/leaf-1.svg"
+									priority
+									className="w-16 h-16"
+								/>
+							</div>
+							<h3 className="text-[clamp(1.5rem,4vw,2rem)] font-semibold text-green-700 mb-4 text-center">
+								Mission
+							</h3>
+							<p className="text-gray-700 text-lg text-center">
+								To empower communities to create sustainable environmental
+								solutions that protect our planet and improve human lives.
+							</p>
+						</motion.div>
+
+						<motion.div
+							initial={{ opacity: 0, scale: 0.9 }}
+							whileInView={{ opacity: 1, scale: 1 }}
+							viewport={{ once: true }}
+							transition={{ duration: 0.8, delay: 0.2 }}
+							className="bg-green-50 p-8 rounded-lg shadow-md hover:shadow-lg transition-shadow backdrop-blur-sm"
+						>
+							{/* <div className="flex justify-center mb-4">
+								<Image
+									alt="Vision"
+									width={40}
+									height={40}
+									src="/icons/leaf-1.svg"
+									priority
+									className="w-16 h-16"
+								/>
+							</div> */}
+							<h2 className="text-[clamp(2rem,5vw,3rem)] text-center flex justify-center">
+								🌟
+							</h2>
+							<h3 className="text-[clamp(1.5rem,4vw,2rem)] font-semibold text-green-700 mb-4 text-center">
+								Vision 
+							</h3>
+							<p className="text-gray-700 text-lg text-center">
+								A world where environmental sustainability and community development
+								go hand in hand, creating a better future for generations to come.
+							</p>
+						</motion.div>
+					</div>
 				</div>
 			</section>
 

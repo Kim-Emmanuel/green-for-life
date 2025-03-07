@@ -74,55 +74,82 @@ export default function Home() {
 								variant="outline"
 								className="text-green-800 hover:bg-gray-100 text-lg font-semibold"
 							>
-								Learn More 
+								Learn More
 							</Button>
 						</motion.div>
 					</div>
 				</section>
 
-				{/* Mission */}
+				{/* Mission & Vision */}
 				<section className="py-16">
-					<div className="container mx-auto px-4 relative z-10">
-						{/* Section Heading */}
+					<div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
 						<motion.h2
-							initial={{ opacity: 0, y: -50 }}
+							initial={{ opacity: 0, y: -30 }}
 							whileInView={{ opacity: 1, y: 0 }}
-							transition={{ duration: 0.6 }}
+							viewport={{ once: true }}
+							transition={{ duration: 0.8 }}
 							className="text-[clamp(2rem,5vw,3rem)] font-bold text-green-800 text-center mb-12"
 						>
-							Our Mission
+							Our Mission & Vision
 						</motion.h2>
 
-						{/* Mission Content */}
-						<motion.div
-							initial={{ opacity: 0, y: 50 }}
-							whileInView={{ opacity: 1, y: 0 }}
-							transition={{ duration: 0.6, delay: 0.2 }}
-							className="max-w-2xl mx-auto bg-green-50 p-8 rounded-lg shadow-md hover:shadow-lg transition-shadow backdrop-blur-sm"
-						>
-							{/* Icon */}
-							<div className="flex justify-center mb-4">
-								<Image
-									alt="Leaf"
-									width={40}
-									height={40}
-									src="/icons/leaf-1.svg"
-									priority
-									className="w-16 h-16"
-								/>
-							</div>
+						<div className="grid md:grid-cols-2 gap-8">
+							<motion.div
+								initial={{ opacity: 0, scale: 0.9 }}
+								whileInView={{ opacity: 1, scale: 1 }}
+								viewport={{ once: true }}
+								transition={{ duration: 0.8 }}
+								className="bg-green-50 p-8 rounded-lg shadow-md hover:shadow-lg transition-shadow backdrop-blur-sm"
+							>
+								<div className="flex justify-center mb-4">
+									<Image
+										alt="Leaf"
+										width={40}
+										height={40}
+										src="/icons/leaf-1.svg"
+										priority
+										className="w-16 h-16"
+									/>
+								</div>
+								<h3 className="text-[clamp(1.5rem,4vw,2rem)] font-semibold text-green-700 mb-4 text-center">
+									Mission
+								</h3>
+								<p className="text-gray-700 text-lg text-center">
+									To empower communities to create sustainable environmental
+									solutions that protect our planet and improve human lives.
+								</p>
+							</motion.div>
 
-							{/* Mission Title */}
-							<h3 className="text-[clamp(1.5rem,4vw,2rem)] font-semibold text-green-700 mb-4 text-center">
-								Mission
-							</h3>
-
-							{/* Mission Description */}
-							<p className="text-gray-700 text-lg text-center">
-								To empower communities to create sustainable environmental
-								solutions that protect our planet and improve human lives.
-							</p>
-						</motion.div>
+							<motion.div
+								initial={{ opacity: 0, scale: 0.9 }}
+								whileInView={{ opacity: 1, scale: 1 }}
+								viewport={{ once: true }}
+								transition={{ duration: 0.8, delay: 0.2 }}
+								className="bg-green-50 p-8 rounded-lg shadow-md hover:shadow-lg transition-shadow backdrop-blur-sm"
+							>
+								{/* <div className="flex justify-center mb-4">
+									<Image
+										alt="Vision"
+										width={40}
+										height={40}
+										src="/icons/leaf-1.svg"
+										priority
+										className="w-16 h-16"
+									/>
+								</div> */}
+								<h2 className="text-[clamp(2rem,5vw,3rem)] text-center flex justify-center">
+									🌟
+								</h2>
+								<h3 className="text-[clamp(1.5rem,4vw,2rem)] font-semibold text-green-700 mb-4 text-center">
+									Vision
+								</h3>
+								<p className="text-gray-700 text-lg text-center">
+									A world where environmental sustainability and community
+									development go hand in hand, creating a better future for
+									generations to come.
+								</p>
+							</motion.div>
+						</div>
 					</div>
 				</section>
 
@@ -191,12 +218,12 @@ export default function Home() {
 							and the planet. Take action today.
 						</p>
 						<div className="flex justify-center space-x-4">
-							<button className="bg-green-600 px-8 py-3 rounded-lg text-lg font-semibold text-white hover:bg-green-700 transition-colors">
+							<Button className="bg-green-800 px-8 py-3 rounded-lg text-lg font-semibold text-white hover:bg-green-900 transition-colors">
 								Donate Now
-							</button>
-							<button className="bg-white text-green-800 px-8 py-3 rounded-lg text-lg font-semibold border border-green-600 hover:bg-green-50 transition-colors">
+							</Button>
+							<Button className="bg-white text-green-800 px-8 py-3 rounded-lg text-lg font-semibold border border-green-600 hover:bg-green-50 transition-colors">
 								Subscribe
-							</button>
+							</Button>
 						</div>
 					</div>
 				</section>

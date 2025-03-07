@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import Image from "next/image";
 
@@ -106,7 +107,7 @@ export default function Footer() {
 	};
 
 	return (
-		<footer className="relative py-12 overflow-hidden px-4 sm:px-6 lg:px-8">
+		<footer className="relative pt-12 overflow-hidden">
 			{/* Background Layers */}
 			<div className="absolute inset-0 z-0">
 				{/* Background Image */}
@@ -139,13 +140,13 @@ export default function Footer() {
 						<motion.div
 							whileHover={{ scale: 1.05 }}
 							transition={{ type: "spring", stiffness: 300 }}
-							className="relative w-[100px] h-[50px] md:w-[120px] md:h-[60px] lg:w-[150px] lg:h-[80px]"
+							className="relative w-[100px] h-[60px] md:w-[120px] md:h-[70px] lg:w-[150px] lg:h-[80px]"
 						>
 							<Image
 								src="/white logo-01.svg"
 								alt="Green For Life"
 								width={130}
-								height={60}
+								height={80}
 								priority
 								className="object-contain"
 							/>
@@ -218,42 +219,43 @@ export default function Footer() {
 						<motion.input
 							type="email"
 							placeholder="Enter your email"
-							className="w-full p-2 rounded text-black focus:outline-none focus:ring-2 focus:ring-green-500 transition-all duration-300"
+							className="w-full p-2 rounded text-black focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-300"
 							whileFocus={{ scale: 1.02 }}
 						/>
-						<motion.button
-							type="submit"
-							className="w-full bg-green-500 text-white p-2 rounded hover:bg-green-600 transition-colors duration-300"
+						<motion.div
+							
 							whileHover={{ scale: 1.05 }}
 							whileTap={{ scale: 0.95 }}
 						>
-							Subscribe
-						</motion.button>
+							<Button type="submit" className="w-full text-gray-900 p-2 rounded transition-colors duration-300">
+								Subscribe
+							</Button>
+						</motion.div>
 					</form>
 				</motion.div>
 			</motion.div>
 
 			{/* Copyright and Legal */}
 			<motion.div
-				className="relative z-10 container mx-auto mt-8 pt-4 border-t border-green-700 text-center px-4 sm:px-6 lg:px-8"
+				className="relative z-10 bg-[#156936] mx-auto mt-8 pt-4 pb-12 border-t border-green-700 text-center px-4 sm:px-6 lg:px-8"
 				variants={itemVariants}
 			>
-				<p className="text-sm text-green-200">
+				<p className="text-sm text-white">
 					© {currentYear} Green for Life. All Rights Reserved.
 				</p>
-				<div className="mt-2 space-x-4 text-sm">
-					<motion.div whileHover={{ x: 5 }}>
+				<div className="mt-2 flex justify-center gap-6 text-sm">
+					<motion.div className="p-2" whileHover={{ x: 5 }}>
 						<Link
 							href="/privacy"
-							className="text-green-100 hover:text-white transition-colors duration-300"
+							className="text-white hover:text-white transition-colors duration-300 py-2 px-3 block"
 						>
 							Privacy Policy
 						</Link>
 					</motion.div>
-					<motion.div whileHover={{ x: 5 }}>
+					<motion.div className="p-2" whileHover={{ x: 5 }}>
 						<Link
 							href="/terms"
-							className="text-green-100 hover:text-white transition-colors duration-300"
+							className="text-white hover:text-white transition-colors duration-300 py-2 px-3 block"
 						>
 							Terms of Service
 						</Link>
