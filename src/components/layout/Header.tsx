@@ -274,14 +274,14 @@ export default function Header() {
 										href="tel:+15551234567"
 										className="text-white font-medium text-xs lg:text-sm hover:text-slate-300"
 									>
-										+1 (555) 123-4567
+										+211 911 967 112
 									</a>
 									<span className="mx-2 text-white">|</span>
 									<a
 										href="tel:+15559876543"
 										className="text-white font-medium text-xs lg:text-sm hover:text-slate-300"
 									>
-										+1 (555) 987-6543
+										+211 923 700 314
 									</a>
 								</div>
 							</div>
@@ -292,7 +292,7 @@ export default function Header() {
 									href="mailto:info@greenforlife.org"
 									className="text-white font-medium text-xs lg:text-sm hover:text-slate-300"
 								>
-									info@greenforlife.org
+									info@green4life.africa
 								</a>
 							</div>
 						</div>
@@ -363,7 +363,7 @@ export default function Header() {
 						<motion.div
 							whileHover={{ scale: 1.05 }}
 							transition={{ type: "spring", stiffness: 300 }}
-							className="relative w-[100px] h-[40px] md:w-[110px] md:h-[50px] lg:w-[130px] lg:h-[60px]"
+							className="relative w-[100px] h-[40px] md:w-[110px] md:h-[50px] lg:w-[130px] lg:h-[80px]"
 						>
 							<Image
 								src="/green-for-life.svg"

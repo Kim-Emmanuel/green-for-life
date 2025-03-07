@@ -67,14 +67,14 @@ export default function Home() {
 							transition={{ delay: 0.4 }}
 							className="flex justify-center space-x-4"
 						>
-							<Button className="bg-primary hover:bg-green-700 text-lg font-semibold">
+							<Button className="bg-primary text-gray-900 text-lg font-semibold">
 								Give Today
 							</Button>
 							<Button
 								variant="outline"
 								className="text-green-800 hover:bg-gray-100 text-lg font-semibold"
 							>
-								Subscribe
+								Learn More 
 							</Button>
 						</motion.div>
 					</div>

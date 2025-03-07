@@ -296,13 +296,13 @@ export default function Contact() {
 												href="tel:+15551234567"
 												className="block text-lg font-medium hover:text-green-700"
 											>
-												+1 (555) 123-4567
+												+211 911 967 112
 											</a>
 											<a
 												href="tel:+15559876543"
 												className="block text-lg font-medium hover:text-green-700"
 											>
-												+1 (555) 987-6543
+												+211 923 700 314
 											</a>
 										</div>
 									</div>
@@ -345,13 +345,13 @@ export default function Contact() {
 												href="mailto:info@greenforlife.org"
 												className="block font-medium hover:text-green-700"
 											>
-												info@greenforlife.org
+												info@green4life.africa
 											</a>
 											<a
 												href="mailto:support@greenforlife.org"
 												className="block font-medium hover:text-green-700"
 											>
-												support@greenforlife.org
+												support@green4life.africa
 											</a>
 										</div>
 									</div>

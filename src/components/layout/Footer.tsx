@@ -142,7 +142,7 @@ export default function Footer() {
 							className="relative w-[100px] h-[50px] md:w-[120px] md:h-[60px] lg:w-[150px] lg:h-[80px]"
 						>
 							<Image
-								src="/green-for-life.svg"
+								src="/white logo-01.svg"
 								alt="Green For Life"
 								width={130}
 								height={60}
