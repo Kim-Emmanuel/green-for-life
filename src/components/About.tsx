@@ -36,7 +36,7 @@ const TEAM_MEMBERS: TeamMember[] = [
 		name: "Zack Rodriguez",
 		title: "Climate Resilience Lead",
 		bio: "Climate change adaptation specialist with a focus on innovative environmental solutions.",
-		image: "/team/team1.webp",
+		image: "/team/team3.webp",
 	},
 ];
 
@@ -109,14 +109,15 @@ export default function About() {
 							</h2>
 							<div className="space-y-4">
 								<p className="text-gray-700 text-lg">
-									Founded in 2010, Green for Life emerged from a vision to create
-									meaningful environmental change through community-driven
-									initiatives. What started as a small local project has grown into a
-									global movement of sustainable development.
+									Founded in 2010, Green for Life emerged from a vision to
+									create meaningful environmental change through
+									community-driven initiatives. What started as a small local
+									project has grown into a global movement of sustainable
+									development.
 								</p>
 								<p className="text-gray-700 text-lg">
-									Our journey began with a simple belief: that local communities are
-									the most powerful agents of environmental transformation.
+									Our journey began with a simple belief: that local communities
+									are the most powerful agents of environmental transformation.
 								</p>
 							</div>
 						</motion.div>
@@ -199,11 +200,12 @@ export default function About() {
 								🌟
 							</h2>
 							<h3 className="text-[clamp(1.5rem,4vw,2rem)] font-semibold text-green-700 mb-4 text-center">
-								Vision 
+								Vision
 							</h3>
 							<p className="text-gray-700 text-lg text-center">
-								A world where environmental sustainability and community development
-								go hand in hand, creating a better future for generations to come.
+								A world where environmental sustainability and community
+								development go hand in hand, creating a better future for
+								generations to come.
 							</p>
 						</motion.div>
 					</div>
@@ -211,7 +213,146 @@ export default function About() {
 			</section>
 
 			{/* Team Section */}
-			<section id="team" className="py-16 container mx-auto px-4 sm:px-6 lg:px-8">
+			<section
+				id="team"
+				className="py-16 container mx-auto px-4 sm:px-6 lg:px-8"
+			>
+				<motion.h2
+					initial={{ opacity: 0, y: -30 }}
+					whileInView={{ opacity: 1, y: 0 }}
+					viewport={{ once: true }}
+					transition={{ duration: 0.8 }}
+					className="text-[clamp(2rem,5vw,3rem)] font-bold text-green-800 text-center mb-12"
+					aria-label="Our Team Members"
+				>
+					Meet Our Team
+				</motion.h2>
+
+				<motion.p
+					initial={{ opacity: 0 }}
+					whileInView={{ opacity: 1 }}
+					viewport={{ once: true }}
+					transition={{ duration: 0.8, delay: 0.3 }}
+					className="text-[clamp(1rem,1.5vw,1.25rem)] text-gray-600 text-center max-w-3xl mx-auto leading-relaxed mb-16 px-4 sm:px-0"
+				>
+					Our dedicated team of professionals combines decades of experience
+					with innovative thinking to deliver exceptional results. Meet the
+					people behind Green for Life.
+				</motion.p>
+
+				<div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+					{TEAM_MEMBERS.map((member, index) => (
+						<motion.div
+							key={member.name}
+							initial={{ opacity: 0, y: 30 }}
+							whileInView={{ opacity: 1, y: 0 }}
+							viewport={{ once: true }}
+							transition={{ duration: 0.8, delay: index * 0.2 }}
+							className="group bg-green-50 rounded-xl overflow-hidden"
+							role="article"
+							aria-label={`Team member ${member.name}`}
+						>
+							<div className="relative overflow-hidden">
+								<Image
+									src={member.image}
+									alt={`Portrait of ${member.name}`}
+									width={400}
+									height={400}
+									className="w-full h-86 object-cover transition-transform duration-300 group-hover:scale-105"
+								/>
+								{/* Social Icons Overlay with Slide-up Transition */}
+								<div className="absolute inset-0 bg-black/30 opacity-0 translate-y-full transition-all duration-300 ease-in-out group-hover:opacity-100 group-hover:translate-y-0 flex items-center justify-center gap-4">
+									<motion.div
+										initial={{ scale: 0.5, opacity: 0 }}
+										animate={{ scale: 1, opacity: 1 }}
+										transition={{
+											type: "spring",
+											stiffness: 260,
+											damping: 20,
+											delay: 0.1,
+										}}
+										className="flex gap-4"
+									>
+										<a
+											href="#"
+											className="p-2 bg-white/90 rounded-full hover:bg-white transition-all duration-300 shadow-md hover:shadow-lg"
+											aria-label={`${member.name}'s LinkedIn profile`}
+										>
+											<motion.div
+												whileHover={{ scale: 1.1 }}
+												whileTap={{ scale: 0.9 }}
+												className="w-8 h-8 flex items-center justify-center"
+											>
+												<Image
+													width={24}
+													height={24}
+													src="/icons/Linkedin.svg"
+													alt={`${member.name}'s LinkedIn icon`}
+													className="text-green-800 transition-colors duration-300"
+												/>
+											</motion.div>
+										</a>
+
+										<a
+											href="#"
+											className="p-2 bg-white/90 rounded-full hover:bg-white transition-all duration-300 shadow-md hover:shadow-lg"
+											aria-label={`${member.name}'s Instagram profile`}
+										>
+											<motion.div
+												whileHover={{ scale: 1.1 }}
+												whileTap={{ scale: 0.9 }}
+												className="w-8 h-8 flex items-center justify-center"
+											>
+												<Image
+													width={24}
+													height={24}
+													src="/icons/Instagram.svg"
+													alt={`${member.name}'s Instagram icon`}
+													className="text-green-800 transition-colors duration-300"
+												/>
+											</motion.div>
+										</a>
+
+										<a
+											href="#"
+											className="p-2 bg-white/90 rounded-full hover:bg-white transition-all duration-300 shadow-md hover:shadow-lg"
+											aria-label={`${member.name}'s Twitter profile`}
+										>
+											<motion.div
+												whileHover={{ scale: 1.1 }}
+												whileTap={{ scale: 0.9 }}
+												className="w-8 h-8 flex items-center justify-center"
+											>
+												<Image
+													width={24}
+													height={24}
+													src="/icons/Twitterx.svg"
+													alt={`${member.name}'s Twitter icon`}
+													className="text-green-800 transition-colors duration-300"
+												/>
+											</motion.div>
+										</a>
+									</motion.div>
+								</div>
+							</div>
+							<div className="p-6">
+								<div className="border-l-4 border-green-600 pl-4">
+									<h3 className="text-xl font-semibold text-green-800">
+										{member.name}
+									</h3>
+									<p className="text-green-700 font-medium mt-1">
+										{member.title}
+									</p>
+								</div>
+							</div>
+						</motion.div>
+					))}
+				</div>
+			</section>
+
+			{/* The first layout for the Team Section */}
+			{/* Team Section */}
+			{/* <section id="team" className="py-16 container mx-auto px-4 sm:px-6 lg:px-8">
 				<motion.h2
 					initial={{ opacity: 0, y: -30 }}
 					whileInView={{ opacity: 1, y: 0 }}
@@ -281,7 +422,7 @@ export default function About() {
 						</motion.div>
 					))}
 				</div>
-			</section>
+			</section> */}
 
 			{/* Core Values Section */}
 			<section id="values" className="bg-green-50 py-16">
