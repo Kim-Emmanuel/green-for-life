@@ -81,7 +81,7 @@ export default function About() {
 						whileInView={{ opacity: 1, y: 0 }}
 						viewport={{ once: true }}
 						transition={{ duration: 0.8, delay: 0.2 }}
-						className="max-w-3xl mx-auto text-lg text-green-700"
+						className="max-w-3xl mx-auto text-[clamp(1rem,1.5vw,1.25rem)] leading-relaxed text-green-700"
 					>
 						Green for Life is a passionate environmental organization dedicated
 						to transforming communities through sustainable solutions,
@@ -108,14 +108,14 @@ export default function About() {
 								Our Story
 							</h2>
 							<div className="space-y-4">
-								<p className="text-gray-700 text-lg">
+								<p className="text-gray-700 text-[clamp(1rem,1.5vw,1.25rem)] leading-relaxed">
 									Founded in 2010, Green for Life emerged from a vision to
 									create meaningful environmental change through
 									community-driven initiatives. What started as a small local
 									project has grown into a global movement of sustainable
 									development.
 								</p>
-								<p className="text-gray-700 text-lg">
+								<p className="text-gray-700 text-[clamp(1rem,1.5vw,1.25rem)] leading-relaxed">
 									Our journey began with a simple belief: that local communities
 									are the most powerful agents of environmental transformation.
 								</p>
@@ -173,7 +173,7 @@ export default function About() {
 							<h3 className="text-[clamp(1.5rem,4vw,2rem)] font-semibold text-green-700 mb-4 text-center">
 								Mission
 							</h3>
-							<p className="text-gray-700 text-lg text-center">
+							<p className="text-gray-700 text-[clamp(1rem,1.5vw,1.25rem)] leading-relaxed text-center">
 								To empower communities to create sustainable environmental
 								solutions that protect our planet and improve human lives.
 							</p>
@@ -202,7 +202,7 @@ export default function About() {
 							<h3 className="text-[clamp(1.5rem,4vw,2rem)] font-semibold text-green-700 mb-4 text-center">
 								Vision
 							</h3>
-							<p className="text-gray-700 text-lg text-center">
+							<p className="text-gray-700 text-[clamp(1rem,1.5vw,1.25rem)] leading-relaxed mb-4 text-center">
 								A world where environmental sustainability and community
 								development go hand in hand, creating a better future for
 								generations to come.
@@ -222,7 +222,7 @@ export default function About() {
 					whileInView={{ opacity: 1, y: 0 }}
 					viewport={{ once: true }}
 					transition={{ duration: 0.8 }}
-					className="text-[clamp(2rem,5vw,3rem)] font-bold text-green-800 text-center mb-12"
+					className="text-[clamp(2rem,5vw,3rem)] font-bold text-green-800 text-center mb-1"
 					aria-label="Our Team Members"
 				>
 					Meet Our Team
@@ -233,7 +233,7 @@ export default function About() {
 					whileInView={{ opacity: 1 }}
 					viewport={{ once: true }}
 					transition={{ duration: 0.8, delay: 0.3 }}
-					className="text-[clamp(1rem,1.5vw,1.25rem)] text-gray-600 text-center max-w-3xl mx-auto leading-relaxed mb-16 px-4 sm:px-0"
+					className="text-[clamp(1rem,1.5vw,1.25rem)] text-gray-600 text-center max-w-3xl mx-auto leading-relaxed mb-8 px-4 sm:px-0"
 				>
 					Our dedicated team of professionals combines decades of experience
 					with innovative thinking to deliver exceptional results. Meet the
@@ -450,7 +450,7 @@ export default function About() {
 								<h3 className="text-2xl font-semibold text-green-700 mb-4">
 									{value.title}
 								</h3>
-								<p className="text-gray-700">{value.description}</p>
+								<p className="text-gray-700 text-[clamp(1rem,1.5vw,1.25rem)] leading-relaxed">{value.description}</p>
 							</motion.div>
 						))}
 					</div>
@@ -475,7 +475,7 @@ export default function About() {
 					transition={{ duration: 0.8 }}
 					className="max-w-4xl mx-auto"
 				>
-					<p className="text-gray-700 mb-4">
+					<p className="text-[clamp(1rem,1.5vw,1.25rem)] text-gray-700 mx-auto leading-relaxed mb-4">
 						At Green for Life, we believe that sustainable change is achieved
 						through a combination of community empowerment, environmental
 						education, and innovative solutions. Our Theory of Change is built

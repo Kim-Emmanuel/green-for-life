@@ -186,6 +186,9 @@
   }
 }
 
+.active-section {
+  @apply ring-4 ring-green-200/50 bg-green-50 rounded-xl transition-all duration-300;
+}
 
 @layer base {
   * {

@@ -64,7 +64,7 @@ export default function Footer() {
 			title: "Explore",
 			links: [
 				{ label: "Home", href: "/" },
-				{ label: "About Us", href: "/about" },
+				{ label: "About Us", href: "/about-us" },
 				{ label: "Our Work", href: "/our-work" },
 				{ label: "Get Involved", href: "/get-involved" },
 			],
@@ -73,18 +73,18 @@ export default function Footer() {
 			title: "Resources",
 			links: [
 				{ label: "News & Updates", href: "/news-resources" },
-				{ label: "Impact Reports", href: "/impact" },
-				{ label: "Blog", href: "/blog" },
-				{ label: "Careers", href: "/careers" },
+				{ label: "Impact Reports", href: "/news-resources#impact" },
+				{ label: "Blog", href: "/news-resources#blog" },
+				{ label: "Careers", href: "/news-resources#careers" },
 			],
 		},
 		{
 			title: "Support",
 			links: [
-				{ label: "Donate", href: "/donate" },
-				{ label: "Volunteer", href: "/volunteer" },
-				{ label: "Partner", href: "/partner" },
-				{ label: "Contact Us", href: "/contact" },
+				{ label: "Donate", href: "/get-involved#donate" },
+				{ label: "Volunteer", href: "/get-involved#volunteer" },
+				{ label: "Partner", href: "/get-involved#partnership" },
+				{ label: "Contact Us", href: "/contact-us" },
 			],
 		},
 	];
