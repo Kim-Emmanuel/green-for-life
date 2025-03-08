@@ -16,22 +16,45 @@ import {
 } from "@/components/ui/select";
 import { Check, Loader2 } from "lucide-react";
 
+// Type definitions
+type FormStatus = "idle" | "loading" | "success" | "error";
+type ProgramType = "partner" | "donate" | "volunteer" | "subscribe";
+
+interface ProgramCardProps {
+	title: string;
+	icon: string;
+	description: string;
+	children: React.ReactNode;
+	onOpen: () => void;
+	status: FormStatus;
+}
+
+interface FormLayoutProps {
+	title: string;
+	children: React.ReactNode;
+	onClose: () => void;
+}
+
+interface FormFooterProps {
+	status: FormStatus;
+	onSubmit: () => void;
+}
+
+// Main component
 export default function GetInvolved() {
 	const [email, setEmail] = useState("");
-	const [newsletterStatus, setNewsletterStatus] = useState<
-		"idle" | "loading" | "success" | "error"
-	>("idle");
+	const [newsletterStatus, setNewsletterStatus] = useState<FormStatus>("idle");
 	const [activeSection, setActiveSection] = useState<string>("");
-	const [activeForm, setActiveForm] = useState<string | null>(null);
-	const [submissionStatus, setSubmissionStatus] = useState<{
-		[key: string]: "idle" | "loading" | "success" | "error";
-	}>({
+	const [activeForm, setActiveForm] = useState<ProgramType | null>(null);
+	const [submissionStatus, setSubmissionStatus] = useState<
+		Record<ProgramType, FormStatus>
+	>({
 		partner: "idle",
 		donate: "idle",
 		volunteer: "idle",
+		subscribe: "idle",
 	});
 
-	// Add newsletter submission handler
 	const handleNewsletterSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
 		setNewsletterStatus("loading");
@@ -40,38 +63,31 @@ export default function GetInvolved() {
 			setNewsletterStatus("success");
 			setEmail("");
 			setTimeout(() => setNewsletterStatus("idle"), 3000);
-		} catch (error) {
+		} catch {
 			setNewsletterStatus("error");
 		}
 	};
 
 	const programs = ["partnership", "donation", "volunteer", "subscribe"];
 
-	// Scroll to section and highlight
 	useEffect(() => {
 		if (activeSection) {
 			const section = document.getElementById(activeSection);
 			if (section) {
 				section.scrollIntoView({ behavior: "smooth" });
 				section.classList.add("active-section");
-
-				// Remove highlight after 2 seconds
-				setTimeout(() => {
-					section.classList.remove("active-section");
-				}, 2000);
+				setTimeout(() => section.classList.remove("active-section"), 2000);
 			}
 		}
 	}, [activeSection]);
 
-	// Mock form submission handler
-	const handleSubmit = async (formType: string) => {
+	const handleSubmit = async (formType: ProgramType) => {
 		setSubmissionStatus((prev) => ({ ...prev, [formType]: "loading" }));
 		try {
-			// Simulated API call
 			await new Promise((resolve) => setTimeout(resolve, 1500));
 			setSubmissionStatus((prev) => ({ ...prev, [formType]: "success" }));
 			setTimeout(() => setActiveForm(null), 2000);
-		} catch (error) {
+		} catch {
 			setSubmissionStatus((prev) => ({ ...prev, [formType]: "error" }));
 		}
 	};
@@ -224,7 +240,13 @@ export default function GetInvolved() {
 }
 
 // Reusable Program Card Component
-const ProgramCard = ({ title, icon, children, onOpen, status }: any) => (
+const ProgramCard = ({
+	title,
+	icon,
+	children,
+	onOpen,
+	status,
+}: ProgramCardProps) => (
 	<motion.div whileHover={{ y: -5 }} className="h-full">
 		<Card className="h-full flex flex-col">
 			<CardHeader className="pb-0">
@@ -255,7 +277,15 @@ const ProgramCard = ({ title, icon, children, onOpen, status }: any) => (
 );
 
 // Form Components
-const PartnerForm = ({ status, onSubmit, onClose }: any) => (
+const PartnerForm = ({
+	status,
+	onSubmit,
+	onClose,
+}: {
+	status: FormStatus;
+	onSubmit: () => void;
+	onClose: () => void;
+}) => (
 	<FormLayout title="Partnership Inquiry" onClose={onClose}>
 		<div className="space-y-4">
 			<div className="grid grid-cols-2 gap-4">
@@ -290,7 +320,7 @@ const PartnerForm = ({ status, onSubmit, onClose }: any) => (
 	</FormLayout>
 );
 
-const DonationForm = ({ status, onSubmit, onClose }: any) => (
+const DonationForm = ({ status, onSubmit, onClose }: { status: FormStatus; onSubmit: () => void; onClose: () => void }) => (
 	<FormLayout title="Contribution Details" onClose={onClose}>
 		<div className="space-y-4">
 			<div className="grid grid-cols-2 gap-4">
@@ -331,7 +361,7 @@ const DonationForm = ({ status, onSubmit, onClose }: any) => (
 	</FormLayout>
 );
 
-const VolunteerForm = ({ status, onSubmit, onClose }: any) => (
+const VolunteerForm = ({ status, onSubmit, onClose }: { status: FormStatus; onSubmit: () => void; onClose: () => void }) => (
 	<FormLayout title="Volunteer Application" onClose={onClose}>
 		<div className="space-y-4">
 			<div className="grid grid-cols-2 gap-4">
@@ -369,7 +399,12 @@ const VolunteerForm = ({ status, onSubmit, onClose }: any) => (
 	</FormLayout>
 );
 
-const NewsletterCard = ({ status, email, onEmailChange, onSubmit }: any) => (
+const NewsletterCard = ({ status, email, onEmailChange, onSubmit }: { 
+  status: FormStatus;
+  email: string;
+  onEmailChange: (value: string) => void;
+  onSubmit: (e: React.FormEvent) => void;
+}) => (
 	<motion.div
 		whileHover={{ y: -5 }}
 		className="md:col-span-2 lg:col-span-3" // Spans full width on larger screens
@@ -432,7 +467,7 @@ const NewsletterCard = ({ status, email, onEmailChange, onSubmit }: any) => (
 );
 
 // Reusable Form Components
-const FormLayout = ({ title, children, onClose, onSubmit }: any) => (
+const FormLayout = ({ title, children, onClose }: FormLayoutProps) => (
 	<>
 		<div className="flex justify-between items-center mb-6">
 			<h3 className="text-xl font-semibold">{title}</h3>
@@ -444,7 +479,7 @@ const FormLayout = ({ title, children, onClose, onSubmit }: any) => (
 	</>
 );
 
-const FormFooter = ({ status, onSubmit }: any) => (
+const FormFooter = ({ status, onSubmit }: FormFooterProps) => (
 	<div className="mt-6 flex justify-end gap-3">
 		<Button
 			onClick={onSubmit}
