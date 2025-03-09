@@ -55,6 +55,10 @@ export default function GetInvolved() {
 		volunteer: "idle",
 		subscribe: "idle",
 	});
+	const [loading, setLoading] = useState(false);
+	const [subscribeEmail, setSubscribeEmail] = useState("");
+	const [message, setMessage] = useState("");
+	const [isSuccess, setIsSuccess] = useState(false);
 
 	const handleNewsletterSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
@@ -90,14 +94,6 @@ export default function GetInvolved() {
 			setTimeout(() => setActiveForm(null), 2000);
 		} catch {
 			setSubmissionStatus((prev) => ({ ...prev, [formType]: "error" }));
-		}
-	};
-
-	const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-		const isHashLink = href.startsWith('#');
-		if (isHashLink) {
-			e.preventDefault();
-			smoothScroll(href);
 		}
 	};
 

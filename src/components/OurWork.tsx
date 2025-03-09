@@ -161,7 +161,8 @@ const WORK_AREAS: WorkArea[] = [
 ]
 
 export default function OurWork() {
-  const [activeArea, setActiveArea] = useState<string>(WORK_AREAS[0].id)
+  const [selectedTag, setSelectedTag] = useState<string>("all");
+  const [activeArea, setActiveArea] = useState<string | null>(null);
 
   const handleNavClick = (e: React.MouseEvent<HTMLElement>, href: string) => {
     e.preventDefault();

@@ -62,14 +62,6 @@ const CORE_VALUES: CoreValue[] = [
 	},
 ];
 
-const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-	const isHashLink = href.startsWith('#');
-	if (isHashLink) {
-		e.preventDefault();
-		smoothScroll(href);
-	}
-};
-
 export default function About() {
 	return (
 		<div className="min-h-screen bg-white">
@@ -206,7 +198,7 @@ export default function About() {
 								/>
 							</div> */}
 							<h2 className="text-[clamp(2rem,5vw,3rem)] text-center flex justify-center">
-									🌟
+										🌟
 							</h2>
 							<h3 className="text-[clamp(1.5rem,4vw,2rem)] font-semibold text-green-700 mb-4 text-center">
 								Vision
