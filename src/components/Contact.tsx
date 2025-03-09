@@ -21,6 +21,7 @@ import { motion } from "framer-motion";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import Image from "next/image";
+import { smoothScroll } from "@/lib/utils";
 
 const contactSchema = z.object({
 	name: z.string().min(2, { message: "Name must be at least 2 characters" }),
@@ -43,6 +44,11 @@ export default function Contact() {
 		"idle" | "success" | "error"
 	>("idle");
 	const [activeTab, setActiveTab] = useState<"form" | "direct">("form");
+
+	const handleTabChange = (tab: "form" | "direct") => {
+		setActiveTab(tab);
+		smoothScroll(`#contact-${tab}`, 80);
+	};
 
 	const {
 		register,
@@ -107,14 +113,14 @@ export default function Contact() {
 						<div className="flex justify-center gap-4 mb-12">
 							<Button
 								variant={activeTab === "form" ? "default" : "outline"}
-								onClick={() => setActiveTab("form")}
+								onClick={() => handleTabChange("form")}
 							>
 								<MessageCircle className="mr-2 h-4 w-4" />
 								Send Message
 							</Button>
 							<Button
 								variant={activeTab === "direct" ? "default" : "outline"}
-								onClick={() => setActiveTab("direct")}
+								onClick={() => handleTabChange("direct")}
 							>
 								<Phone className="mr-2 h-4 w-4" />
 								Direct Contact
@@ -128,6 +134,7 @@ export default function Contact() {
 			<section className="container mx-auto px-4 sm:px-6 lg:px-8 pb-16">
 				{activeTab === "form" ? (
 					<motion.div
+						id="contact-form"
 						key="form"
 						initial={{ opacity: 0, y: 20 }}
 						animate={{ opacity: 1, y: 0 }}
@@ -272,6 +279,7 @@ export default function Contact() {
 					</motion.div>
 				) : (
 					<motion.div
+						id="contact-direct"
 						key="direct"
 						initial={{ opacity: 0, y: 20 }}
 						animate={{ opacity: 1, y: 0 }}

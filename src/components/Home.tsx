@@ -5,9 +5,15 @@ import { motion } from "framer-motion";
 import { Trees, Users, Globe } from "lucide-react";
 import { Typewriter } from "react-simple-typewriter";
 import { Button } from "./ui/button";
+import { smoothScroll } from "@/lib/utils";
 // import { Leaf } from "lucide-react";
 
 export default function Home() {
+	const handleNavClick = (e: React.MouseEvent<HTMLButtonElement>, target: string) => {
+		e.preventDefault();
+		smoothScroll(target);
+	};
+
 	return (
 		<div className="flex flex-col min-h-screen">
 			<main className="flex-grow">
@@ -67,12 +73,16 @@ export default function Home() {
 							transition={{ delay: 0.4 }}
 							className="flex justify-center space-x-4"
 						>
-							<Button className="bg-primary text-gray-900 text-lg font-semibold">
+								<Button 
+								className="bg-primary text-gray-900 text-lg font-semibold"
+								onClick={(e) => handleNavClick(e, '#donation')}
+							>
 								Give Today
 							</Button>
 							<Button
 								variant="outline"
 								className="text-green-800 hover:bg-gray-100 text-lg font-semibold"
+								onClick={(e) => handleNavClick(e, '#mission')}
 							>
 								Learn More
 							</Button>
@@ -81,7 +91,7 @@ export default function Home() {
 				</section>
 
 				{/* Mission & Vision */}
-				<section className="py-16">
+				<section id="mission" className="py-16">
 					<div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
 						<motion.h2
 							initial={{ opacity: 0, y: -30 }}
@@ -138,7 +148,7 @@ export default function Home() {
 									/>
 								</div> */}
 								<h2 className="text-[clamp(2rem,5vw,3rem)] text-center flex justify-center">
-									🌟
+										🌟
 								</h2>
 								<h3 className="text-[clamp(1.5rem,4vw,2rem)] font-semibold text-green-700 mb-4 text-center">
 									Vision
@@ -208,7 +218,7 @@ export default function Home() {
 				</section>
 
 				{/* Call to Action Section */}
-				<section className="py-16 bg-white">
+					<section id="donation" className="py-16 bg-white">
 					<div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
 						<h2 className="text-3xl md:text-4xl font-bold text-green-800 mb-6">
 							Join Us in Making a Difference
@@ -218,10 +228,16 @@ export default function Home() {
 							and the planet. Take action today.
 						</p>
 						<div className="flex justify-center space-x-4">
-							<Button className="bg-green-800 px-8 py-3 rounded-lg text-lg font-semibold text-white hover:bg-green-900 transition-colors">
+							<Button 
+								className="bg-green-800 px-8 py-3 rounded-lg text-lg font-semibold text-white hover:bg-green-900 transition-colors"
+								onClick={(e) => handleNavClick(e, '#donation')}
+							>
 								Donate Now
 							</Button>
-							<Button className="bg-white text-green-800 px-8 py-3 rounded-lg text-lg font-semibold border border-green-600 hover:bg-green-50 transition-colors">
+							<Button 
+								className="bg-white text-green-800 px-8 py-3 rounded-lg text-lg font-semibold border border-green-600 hover:bg-green-50 transition-colors"
+								onClick={(e) => handleNavClick(e, '#subscribe')}
+							>
 								Subscribe
 							</Button>
 						</div>

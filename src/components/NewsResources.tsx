@@ -14,6 +14,7 @@ import {
 } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { Button } from './ui/button'
+import { smoothScroll } from '@/lib/utils'
 
 // Types for different content categories
 type ContentCategory = 'blog' | 'publications' | 'impact' | 'tenders' | 'careers'
@@ -110,6 +111,11 @@ export default function NewsResources() {
   const [activeCategory, setActiveCategory] = useState<ContentCategory>('blog')
   const [searchTerm, setSearchTerm] = useState('')
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc')
+
+  const handleCategoryChange = (category: ContentCategory) => {
+    setActiveCategory(category);
+    smoothScroll(`#${category}-section`, 80);
+  };
 
   // Filter and search content
   const filteredContent = CONTENT_ITEMS.filter(item => 
@@ -209,7 +215,7 @@ export default function NewsResources() {
             {Object.keys(categoryIcons).map((category) => (
               <Button
                 key={category}
-                onClick={() => setActiveCategory(category as ContentCategory)}
+                onClick={() => handleCategoryChange(category as ContentCategory)}
                 className={`
                   flex items-center px-4 py-2 rounded-full transition-all
                   ${activeCategory === category 
@@ -257,6 +263,7 @@ export default function NewsResources() {
           {sortedContent.map((item) => (
             <motion.div 
               key={item.id}
+              id={`${item.category}-section`}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}

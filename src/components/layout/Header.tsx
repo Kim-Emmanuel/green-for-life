@@ -5,7 +5,7 @@ import { useState, useEffect, useRef } from "react";
 import { Menu, X, ChevronDown, Phone, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { usePathname } from "next/navigation";
-import { cn } from "@/lib/utils";
+import { cn, smoothScroll } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { Leaf } from "lucide-react";
@@ -93,6 +93,14 @@ const dropdownVariants = {
 	},
 };
 
+const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+  const isHashLink = href.startsWith('#');
+  if (isHashLink) {
+    e.preventDefault();
+    smoothScroll(href);
+  }
+};
+
 const MobileDropdown = ({ item }: { item: NavItem }) => {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
@@ -128,6 +136,7 @@ const MobileDropdown = ({ item }: { item: NavItem }) => {
               <Link
                 key={dropItem.href}
                 href={dropItem.href}
+                onClick={(e) => handleNavClick(e, dropItem.href)}
                 className={cn(
                   "block p-4 border-b text-green-700 hover:bg-green-50 transition-colors",
                   pathname === dropItem.href
@@ -238,6 +247,7 @@ export default function Header() {
 								<Link
 									key={dropItem.href}
 									href={dropItem.href}
+									onClick={(e) => handleNavClick(e, dropItem.href)}
 									className={cn(
 										'block px-3 lg:px-3 xl:px-4 py-2 xl:py-3 text-xs lg:text-sm xl:text-base font-medium hover:bg-green-50 transition-colors',
 										pathname === dropItem.href ? 'border-l-4 border-primary font-semibold' : ''
@@ -385,6 +395,7 @@ export default function Header() {
 									<Link
 										key={item.href}
 										href={item.href}
+										onClick={(e) => handleNavClick(e, item.href)}
 										className={cn(
 											"px-2 lg:px-3 xl:px-4 py-2 rounded-md text-sm lg:text-sm xl:text-base font-medium transition-all duration-200 hover:bg-green-50",
 											pathname === item.href
@@ -470,13 +481,16 @@ export default function Header() {
 										<Link
 											key={item.href}
 											href={item.href}
+											onClick={(e) => {
+												handleNavClick(e, item.href);
+												setIsMenuOpen(false);
+											}}
 											className={cn(
 												"block p-4 border-b text-green-700 hover:bg-green-50 transition-colors",
 												pathname === item.href
 													? "border-b-2 border-green-700 font-semibold"
 													: ""
 											)}
-											onClick={() => setIsMenuOpen(false)}
 										>
 											{item.label}
 										</Link>

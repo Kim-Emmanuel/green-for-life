@@ -11,6 +11,7 @@ import {
   FlaskConical
 } from 'lucide-react'
 import { Button } from './ui/button'
+import { smoothScroll } from "@/lib/utils"
 
 type WorkArea = {
   id: string
@@ -162,6 +163,11 @@ const WORK_AREAS: WorkArea[] = [
 export default function OurWork() {
   const [activeArea, setActiveArea] = useState<string>(WORK_AREAS[0].id)
 
+  const handleNavClick = (e: React.MouseEvent<HTMLElement>, href: string) => {
+    e.preventDefault();
+    smoothScroll(href);
+  };
+
   const renderWorkAreaContent = () => {
     const area = WORK_AREAS.find(a => a.id === activeArea)
     if (!area) return null
@@ -276,7 +282,7 @@ export default function OurWork() {
             {WORK_AREAS.map((area) => (
               <Button
                 key={area.id}
-                onClick={() => setActiveArea(area.id)}
+                onClick={(e) => handleNavClick(e, `#${area.id}`)}
                 className={`px-4 py-2.5 rounded-full text-sm font-medium transition-colors
                   ${activeArea === area.id 
                     ? 'bg-primary text-gray-900 shadow-lg'

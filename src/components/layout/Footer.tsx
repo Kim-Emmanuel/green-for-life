@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { smoothScroll } from "@/lib/utils";
 
 export default function Footer() {
 	const currentYear = new Date().getFullYear();
@@ -88,6 +89,14 @@ export default function Footer() {
 			],
 		},
 	];
+
+	const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+		const isHashLink = href.startsWith('#');
+		if (isHashLink) {
+			e.preventDefault();
+			smoothScroll(href);
+		}
+	};
 
 	// Animation variants for Framer Motion
 	const containerVariants = {
@@ -199,6 +208,7 @@ export default function Footer() {
 								<motion.div key={link.href} whileHover={{ x: 5 }}>
 									<Link
 										href={link.href}
+										onClick={(e) => handleNavClick(e, link.href)}
 										className="block text-sm text-green-100 hover:text-white transition-colors duration-300"
 									>
 										{link.label}

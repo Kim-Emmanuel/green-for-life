@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 100px;
+  transition: scroll-padding-top 0.5s ease;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;

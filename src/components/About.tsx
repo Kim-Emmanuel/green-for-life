@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { TreePine, Users, Globe } from "lucide-react";
+import { smoothScroll } from "@/lib/utils";
 
 // Team Member Type
 type TeamMember = {
@@ -60,6 +61,14 @@ const CORE_VALUES: CoreValue[] = [
 		icon: <Globe className="w-12 h-12 text-green-600" />,
 	},
 ];
+
+const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+	const isHashLink = href.startsWith('#');
+	if (isHashLink) {
+		e.preventDefault();
+		smoothScroll(href);
+	}
+};
 
 export default function About() {
 	return (
@@ -197,7 +206,7 @@ export default function About() {
 								/>
 							</div> */}
 							<h2 className="text-[clamp(2rem,5vw,3rem)] text-center flex justify-center">
-								🌟
+									🌟
 							</h2>
 							<h3 className="text-[clamp(1.5rem,4vw,2rem)] font-semibold text-green-700 mb-4 text-center">
 								Vision
