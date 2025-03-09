@@ -110,15 +110,17 @@ export default function Footer() {
 		<footer className="relative pt-12 overflow-hidden">
 			{/* Background Layers */}
 			<div className="absolute inset-0 z-0">
-				{/* Background Image */}
+				{/* Background Image with optimized blur */}
 				<div
-					className="absolute inset-0 bg-[url('/images/footer-bg.webp')] bg-cover bg-center"
-					style={{ filter: "blur(6px)" }}
+					className="absolute inset-0 bg-[url('/images/footer-bg.webp')] bg-cover bg-center opacity-80"
+					style={{ filter: "blur(3px)" }}
 				/>
-				{/* Dark Overlay */}
-				<div className="absolute inset-0 bg-black/60" />
+				{/* Darker Overlay */}
+				<div className="absolute inset-0 bg-black/75" />
 				{/* Subtle Grain Effect */}
-				<div className="absolute inset-0 bg-noise opacity-10" />
+				<div className="absolute inset-0 opacity-5 mix-blend-overlay" 
+					 style={{ backgroundImage: "url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwBAMAAAClLOS0AAAAElBMVEUAAAD8/vz08vT09vT8+vzs7uxH16TeAAAAAXRSTlMAQObYZgAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAuFJREFUOI0Vk+3NLiEIRG1B8ClAYAsQ2AIEt4D9ePtv5Xp/mZgYJ2fOzBC+LyICH1ECIgmRgkiRgshAVM6H+8lkRSpiFyJM+H61QwYiR+W+YZZSqc1QWAYXoVBQqc1S+AQUsQxDSA/PhCxvgrA5mad4AyTjhW6jZahg6QNkJ3g6rS3D5sNFWPr5wY+nPbwajHZaj+9jYXn0h+0wSP4KqSXh5S+90wHxMTx+P3zzo4L0sdlQxUcI1Fl2BiCx7BTe7ATtLRH2XSgPiW9BHCWe3kz8CuG8DExwBQHwI4Qx3HcFodxQMPtVQmYvA3zY8WVCErbLgMzmPMJmQwa2iyQsJWTYLCsLmY2YVkKGzBxYCsBM3V+GoWwMFRxUiJVwI6AQqyDDxgLQzGYVYSdMN1oYh3nxNo5COICBZuFwPO1UwZVlCF+j4QPDNGxpqR7qP8R0HRt5owyQHCGjYnCMj6hDpWK/sRAqoiZUzQQzwdwbUSWRrHKIQaVS0Zg5agGjWVAA5yOEEja7hCykBRY5TsMGl4jZpdwFyR0gBLRoHB+6jRpAjGVOwCJqwmAu+4VAXZbjEQkmglyJgNLOMpgLEtEh1IybzDSpjLkRaRWKphz+z9BVoKIBNE3jahUmQUVyxqkEVWyYzIGEIA7Ez1JIvMj4xPyP/99E9qghn78N9RQqR7QyotifZAxHdCJGRThnxaIYZEQKIgWRbZEQhLH0oLLtGRVuQTRGRYdYiALCJE8bjWUGQgcioGZgwkQ0RvVY1TKgDmRADMwMTFjzU1PbNpTwb0EJadBPDEzoohR5yAf8HHaprXIVBbqEj+hR5YhxqbgdX/ukxZnLuotfthT+HqJ6EWnToX0GD+77gYitxTGdqNfrKKGI4PjGhidshhn7BBOHyB+4mcMeRwm/D5FdJJQvNDyFiC+LiC4jBh71MT2F8HtEU/BwZArk4oJ8a4HSUFl20yBhp4j4sgX/AbO/F1iX0gvpAAAAAElFTkSuQmCC')" }}
+				/>
 			</div>
 
 			{/* Content */}
@@ -250,7 +252,7 @@ export default function Footer() {
 							className="text-white hover:text-white transition-colors duration-300 py-2 px-3 block"
 						>
 							Privacy Policy
-						</Link>
+							</Link>
 					</motion.div>
 					<motion.div className="p-2" whileHover={{ x: 5 }}>
 						<Link
