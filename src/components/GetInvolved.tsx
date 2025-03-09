@@ -15,7 +15,6 @@ import {
 	SelectValue,
 } from "@/components/ui/select";
 import { Check, Loader2 } from "lucide-react";
-import { smoothScroll } from "@/lib/utils";
 
 // Type definitions
 type FormStatus = "idle" | "loading" | "success" | "error";
@@ -55,10 +54,6 @@ export default function GetInvolved() {
 		volunteer: "idle",
 		subscribe: "idle",
 	});
-	const [loading, setLoading] = useState(false);
-	const [subscribeEmail, setSubscribeEmail] = useState("");
-	const [message, setMessage] = useState("");
-	const [isSuccess, setIsSuccess] = useState(false);
 
 	const handleNewsletterSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
@@ -136,8 +131,8 @@ export default function GetInvolved() {
 						title="Strategic Partnerships"
 						icon="🤝"
 						description="Collaborate on large-scale sustainability initiatives"
-						onOpen={() => setActiveForm("partner")}
 						status={submissionStatus.partner}
+						onOpen={() => setActiveForm("partner")}
 					>
 						<ul className="space-y-2 text-gray-700">
 							<li>• Corporate sustainability programs</li>
@@ -153,8 +148,8 @@ export default function GetInvolved() {
 						title="Impact Funding"
 						icon="❤️"
 						description="Support our initiatives through financial or material contributions"
-						onOpen={() => setActiveForm("donate")}
 						status={submissionStatus.donate}
+						onOpen={() => setActiveForm("donate")}
 					>
 						<div className="space-y-2">
 							<div className="flex justify-between items-center bg-green-50 p-3 rounded-lg">
@@ -177,8 +172,8 @@ export default function GetInvolved() {
 						title="Volunteer Programs"
 						icon="👥"
 						description="Direct action through our community initiatives"
-						onOpen={() => setActiveForm("volunteer")}
 						status={submissionStatus.volunteer}
+						onOpen={() => setActiveForm("volunteer")}
 					>
 						<div className="space-y-3">
 							<div className="bg-green-50 p-3 rounded-lg">
@@ -477,7 +472,7 @@ const FormLayout = ({ title, children, onClose }: FormLayoutProps) => (
 		<div className="flex justify-between items-center mb-6">
 			<h3 className="text-xl font-semibold">{title}</h3>
 			<Button variant="ghost" onClick={onClose} size="sm">
-				✕
+					✕
 			</Button>
 		</div>
 		{children}

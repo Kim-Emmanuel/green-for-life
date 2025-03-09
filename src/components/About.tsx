@@ -3,7 +3,6 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { TreePine, Users, Globe } from "lucide-react";
-import { smoothScroll } from "@/lib/utils";
 
 // Team Member Type
 type TeamMember = {
@@ -198,7 +197,7 @@ export default function About() {
 								/>
 							</div> */}
 							<h2 className="text-[clamp(2rem,5vw,3rem)] text-center flex justify-center">
-										🌟
+											🌟
 							</h2>
 							<h3 className="text-[clamp(1.5rem,4vw,2rem)] font-semibold text-green-700 mb-4 text-center">
 								Vision

@@ -161,11 +161,12 @@ const WORK_AREAS: WorkArea[] = [
 ]
 
 export default function OurWork() {
-  const [selectedTag, setSelectedTag] = useState<string>("all");
   const [activeArea, setActiveArea] = useState<string | null>(null);
 
   const handleNavClick = (e: React.MouseEvent<HTMLElement>, href: string) => {
     e.preventDefault();
+    const areaId = href.replace('#', '');
+    setActiveArea(areaId);
     smoothScroll(href);
   };
 
