@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Montserrat, Geist_Mono } from 'next/font/google';
+import { Toaster } from "sonner";
 import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
@@ -77,6 +78,7 @@ export default function RootLayout({
       <body
         className={`${montserrat.variable} ${geistMono.variable} antialiased`}
       >
+        <Toaster position="top-right" />
         {/* Header */}
         <Header />
         {/* Main Content */}

@@ -15,7 +15,6 @@ export default function NotFound() {
 						alt="Not Found"
 						width={300}
 						height={300}
-            priority
 						className="object-cover"
 					/>
 				</div>

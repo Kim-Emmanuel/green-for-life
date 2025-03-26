@@ -17,7 +17,23 @@ const contactSchema = z.object({
 export async function POST(request: Request) {
 	try {
 		const rawData = await request.json();
-		const parsedData = contactSchema.parse(rawData);
+		// Add safe parsing to get better error details
+		const result = contactSchema.safeParse(rawData);
+
+		if (!result.success) {
+			return NextResponse.json(
+				{
+					error: "Validation failed",
+					details: result.error.issues.map((issue) => ({
+						field: issue.path.join("."),
+						message: issue.message,
+					})),
+				},
+				{ status: 422 }
+			);
+		}
+
+		const parsedData = result.data;
 
 		// Sanitize input
 		const sanitizedData = {

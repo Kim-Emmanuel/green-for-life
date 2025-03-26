@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+const scrollbarHide = require('tailwind-scrollbar-hide');
 
 export default {
 	darkMode: ["class"],
@@ -24,7 +25,7 @@ export default {
 					foreground: "hsl(var(--popover-foreground))",
 				},
 				primary: {
-					DEFAULT: "#55B948",
+					DEFAULT: "#156936",
 					foreground: "hsl(var(--primary-foreground))",
 				},
 				secondary: {
@@ -61,5 +62,5 @@ export default {
 			},
 		},
 	},
-	plugins: [require("tailwindcss-animate")],
+	plugins: [require("tailwindcss-animate"), scrollbarHide],
 } satisfies Config;
