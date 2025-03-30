@@ -69,26 +69,26 @@ export default function Contact() {
 	const onSubmit = async (data: ContactFormData) => {
 		setIsSubmitting(true);
 		try {
-			const response = await fetch('/api/send', {
-				method: 'POST',
+			const response = await fetch("/api/send", {
+				method: "POST",
 				headers: {
-					'Content-Type': 'application/json',
+					"Content-Type": "application/json",
 				},
 				body: JSON.stringify(data),
 			});
-	
+
 			const result = await response.json();
-			
+
 			if (!response.ok) {
-				throw new Error(result.error || 'Failed to send message');
+				throw new Error(result.error || "Failed to send message");
 			}
-	
-			setSubmitStatus('success');
+
+			setSubmitStatus("success");
 			reset();
 		} catch (error) {
-			setSubmitStatus('error');
+			setSubmitStatus("error");
 			// Consider adding error boundary here
-			console.error('Submission error:', error);
+			console.error("Submission error:", error);
 		} finally {
 			setIsSubmitting(false);
 		}
@@ -96,42 +96,125 @@ export default function Contact() {
 
 	return (
 		<div className="min-h-screen bg-white">
-			{/* Hero Section */}
-			<section className="bg-gradient-to-b from-green-50 to-white py-20">
-				<div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+			{/* Hero Contact Section */}
+			<section className="relative bg-gradient-to-b h-[400px] from-emerald-50/95 to-green-50/70 py-28 overflow-hidden">
+				{/* Modern Particle Background */}
+				<div className="absolute flex items-center justify-center inset-0 z-0">
+					{[...Array(30)].map((_, i) => (
+						<motion.div
+							key={i}
+							className="absolute bg-emerald-200/40 rounded-full"
+							initial={{
+								scale: 0,
+								opacity: 0,
+								x: Math.random() * 100 - 50 + "%",
+								y: Math.random() * 100 - 50 + "%",
+							}}
+							animate={{
+								scale: [0, Math.random() * 0.5 + 0.5, 0],
+								opacity: [0, 0.4, 0],
+								rotate: [0, 180],
+							}}
+							transition={{
+								duration: Math.random() * 4 + 6,
+								repeat: Infinity,
+								ease: "easeInOut",
+								delay: Math.random() * 2,
+							}}
+							style={{
+								width: `${Math.random() * 20 + 10}px`,
+								height: `${Math.random() * 20 + 10}px`,
+							}}
+						/>
+					))}
+				</div>
+
+				{/* Dynamic Grid Pattern */}
+				<div className="absolute inset-0 z-0">
 					<motion.div
-						initial={{ opacity: 0, y: 20 }}
+						className="h-full w-full bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"
+						animate={{ x: [0, -24], y: [0, 24] }}
+						transition={{
+							duration: 20,
+							repeat: Infinity,
+							ease: "linear",
+						}}
+					/>
+				</div>
+
+				<div className="mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+					{/* Modern Scrolling Text */}
+					<div className="overflow-hidden absolute top-8 left-0 w-full">
+						<motion.div
+							className="flex whitespace-nowrap"
+							animate={{ x: ["100%", "-100%"] }}
+							transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+						>
+							{[...Array(4)].map((_, i) => (
+								<span
+									key={i}
+									className="text-5xl font-black text-emerald-900/5 mx-8"
+								>
+									<span className="bg-clip-text text-transparent bg-gradient-to-r from-emerald-700/20 to-green-900/20">
+										Environmental Action •
+									</span>
+								</span>
+							))}
+						</motion.div>
+					</div>
+
+					<motion.div
+						initial={{ opacity: 0, y: 40 }}
 						animate={{ opacity: 1, y: 0 }}
+						transition={{ duration: 0.8 }}
 					>
-						<h1 className="text-[clamp(2rem,5vw,3rem)] font-bold text-green-900 mb-6">
+						<motion.h1
+							initial={{ letterSpacing: "1.5rem", opacity: 0 }}
+							animate={{ letterSpacing: "0.3rem", opacity: 1 }}
+							transition={{ duration: 1.2, delay: 0.3 }}
+							className="text-[clamp(2.75rem,8vw,4.75rem)] font-black bg-gradient-to-r from-green-900 to-emerald-800 bg-clip-text text-transparent mb-8 tracking-tight"
+						>
 							Connect With Our Team
-						</h1>
-						<p className="text-lg text-green-700 max-w-3xl mx-auto mb-8">
+						</motion.h1>
+
+						<motion.p
+							initial={{ opacity: 0 }}
+							animate={{ opacity: 1 }}
+							transition={{ duration: 0.8, delay: 0.5 }}
+							className="max-w-2xl mx-auto text-[clamp(1rem,1.5vw,1.25rem)] text-green-800 leading-relaxed mb-10 font-medium px-4 sm:px-0"
+						>
 							Choose your preferred way to get in touch. We typically respond
 							within 24 hours.
-						</p>
-						<div className="flex justify-center gap-4 mb-12">
-							<Button
-								variant={activeTab === "form" ? "default" : "outline"}
-								onClick={() => handleTabChange("form")}
-							>
-								<MessageCircle className="mr-2 h-4 w-4" />
-								Send Message
-							</Button>
-							<Button
-								variant={activeTab === "direct" ? "default" : "outline"}
-								onClick={() => handleTabChange("direct")}
-							>
-								<Phone className="mr-2 h-4 w-4" />
-								Direct Contact
-							</Button>
-						</div>
+						</motion.p>
+					</motion.div>
+
+					{/* Animated Interactive Buttons */}
+					<motion.div
+						className="flex justify-center gap-4"
+						initial={{ opacity: 0 }}
+						animate={{ opacity: 1 }}
+						transition={{ delay: 0.7 }}
+					>
+						<Button
+							variant={activeTab === "form" ? "default" : "outline"}
+							onClick={() => handleTabChange("form")}
+						>
+							<MessageCircle className="mr-2 h-4 w-4" />
+							Send Message
+						</Button>
+						<Button
+							variant={activeTab === "direct" ? "default" : "outline"}
+							onClick={() => handleTabChange("direct")}
+						>
+							<Phone className="mr-2 h-4 w-4" />
+							Direct Contact
+						</Button>
 					</motion.div>
 				</div>
 			</section>
 
 			{/* Contact Content */}
-			<section className="container mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+			<section className="container mx-auto px-4 sm:px-6 lg:px-8 pb-16 mt-8">
 				{activeTab === "form" ? (
 					<motion.div
 						id="contact-form"

@@ -117,20 +117,15 @@ export default function Footer() {
 
 	return (
 		<footer className="relative pt-12 overflow-hidden">
-			{/* Background Layers */}
-			<div className="absolute inset-0 z-0">
-				{/* Background Image with optimized blur */}
-				<div
-					className="absolute inset-0 bg-[url('/images/footer-bg.webp')] bg-cover bg-center opacity-80"
-					style={{ filter: "blur(3px)" }}
-				/>
-				{/* Darker Overlay */}
-				<div className="absolute inset-0 bg-black/75" />
-				{/* Subtle Grain Effect */}
-				<div className="absolute inset-0 opacity-5 mix-blend-overlay" 
-					 style={{ backgroundImage: "url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwBAMAAAClLOS0AAAAElBMVEUAAAD8/vz08vT09vT8+vzs7uxH16TeAAAAAXRSTlMAQObYZgAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAuFJREFUOI0Vk+3NLiEIRG1B8ClAYAsQ2AIEt4D9ePtv5Xp/mZgYJ2fOzBC+LyICH1ECIgmRgkiRgshAVM6H+8lkRSpiFyJM+H61QwYiR+W+YZZSqc1QWAYXoVBQqc1S+AQUsQxDSA/PhCxvgrA5mad4AyTjhW6jZahg6QNkJ3g6rS3D5sNFWPr5wY+nPbwajHZaj+9jYXn0h+0wSP4KqSXh5S+90wHxMTx+P3zzo4L0sdlQxUcI1Fl2BiCx7BTe7ATtLRH2XSgPiW9BHCWe3kz8CuG8DExwBQHwI4Qx3HcFodxQMPtVQmYvA3zY8WVCErbLgMzmPMJmQwa2iyQsJWTYLCsLmY2YVkKGzBxYCsBM3V+GoWwMFRxUiJVwI6AQqyDDxgLQzGYVYSdMN1oYh3nxNo5COICBZuFwPO1UwZVlCF+j4QPDNGxpqR7qP8R0HRt5owyQHCGjYnCMj6hDpWK/sRAqoiZUzQQzwdwbUSWRrHKIQaVS0Zg5agGjWVAA5yOEEja7hCykBRY5TsMGl4jZpdwFyR0gBLRoHB+6jRpAjGVOwCJqwmAu+4VAXZbjEQkmglyJgNLOMpgLEtEh1IybzDSpjLkRaRWKphz+z9BVoKIBNE3jahUmQUVyxqkEVWyYzIGEIA7Ez1JIvMj4xPyP/99E9qghn78N9RQqR7QyotifZAxHdCJGRThnxaIYZEQKIgWRbZEQhLH0oLLtGRVuQTRGRYdYiALCJE8bjWUGQgcioGZgwkQ0RvVY1TKgDmRADMwMTFjzU1PbNpTwb0EJadBPDEzoohR5yAf8HHaprXIVBbqEj+hR5YhxqbgdX/ukxZnLuotfthT+HqJ6EWnToX0GD+77gYitxTGdqNfrKKGI4PjGhidshhn7BBOHyB+4mcMeRwm/D5FdJJQvNDyFiC+LiC4jBh71MT2F8HtEU/BwZArk4oJ8a4HSUFl20yBhp4j4sgX/AbO/F1iX0gvpAAAAAElFTkSuQmCC')" }}
-				/>
-			</div>
+			{/* Background image with overlay */}
+      <div className="absolute inset-0 z-0">
+        <div 
+          className="w-full h-full bg-cover bg-center"
+          style={{ backgroundImage: 'url(/images/footer-bg.webp)' }}
+        >
+          <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
+        </div>
+      </div>
 
 			{/* Content */}
 			<motion.div
@@ -239,7 +234,7 @@ export default function Footer() {
 							whileHover={{ scale: 1.05 }}
 							whileTap={{ scale: 0.95 }}
 						>
-							<Button type="submit" className="w-full text-gray-900 p-2 rounded transition-colors duration-300">
+							<Button type="submit" className="w-full p-2 rounded transition-colors duration-300">
 								Subscribe
 							</Button>
 						</motion.div>
@@ -249,7 +244,7 @@ export default function Footer() {
 
 			{/* Copyright and Legal */}
 			<motion.div
-				className="relative z-10 bg-[#156936] mx-auto mt-8 pt-4 pb-12 border-t border-green-700 text-center px-4 sm:px-6 lg:px-8"
+				className="relative z-10 bg-[#156936] mx-auto mt-8 pt-4 border-t border-green-700 text-center px-4 sm:px-6 lg:px-8"
 				variants={itemVariants}
 			>
 				<p className="text-sm text-white">
