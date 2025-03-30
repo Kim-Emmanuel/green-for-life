@@ -182,6 +182,9 @@ const router = useRouter();
                 {isAdmin && (
                   <div className="flex sm:flex-col gap-2 sm:gap-1 justify-end">
                     {/* Keep admin controls */}
+										{updateError && (
+											<p className="text-red-500 text-sm">{updateError}</p>
+										)}
 										<Button
 											onClick={() =>
 												handleStatusChange(

@@ -2,7 +2,7 @@
 
 import { useState, useTransition, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -97,7 +97,7 @@ export default function LoginPage() {
 							animate={{ opacity: 1 }}
 							className="text-white text-xl font-light text-center"
 						>
-							"Empowering sustainable communities through connection"
+							&quot;Empowering sustainable communities through connection&quot;
 						</motion.p>
 					</div>
 				</div>

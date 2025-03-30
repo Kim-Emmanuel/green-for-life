@@ -21,7 +21,7 @@ export default function AdminPostsPage() {
         } else {
           setIsAuthorized(true)
         }
-      } catch (err) {
+      } catch {
         router.push('/login')
       }
     }
