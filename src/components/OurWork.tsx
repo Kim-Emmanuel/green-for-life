@@ -522,7 +522,7 @@ export default function OurWork() {
 						</h1>
 						<p className="text-[clamp(1rem,1.5vw,1.25rem)] leading-relaxed">
 							Join a community of changemakers driving real impact. Whether
-							you're contributing time, expertise, or resources, your
+							you&apos;re contributing time, expertise, or resources, your
 							participation creates lasting change. Start your journey today.
 						</p>
 						<div className="flex flex-col md:flex-row gap-4">

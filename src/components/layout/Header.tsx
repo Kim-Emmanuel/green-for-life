@@ -21,10 +21,10 @@ type NavItem = {
 };
 
 // Animation variants
-const mobileMenuVariants = {
-	open: { opacity: 1, height: "auto" },
-	closed: { opacity: 0, height: 0 },
-};
+// const mobileMenuVariants = {
+// 	open: { opacity: 1, height: "auto" },
+// 	closed: { opacity: 0, height: 0 },
+// };
 
 const dropdownVariants = {
 	open: {

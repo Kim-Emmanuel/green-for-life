@@ -137,7 +137,7 @@ const router = useRouter();
         <div>
           <h1 className="text-3xl font-bold text-gray-900">Content Creator</h1>
           <p className="text-muted-foreground mt-2">
-            Craft engaging content for your organization's news & resources
+            Craft engaging content for your organization&apos;s news & resources
           </p>
         </div>
         <div className="flex items-center gap-3">
