@@ -4,7 +4,6 @@ import { verifyAuth } from '@/lib/auth/middleware';
 import { z } from 'zod';
 import { PostCategory } from '@prisma/client';
 
-// ... (keep the schema and other imports the same)
 const updatePostSchema = z.object({
   title: z.string().min(1),
   content: z.string().min(1),
@@ -18,11 +17,10 @@ const updatePostSchema = z.object({
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: { id: string } }
 ) {
   try {
-    // Resolve params first
-    const { id } = await Promise.resolve(params);
+    const { id } = context.params;
     
     const post = await prisma.blogPost.findUnique({
       where: { id },
