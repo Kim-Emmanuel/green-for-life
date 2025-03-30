@@ -1,3 +1,4 @@
+// src/app/api/posts/[id]/route.ts
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/db/client';
 import { verifyAuth } from '@/lib/auth/middleware';
@@ -20,10 +21,8 @@ export async function GET(
   { params }: { params: { id: string } }
 ) {
   try {
-    const { id } = params;
-    
     const post = await prisma.blogPost.findUnique({
-      where: { id },
+      where: { id: params.id },
       include: {
         author: {
           select: {
@@ -34,15 +33,10 @@ export async function GET(
       },
     });
 
-    if (!post) {
-      return NextResponse.json(
-        { error: 'Post not found' },
-        { status: 404 }
-      );
-    }
-
-    return NextResponse.json({ post });
-  } catch {
+    return post
+      ? NextResponse.json({ post })
+      : NextResponse.json({ error: 'Post not found' }, { status: 404 });
+  } catch (error) {
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }
@@ -63,13 +57,10 @@ export async function PUT(
   }
 
   try {
-    // Resolve params first
-    const { id } = await Promise.resolve(params);
-    
     const data = updatePostSchema.parse(await request.json());
-
+    
     const post = await prisma.blogPost.update({
-      where: { id },
+      where: { id: params.id },
       data: {
         title: data.title,
         content: data.content,
