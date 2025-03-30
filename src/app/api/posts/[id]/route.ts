@@ -37,6 +37,7 @@ export async function GET(
       ? NextResponse.json({ post })
       : NextResponse.json({ error: 'Post not found' }, { status: 404 });
   } catch (error) {
+    console.error('Error fetching post:', error);
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }
