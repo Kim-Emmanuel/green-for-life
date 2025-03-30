@@ -157,6 +157,8 @@ export default function GetInvolved() {
 		subscribe: "idle",
 	});
 
+	const [activeSection, setActiveSection] = useState<string>(programs[0]);
+
 	const handleSubmit = async (formType: ProgramType, data: unknown) => {
 		setSubmissionStatus((prev) => ({ ...prev, [formType]: "loading" }));
 		try {
@@ -172,7 +174,6 @@ export default function GetInvolved() {
 		}
 	};
 
-	const [activeSection, setActiveSection] = useState<string>(programs[0]);
 	return (
 		<div className="min-h-screen">
 			{/* Hero Section Get Involved */}
@@ -899,7 +900,7 @@ const NewsletterCard = ({
 	onSubmit,
 	status,
 }: {
-	onSubmit: (data: any) => void;
+	onSubmit: (data: z.infer<typeof subscriptionSchema>) => void;
 	status: FormStatus;
 }) => {
 	const {
@@ -907,7 +908,7 @@ const NewsletterCard = ({
 		handleSubmit,
 		formState: { errors },
 		reset,
-	} = useForm({
+	} = useForm<z.infer<typeof subscriptionSchema>>({
 		resolver: zodResolver(subscriptionSchema),
 	});
 

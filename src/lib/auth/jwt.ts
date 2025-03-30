@@ -42,7 +42,7 @@ export function verifyToken(token: string): TokenPayload {
   try {
     const decoded = jwt.verify(token, JWT_SECRET, { algorithms: ['HS256'] });
     return decoded as TokenPayload;
-  } catch (error) {
+  } catch {
     throw new Error('Invalid or expired token');
   }
 }
