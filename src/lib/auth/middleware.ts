@@ -32,7 +32,7 @@ export default async function middleware(request: NextRequest) {
 		headers.set("x-user-role", payload.role);
 
 		return NextResponse.next({ request: { headers } });
-	} catch (_error) {
+	} catch {
 		// Only redirect to login for HTML requests
 		if (request.headers.get("accept")?.includes("text/html")) {
 			return NextResponse.redirect(new URL("/login", request.url));
@@ -69,7 +69,7 @@ export async function verifyAuth(
 				email: payload.email
 			},
 		};
-	} catch (_error) {
+	} catch {
 		return { error: "Invalid token", status: 401 };
 	}
 }

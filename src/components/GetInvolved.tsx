@@ -60,6 +60,10 @@ const volunteerSchema = z.object({
 	availability: z.enum(["WEEKDAYS", "WEEKENDS", "BOTH"]),
 });
 
+interface ValidationErrorDetail {
+    message: string;
+}
+
 const apiService = {
     async submitForm<T>(endpoint: string, data: unknown): Promise<T> {
         try {
@@ -80,7 +84,7 @@ const apiService = {
                     // Handle validation errors
                     if (responseData.details) {
                         const messages = Array.isArray(responseData.details) 
-                            ? responseData.details.map((d: any) => d.message).join(', ')
+                            ? responseData.details.map((d: ValidationErrorDetail) => d.message).join(', ')
                             : 'Validation failed';
                         throw new Error(messages);
                     }
@@ -147,429 +151,426 @@ const ProgramCard = ({
 );
 
 export default function GetInvolved() {
-	const [activeForm, setActiveForm] = useState<ProgramType | null>(null);
-	const [submissionStatus, setSubmissionStatus] = useState<
-		Record<ProgramType, FormStatus>
-	>({
-		partner: "idle",
-		donate: "idle",
-		volunteer: "idle",
-		subscribe: "idle",
-	});
+    const [activeForm, setActiveForm] = useState<ProgramType | null>(null);
+    const [submissionStatus, setSubmissionStatus] = useState<
+        Record<ProgramType, FormStatus>
+    >({
+        partner: "idle",
+        donate: "idle",
+        volunteer: "idle",
+        subscribe: "idle",
+    });
 
-	const [activeSection, setActiveSection] = useState<string>(programs[0]);
+    const handleSubmit = async (formType: ProgramType, data: unknown) => {
+        setSubmissionStatus((prev) => ({ ...prev, [formType]: "loading" }));
+        try {
+            // Map the form type to the correct API endpoint
+            const endpoint = formType === "subscribe" ? "subscriptions" : formType;
+            await apiService.submitForm(endpoint, data);
+            setSubmissionStatus((prev) => ({ ...prev, [formType]: "success" }));
+            toast.success("Submission successful!");
+            setTimeout(() => setActiveForm(null), 2000);
+        } catch (error) {
+            setSubmissionStatus((prev) => ({ ...prev, [formType]: "error" }));
+            toast.error(error instanceof Error ? error.message : "Submission failed");
+        }
+    };
 
-	const handleSubmit = async (formType: ProgramType, data: unknown) => {
-		setSubmissionStatus((prev) => ({ ...prev, [formType]: "loading" }));
-		try {
-			// Map the form type to the correct API endpoint
-			const endpoint = formType === "subscribe" ? "subscriptions" : formType;
-			await apiService.submitForm(endpoint, data);
-			setSubmissionStatus((prev) => ({ ...prev, [formType]: "success" }));
-			toast.success("Submission successful!");
-			setTimeout(() => setActiveForm(null), 2000);
-		} catch (error) {
-			setSubmissionStatus((prev) => ({ ...prev, [formType]: "error" }));
-			toast.error(error instanceof Error ? error.message : "Submission failed");
-		}
-	};
+    return (
+        <div className="min-h-screen">
+            {/* Hero Section Get Involved */}
+            <section className="relative bg-gradient-to-b from-emerald-50/95 to-green-50/70 py-28 overflow-hidden">
+                {/* Modern Particle Background */}
+                <div className="absolute flex items-center justify-center inset-0 z-0">
+                    {[...Array(30)].map((_, i) => (
+                        <motion.div
+                            key={i}
+                            className="absolute bg-emerald-200/40 rounded-full"
+                            initial={{
+                                scale: 0,
+                                opacity: 0,
+                                x: Math.random() * 100 - 50 + "%",
+                                y: Math.random() * 100 - 50 + "%",
+                            }}
+                            animate={{
+                                scale: [0, Math.random() * 0.5 + 0.5, 0],
+                                opacity: [0, 0.4, 0],
+                                rotate: [0, 180],
+                            }}
+                            transition={{
+                                duration: Math.random() * 4 + 6,
+                                repeat: Infinity,
+                                ease: "easeInOut",
+                                delay: Math.random() * 2,
+                            }}
+                            style={{
+                                width: `${Math.random() * 20 + 10}px`,
+                                height: `${Math.random() * 20 + 10}px`,
+                            }}
+                        />
+                    ))}
+                </div>
 
-	return (
-		<div className="min-h-screen">
-			{/* Hero Section Get Involved */}
-			<section className="relative bg-gradient-to-b from-emerald-50/95 to-green-50/70 py-28 overflow-hidden">
-				{/* Modern Particle Background */}
-				<div className="absolute flex items-center justify-center inset-0 z-0">
-					{[...Array(30)].map((_, i) => (
-						<motion.div
-							key={i}
-							className="absolute bg-emerald-200/40 rounded-full"
-							initial={{
-								scale: 0,
-								opacity: 0,
-								x: Math.random() * 100 - 50 + "%",
-								y: Math.random() * 100 - 50 + "%",
-							}}
-							animate={{
-								scale: [0, Math.random() * 0.5 + 0.5, 0],
-								opacity: [0, 0.4, 0],
-								rotate: [0, 180],
-							}}
-							transition={{
-								duration: Math.random() * 4 + 6,
-								repeat: Infinity,
-								ease: "easeInOut",
-								delay: Math.random() * 2,
-							}}
-							style={{
-								width: `${Math.random() * 20 + 10}px`,
-								height: `${Math.random() * 20 + 10}px`,
-							}}
-						/>
-					))}
-				</div>
+                {/* Dynamic Grid Pattern */}
+                <div className="absolute inset-0 z-0">
+                    <motion.div
+                        className="h-full w-full bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"
+                        animate={{ x: [0, -24], y: [0, 24] }}
+                        transition={{
+                            duration: 20,
+                            repeat: Infinity,
+                            ease: "linear",
+                        }}
+                    />
+                </div>
 
-				{/* Dynamic Grid Pattern */}
-				<div className="absolute inset-0 z-0">
-					<motion.div
-						className="h-full w-full bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"
-						animate={{ x: [0, -24], y: [0, 24] }}
-						transition={{
-							duration: 20,
-							repeat: Infinity,
-							ease: "linear",
-						}}
-					/>
-				</div>
+                <div className="mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+                    {/* Modern Scrolling Text */}
+                    <div className="overflow-hidden absolute top-8 left-0 w-full">
+                        <motion.div
+                            className="flex whitespace-nowrap"
+                            animate={{ x: ["100%", "-100%"] }}
+                            transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+                        >
+                            {[...Array(4)].map((_, i) => (
+                                <span
+                                    key={i}
+                                    className="text-5xl font-black text-emerald-900/5 mx-8"
+                                >
+                                    <span className="bg-clip-text text-transparent bg-gradient-to-r from-emerald-700/20 to-green-900/20">
+                                        Environmental Action •
+                                    </span>
+                                </span>
+                            ))}
+                        </motion.div>
+                    </div>
 
-				<div className="mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-					{/* Modern Scrolling Text */}
-					<div className="overflow-hidden absolute top-8 left-0 w-full">
-						<motion.div
-							className="flex whitespace-nowrap"
-							animate={{ x: ["100%", "-100%"] }}
-							transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-						>
-							{[...Array(4)].map((_, i) => (
-								<span
-									key={i}
-									className="text-5xl font-black text-emerald-900/5 mx-8"
-								>
-									<span className="bg-clip-text text-transparent bg-gradient-to-r from-emerald-700/20 to-green-900/20">
-										Environmental Action •
-									</span>
-								</span>
-							))}
-						</motion.div>
-					</div>
+                    <motion.div
+                        initial={{ opacity: 0, y: 40 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8 }}
+                    >
+                        <motion.h1
+                            initial={{ letterSpacing: "1.5rem", opacity: 0 }}
+                            animate={{ letterSpacing: "0.3rem", opacity: 1 }}
+                            transition={{ duration: 1.2, delay: 0.3 }}
+                            className="text-[clamp(2.75rem,8vw,4.75rem)] font-black bg-gradient-to-r from-green-900 to-emerald-800 bg-clip-text text-transparent mb-8 tracking-tight"
+                        >
+                            Engage with Green for Life
+                        </motion.h1>
 
-					<motion.div
-						initial={{ opacity: 0, y: 40 }}
-						animate={{ opacity: 1, y: 0 }}
-						transition={{ duration: 0.8 }}
-					>
-						<motion.h1
-							initial={{ letterSpacing: "1.5rem", opacity: 0 }}
-							animate={{ letterSpacing: "0.3rem", opacity: 1 }}
-							transition={{ duration: 1.2, delay: 0.3 }}
-							className="text-[clamp(2.75rem,8vw,4.75rem)] font-black bg-gradient-to-r from-green-900 to-emerald-800 bg-clip-text text-transparent mb-8 tracking-tight"
-						>
-							Engage with Green for Life
-						</motion.h1>
+                        <motion.p
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ duration: 0.8, delay: 0.5 }}
+                            className="max-w-2xl mx-auto text-[clamp(1rem,1.5vw,1.25rem)] text-green-800 leading-relaxed mb-10 font-medium px-4 sm:px-0"
+                        >
+                            Join our ecosystem of sustainability through strategic
+                            partnerships, impactful donations, and hands-on volunteering
+                            opportunities.
+                        </motion.p>
+                    </motion.div>
 
-						<motion.p
-							initial={{ opacity: 0 }}
-							animate={{ opacity: 1 }}
-							transition={{ duration: 0.8, delay: 0.5 }}
-							className="max-w-2xl mx-auto text-[clamp(1rem,1.5vw,1.25rem)] text-green-800 leading-relaxed mb-10 font-medium px-4 sm:px-0"
-						>
-							Join our ecosystem of sustainability through strategic
-							partnerships, impactful donations, and hands-on volunteering
-							opportunities.
-						</motion.p>
-					</motion.div>
+                    {/* Animated Interactive Buttons */}
+                    <motion.div
+                        className="flex justify-center gap-4"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.7 }}
+                    >
+                        {/* Sticky Navigation Header */}
+                        <nav className="border-b border-green-500 shadow-sm">
+                            <div className="container max-w-7xl mx-auto px-4 py-3">
+                                <Select
+                                    onValueChange={(value) => {
+                                        const section = document.getElementById(`program-${value}`);
+                                        section?.scrollIntoView({
+                                            behavior: "smooth",
+                                            block: "start",
+                                        });
+                                    }}
+                                >
+                                    <SelectTrigger className="w-full bg-white/90 max-w-md mx-auto shadow-sm hover:shadow-md transition-shadow">
+                                        <SelectValue placeholder="Select Program to Jump" />
+                                    </SelectTrigger>
+                                    <SelectContent className="border-0 shadow-lg">
+                                        {programs.map((program) => (
+                                            <SelectItem
+                                                key={program}
+                                                value={program}
+                                                className="capitalize px-6 py-3 hover:bg-green-50 transition-colors"
+                                            >
+                                                <span className="text-gray-700 font-medium">
+                                                    {program.replace("-", " ")}
+                                                </span>
+                                            </SelectItem>
+                                        ))}
+                                    </SelectContent>
+                                </Select>
+                            </div>
+                        </nav>
+                    </motion.div>
+                </div>
 
-					{/* Animated Interactive Buttons */}
-					<motion.div
-						className="flex justify-center gap-4"
-						initial={{ opacity: 0 }}
-						animate={{ opacity: 1 }}
-						transition={{ delay: 0.7 }}
-					>
-						{/* Sticky Navigation Header */}
-						<nav className="border-b border-green-500 shadow-sm">
-							<div className="container max-w-7xl mx-auto px-4 py-3">
-								<Select
-									onValueChange={(value) => {
-										const section = document.getElementById(`program-${value}`);
-										section?.scrollIntoView({
-											behavior: "smooth",
-											block: "start",
-										});
-										setActiveSection(value);
-									}}
-								>
-									<SelectTrigger className="w-full bg-white/90 max-w-md mx-auto shadow-sm hover:shadow-md transition-shadow">
-										<SelectValue placeholder="Select Program to Jump" />
-									</SelectTrigger>
-									<SelectContent className="border-0 shadow-lg">
-										{programs.map((program) => (
-											<SelectItem
-												key={program}
-												value={program}
-												className="capitalize px-6 py-3 hover:bg-green-50 transition-colors"
-											>
-												<span className="text-gray-700 font-medium">
-													{program.replace("-", " ")}
-												</span>
-											</SelectItem>
-										))}
-									</SelectContent>
-								</Select>
-							</div>
-						</nav>
-					</motion.div>
-				</div>
+                {/* Modern Scroll Indicator */}
+                <motion.div
+                    className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 1.2 }}
+                >
+                    <div className="w-px h-12 bg-gradient-to-b from-emerald-600/80 to-transparent" />
+                    <motion.div
+                        animate={{ y: [0, 10], opacity: [1, 0] }}
+                        transition={{ duration: 1.5, repeat: Infinity }}
+                        className="w-2.5 h-2.5 bg-emerald-700 rounded-full"
+                    />
+                </motion.div>
 
-				{/* Modern Scroll Indicator */}
-				<motion.div
-					className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-					initial={{ opacity: 0 }}
-					animate={{ opacity: 1 }}
-					transition={{ delay: 1.2 }}
-				>
-					<div className="w-px h-12 bg-gradient-to-b from-emerald-600/80 to-transparent" />
-					<motion.div
-						animate={{ y: [0, 10], opacity: [1, 0] }}
-						transition={{ duration: 1.5, repeat: Infinity }}
-						className="w-2.5 h-2.5 bg-emerald-700 rounded-full"
-					/>
-				</motion.div>
+                {/* Client-side only bottom marquee */}
+                {typeof window !== "undefined" && (
+                    <div className="absolute bottom-8 left-0 w-full overflow-hidden">
+                        <motion.div
+                            className="flex whitespace-nowrap"
+                            initial={{ x: "-100%" }}
+                            animate={{
+                                x: "100%",
+                                transition: {
+                                    duration: 30,
+                                    repeat: Infinity,
+                                    ease: "linear",
+                                },
+                            }}
+                        >
+                            {[...Array(2)].map((_, i) => (
+                                <span
+                                    key={i}
+                                    className="text-lg font-medium text-green-800/30 mx-6"
+                                >
+                                    Climate Action • Sustainability Reports • Green Technologies •
+                                    Conservation Efforts •
+                                </span>
+                            ))}
+                        </motion.div>
+                    </div>
+                )}
+            </section>
 
-				{/* Client-side only bottom marquee */}
-				{typeof window !== "undefined" && (
-					<div className="absolute bottom-8 left-0 w-full overflow-hidden">
-						<motion.div
-							className="flex whitespace-nowrap"
-							initial={{ x: "-100%" }}
-							animate={{
-								x: "100%",
-								transition: {
-									duration: 30,
-									repeat: Infinity,
-									ease: "linear",
-								},
-							}}
-						>
-							{[...Array(2)].map((_, i) => (
-								<span
-									key={i}
-									className="text-lg font-medium text-green-800/30 mx-6"
-								>
-									Climate Action • Sustainability Reports • Green Technologies •
-									Conservation Efforts •
-								</span>
-							))}
-						</motion.div>
-					</div>
-				)}
-			</section>
+            <div className="space-y-12">
+                {/* Program Sections */}
+                <div className="container max-w-7xl mx-auto px-4 space-y-20">
+                    <section
+                        id="program-partnership"
+                        className="scroll-mt-24 animate-fade-in-up"
+                    >
+                        <ProgramCard
+                            title="Strategic Partnerships"
+                            icon="🤝"
+                            description="Collaborate on large-scale sustainability initiatives"
+                            status={submissionStatus.partner}
+                            onOpen={() => setActiveForm("partner")}
+                            className="hover:shadow-xl transition-shadow duration-300"
+                        >
+                            <div className="space-y-4">
+                                <div className="bg-white p-4 rounded-lg border border-gray-100">
+                                    <h3 className="text-sm font-semibold text-gray-500 mb-2">
+                                        Key Features
+                                    </h3>
+                                    <ul className="space-y-3 text-gray-600">
+                                        <li className="flex items-center">
+                                            <div className="w-1.5 h-1.5 bg-green-500 rounded-full mr-3" />
+                                            Corporate sustainability programs
+                                        </li>
+                                        <li className="flex items-center">
+                                            <div className="w-1.5 h-1.5 bg-green-500 rounded-full mr-3" />
+                                            Research collaborations
+                                        </li>
+                                        <li className="flex items-center">
+                                            <div className="w-1.5 h-1.5 bg-green-500 rounded-full mr-3" />
+                                            Community impact projects
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </ProgramCard>
+                    </section>
 
-			<div className="space-y-12">
-				{/* Program Sections */}
-				<div className="container max-w-7xl mx-auto px-4 space-y-20">
-					<section
-						id="program-partnership"
-						className="scroll-mt-24 animate-fade-in-up"
-					>
-						<ProgramCard
-							title="Strategic Partnerships"
-							icon="🤝"
-							description="Collaborate on large-scale sustainability initiatives"
-							status={submissionStatus.partner}
-							onOpen={() => setActiveForm("partner")}
-							className="hover:shadow-xl transition-shadow duration-300"
-						>
-							<div className="space-y-4">
-								<div className="bg-white p-4 rounded-lg border border-gray-100">
-									<h3 className="text-sm font-semibold text-gray-500 mb-2">
-										Key Features
-									</h3>
-									<ul className="space-y-3 text-gray-600">
-										<li className="flex items-center">
-											<div className="w-1.5 h-1.5 bg-green-500 rounded-full mr-3" />
-											Corporate sustainability programs
-										</li>
-										<li className="flex items-center">
-											<div className="w-1.5 h-1.5 bg-green-500 rounded-full mr-3" />
-											Research collaborations
-										</li>
-										<li className="flex items-center">
-											<div className="w-1.5 h-1.5 bg-green-500 rounded-full mr-3" />
-											Community impact projects
-										</li>
-									</ul>
-								</div>
-							</div>
-						</ProgramCard>
-					</section>
+                    <section
+                        id="program-donation"
+                        className="scroll-mt-24 animate-fade-in-up"
+                    >
+                        <ProgramCard
+                            title="Impact Funding"
+                            icon="❤️"
+                            description="Support our initiatives through financial contributions"
+                            status={submissionStatus.donate}
+                            onOpen={() => setActiveForm("donate")}
+                            className="hover:shadow-xl transition-shadow duration-300"
+                        >
+                            <div className="space-y-4">
+                                <div className="bg-gradient-to-r from-green-50 to-blue-50 p-4 rounded-lg">
+                                    <div className="flex justify-between items-center mb-2">
+                                        <span className="text-sm font-medium text-gray-600">
+                                            Funding Progress
+                                        </span>
+                                        <span className="font-semibold text-green-600">49%</span>
+                                    </div>
+                                    <div className="relative pt-1">
+                                        <div className="flex mb-2 items-center justify-between">
+                                            <div className="flex-1">
+                                                <div className="h-2 bg-gray-200 rounded-full">
+                                                    <div
+                                                        className="h-2 bg-green-500 rounded-full transition-all duration-500"
+                                                        style={{ width: "49%" }}
+                                                    />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="flex justify-between text-sm text-gray-500">
+                                            <span>$245K raised</span>
+                                            <span>$500K goal</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <ul className="space-y-3 text-gray-600">
+                                    <li className="flex items-center">
+                                        <div className="w-1.5 h-1.5 bg-green-500 rounded-full mr-3" />
+                                        Tax-deductible donations
+                                    </li>
+                                    <li className="flex items-center">
+                                        <div className="w-1.5 h-1.5 bg-green-500 rounded-full mr-3" />
+                                        Recurring contribution options
+                                    </li>
+                                </ul>
+                            </div>
+                        </ProgramCard>
+                    </section>
 
-					<section
-						id="program-donation"
-						className="scroll-mt-24 animate-fade-in-up"
-					>
-						<ProgramCard
-							title="Impact Funding"
-							icon="❤️"
-							description="Support our initiatives through financial contributions"
-							status={submissionStatus.donate}
-							onOpen={() => setActiveForm("donate")}
-							className="hover:shadow-xl transition-shadow duration-300"
-						>
-							<div className="space-y-4">
-								<div className="bg-gradient-to-r from-green-50 to-blue-50 p-4 rounded-lg">
-									<div className="flex justify-between items-center mb-2">
-										<span className="text-sm font-medium text-gray-600">
-											Funding Progress
-										</span>
-										<span className="font-semibold text-green-600">49%</span>
-									</div>
-									<div className="relative pt-1">
-										<div className="flex mb-2 items-center justify-between">
-											<div className="flex-1">
-												<div className="h-2 bg-gray-200 rounded-full">
-													<div
-														className="h-2 bg-green-500 rounded-full transition-all duration-500"
-														style={{ width: "49%" }}
-													/>
-												</div>
-											</div>
-										</div>
-										<div className="flex justify-between text-sm text-gray-500">
-											<span>$245K raised</span>
-											<span>$500K goal</span>
-										</div>
-									</div>
-								</div>
-								<ul className="space-y-3 text-gray-600">
-									<li className="flex items-center">
-										<div className="w-1.5 h-1.5 bg-green-500 rounded-full mr-3" />
-										Tax-deductible donations
-									</li>
-									<li className="flex items-center">
-										<div className="w-1.5 h-1.5 bg-green-500 rounded-full mr-3" />
-										Recurring contribution options
-									</li>
-								</ul>
-							</div>
-						</ProgramCard>
-					</section>
+                    <section
+                        id="program-volunteer"
+                        className="scroll-mt-24 animate-fade-in-up"
+                    >
+                        <ProgramCard
+                            title="Volunteer Programs"
+                            icon="👥"
+                            description="Direct action through community initiatives"
+                            status={submissionStatus.volunteer}
+                            onOpen={() => setActiveForm("volunteer")}
+                            className="hover:shadow-xl transition-shadow duration-300"
+                        >
+                            <div className="space-y-4">
+                                <div className="bg-white p-4 rounded-lg border border-gray-100">
+                                    <div className="flex items-center justify-between mb-2">
+                                        <div>
+                                            <p className="text-sm font-medium text-gray-600">
+                                                Next Event
+                                            </p>
+                                            <p className="text-green-600 font-semibold">
+                                                Urban Tree Planting
+                                            </p>
+                                        </div>
+                                        <div className="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm">
+                                            March 15th
+                                        </div>
+                                    </div>
+                                    <div className="border-t border-gray-100 mt-3 pt-3">
+                                        <ul className="space-y-3 text-gray-600">
+                                            <li className="flex items-center">
+                                                <div className="w-1.5 h-1.5 bg-green-500 rounded-full mr-3" />
+                                                Fieldwork opportunities
+                                            </li>
+                                            <li className="flex items-center">
+                                                <div className="w-1.5 h-1.5 bg-green-500 rounded-full mr-3" />
+                                                Skill-based volunteering
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </ProgramCard>
+                    </section>
 
-					<section
-						id="program-volunteer"
-						className="scroll-mt-24 animate-fade-in-up"
-					>
-						<ProgramCard
-							title="Volunteer Programs"
-							icon="👥"
-							description="Direct action through community initiatives"
-							status={submissionStatus.volunteer}
-							onOpen={() => setActiveForm("volunteer")}
-							className="hover:shadow-xl transition-shadow duration-300"
-						>
-							<div className="space-y-4">
-								<div className="bg-white p-4 rounded-lg border border-gray-100">
-									<div className="flex items-center justify-between mb-2">
-										<div>
-											<p className="text-sm font-medium text-gray-600">
-												Next Event
-											</p>
-											<p className="text-green-600 font-semibold">
-												Urban Tree Planting
-											</p>
-										</div>
-										<div className="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm">
-											March 15th
-										</div>
-									</div>
-									<div className="border-t border-gray-100 mt-3 pt-3">
-										<ul className="space-y-3 text-gray-600">
-											<li className="flex items-center">
-												<div className="w-1.5 h-1.5 bg-green-500 rounded-full mr-3" />
-												Fieldwork opportunities
-											</li>
-											<li className="flex items-center">
-												<div className="w-1.5 h-1.5 bg-green-500 rounded-full mr-3" />
-												Skill-based volunteering
-											</li>
-										</ul>
-									</div>
-								</div>
-							</div>
-						</ProgramCard>
-					</section>
+                    <section
+                        id="program-subscribe"
+                        className="scroll-mt-24 animate-fade-in-up"
+                    >
+                        <NewsletterCard
+                            onSubmit={(data) => handleSubmit("subscribe", data)}
+                            status={submissionStatus.subscribe}
+                        />
+                    </section>
+                </div>
+            </div>
 
-					<section
-						id="program-subscribe"
-						className="scroll-mt-24 animate-fade-in-up"
-					>
-						<NewsletterCard
-							onSubmit={(data) => handleSubmit("subscribe", data)}
-							status={submissionStatus.subscribe}
-						/>
-					</section>
-				</div>
-			</div>
+            {activeForm && (
+                <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4">
+                    <motion.div
+                        initial={{ scale: 0.95, opacity: 0 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        className="bg-white rounded-xl p-6 max-w-md w-full"
+                    >
+                        {activeForm === "partner" && (
+                            <PartnerForm
+                                status={submissionStatus.partner}
+                                onSubmit={(data) => handleSubmit("partner", data)}
+                                onClose={() => setActiveForm(null)}
+                            />
+                        )}
+                        {activeForm === "donate" && (
+                            <Elements stripe={stripePromise}>
+                                <DonationForm
+                                    status={submissionStatus.donate}
+                                    onSubmit={(data) => handleSubmit("donate", data)}
+                                    onClose={() => setActiveForm(null)}
+                                />
+                            </Elements>
+                        )}
+                        {activeForm === "volunteer" && (
+                            <VolunteerForm
+                                status={submissionStatus.volunteer}
+                                onSubmit={(data) => handleSubmit("volunteer", data)}
+                                onClose={() => setActiveForm(null)}
+                            />
+                        )}
+                    </motion.div>
+                </div>
+            )}
 
-			{activeForm && (
-				<div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4">
-					<motion.div
-						initial={{ scale: 0.95, opacity: 0 }}
-						animate={{ scale: 1, opacity: 1 }}
-						className="bg-white rounded-xl p-6 max-w-md w-full"
-					>
-						{activeForm === "partner" && (
-							<PartnerForm
-								status={submissionStatus.partner}
-								onSubmit={(data) => handleSubmit("partner", data)}
-								onClose={() => setActiveForm(null)}
-							/>
-						)}
-						{activeForm === "donate" && (
-							<Elements stripe={stripePromise}>
-								<DonationForm
-									status={submissionStatus.donate}
-									onSubmit={(data) => handleSubmit("donate", data)}
-									onClose={() => setActiveForm(null)}
-								/>
-							</Elements>
-						)}
-						{activeForm === "volunteer" && (
-							<VolunteerForm
-								status={submissionStatus.volunteer}
-								onSubmit={(data) => handleSubmit("volunteer", data)}
-								onClose={() => setActiveForm(null)}
-							/>
-						)}
-					</motion.div>
-				</div>
-			)}
+            <section className="relative h-[500px] flex items-center justify-center mt-20 mb-20">
+                {/* Background image with overlay */}
+                <div className="absolute inset-0 z-0">
+                    <div
+                        className="w-full h-full bg-cover bg-center"
+                        style={{ backgroundImage: "url(/images/team-bg.webp)" }}
+                    >
+                        <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
+                    </div>
+                </div>
 
-			<section className="relative h-[500px] flex items-center justify-center mt-20 mb-20">
-				{/* Background image with overlay */}
-				<div className="absolute inset-0 z-0">
-					<div
-						className="w-full h-full bg-cover bg-center"
-						style={{ backgroundImage: "url(/images/team-bg.webp)" }}
-					>
-						<div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
-					</div>
-				</div>
-
-				{/* Content container */}
-				<div className="relative z-10 max-w-6xl container mx-auto px-4 sm:px-6 lg:px-8 text-center md:text-left">
-					<div className="md:max-w-[50%] space-y-6 text-white">
-						<h1 className="text-[clamp(2rem,5vw,3rem)] font-bold leading-tight">
-							Shape the Future With Us
-						</h1>
-						<p className="text-[clamp(1rem,1.5vw,1.25rem)] leading-relaxed">
-							Join a community of changemakers driving real impact. Whether
-							you&apos;re contributing time, expertise, or resources, your
-							participation creates lasting change. Start your journey today.
-						</p>
-						<div className="flex flex-col md:flex-row gap-4">
-							<a
-								href="/signup"
-								className="bg-primary hover:bg-primary/80 text-white px-8 py-4 rounded-lg text-lg font-semibold transition-colors duration-200"
-							>
-								Join Our Volunteer Team
-							</a>
-						</div>
-					</div>
-				</div>
-			</section>
-		</div>
-	);
+                {/* Content container */}
+                <div className="relative z-10 max-w-6xl container mx-auto px-4 sm:px-6 lg:px-8 text-center md:text-left">
+                    <div className="md:max-w-[50%] space-y-6 text-white">
+                        <h1 className="text-[clamp(2rem,5vw,3rem)] font-bold leading-tight">
+                            Shape the Future With Us
+                        </h1>
+                        <p className="text-[clamp(1rem,1.5vw,1.25rem)] leading-relaxed">
+                            Join a community of changemakers driving real impact. Whether
+                            you&apos;re contributing time, expertise, or resources, your
+                            participation creates lasting change. Start your journey today.
+                        </p>
+                        <div className="flex flex-col md:flex-row gap-4">
+                            <a
+                                href="/signup"
+                                className="bg-primary hover:bg-primary/80 text-white px-8 py-4 rounded-lg text-lg font-semibold transition-colors duration-200"
+                            >
+                                Join Our Volunteer Team
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    );
 }
 
 const FormLayout = ({
