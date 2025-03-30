@@ -459,7 +459,6 @@ const Logo = () => (
 
 export default function Header() {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
-	const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
 	const [isScrolled, setIsScrolled] = useState(false);
 	const pathname = usePathname();
 
@@ -475,7 +474,6 @@ export default function Header() {
 
 	useEffect(() => {
 		setIsMenuOpen(false);
-		setActiveDropdown(null);
 	}, [pathname]);
 
 	return (

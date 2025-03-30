@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useEffect, useRef, FC, JSX, MutableRefObject } from "react";
-import { useSwipeable, SwipeableHandlers } from "react-swipeable";
+import { useState, useEffect, useRef } from "react";
+import type { JSX } from "react";
+import { useSwipeable } from "react-swipeable";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -54,11 +55,7 @@ export default function NewsResources() {
 	const [isLoading, setIsLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
 	const [imageErrors, setImageErrors] = useState<Record<string, boolean>>({});
-	const [user, setUser] = useState<{ username: string; role: string } | null>(
-		null
-	);
-	const [isFeaturedLoading, setIsFeaturedLoading] = useState(true);
-	const [scrollPosition, setScrollPosition] = useState(0);
+	const [user, setUser] = useState<{ username: string; role: string } | null>(null);
 	const scrollContainerRef = useRef<HTMLDivElement>(null);
 
 	const handleScroll = (direction: "left" | "right") => {
@@ -79,7 +76,6 @@ export default function NewsResources() {
 			left: newPosition,
 			behavior: "smooth",
 		});
-		setScrollPosition(newPosition);
 	};
 
 	const swipeHandlers = useSwipeable({
@@ -131,7 +127,7 @@ export default function NewsResources() {
 
 	useEffect(() => {
 		const fetchFeaturedPosts = async () => {
-			setIsFeaturedLoading(true);
+			setIsLoading(true);
 			try {
 				const res = await fetch("/api/posts?featured=true");
 				if (!res.ok) throw new Error("Failed to fetch featured posts");
@@ -141,7 +137,7 @@ export default function NewsResources() {
 				console.error("Error fetching featured posts:", err);
 				setFeaturedPosts([]);
 			} finally {
-				setIsFeaturedLoading(false);
+				setIsLoading(false);
 			}
 		};
 		fetchFeaturedPosts();

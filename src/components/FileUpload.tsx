@@ -5,7 +5,7 @@ import Image from "next/image";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { Button } from "./ui/button";
-import { Loader2, Upload, X, ImageIcon, File } from "lucide-react";
+import { Loader2, Upload, X, File } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Dialog, DialogContent } from "./ui/dialog";
 import { DialogTitle } from "./ui/dialog";

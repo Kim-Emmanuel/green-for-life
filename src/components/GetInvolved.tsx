@@ -100,18 +100,18 @@ const ProgramCard = ({
 	title,
 	icon,
 	description,
-	className,
 	children,
 	onOpen,
 	status,
+	className,
 }: {
 	title: string;
 	icon: string;
 	description: string;
-	className: string;
 	children: React.ReactNode;
 	onOpen: () => void;
 	status: FormStatus;
+	className?: string;
 }) => (
 	<motion.div whileHover={{ y: -5 }} className="h-full">
 		<Card className="h-full flex flex-col">
