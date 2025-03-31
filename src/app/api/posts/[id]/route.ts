@@ -15,12 +15,21 @@ const updatePostSchema = z.object({
   deadline: z.string().datetime().optional().nullable(),
 });
 
-// Define a type for the context object
-type RouteContext = { params: { id: string } };
-
-export async function GET(request: NextRequest, context: RouteContext) {
+// Properly typed GET handler with array check
+export async function GET(
+  request: NextRequest,
+  { params }: { params: { id: string | string[] } }
+) {
   try {
-    const id = context.params.id; // Access params from context
+    // Handle both string and string[] cases
+    const id = Array.isArray(params.id) ? params.id[0] : params.id;
+
+    if (!id) {
+      return NextResponse.json(
+        { error: "Missing post ID" },
+        { status: 400 }
+      );
+    }
 
     const post = await prisma.blogPost.findUnique({
       where: { id },
@@ -46,7 +55,11 @@ export async function GET(request: NextRequest, context: RouteContext) {
   }
 }
 
-export async function PUT(request: NextRequest, context: RouteContext) {
+// PUT handler remains the same
+export async function PUT(
+  request: NextRequest,
+  { params }: { params: { id: string } }
+) {
   const authResult = await verifyAuth(request, "ADMIN");
   if (authResult.error || !authResult.user) {
     return NextResponse.json(
@@ -59,7 +72,7 @@ export async function PUT(request: NextRequest, context: RouteContext) {
     const data = updatePostSchema.parse(await request.json());
 
     const post = await prisma.blogPost.update({
-      where: { id: context.params.id },
+      where: { id: params.id },
       data: {
         title: data.title,
         content: data.content,
