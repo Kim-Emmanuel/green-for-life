@@ -453,10 +453,10 @@ export default function OurWork() {
 			</section>
 
 			{/* Sticky Navigation */}
-			<nav className="sticky top-0 z-20 bg-white border-b border-gray-300 py-4">
+			<nav className="bg-white border-b border-gray-300 py-4">
 				<div className="container mx-auto px-4 sm:px-6 lg:px-8">
 					<div className="flex overflow-x-auto pb-2 scrollbar-hide">
-						<div className="flex gap-2 md:gap-3 lg:gap-4 mx-auto w-max max-w-full">
+						<div className="flex-col justify-center items-center text-center gap-2 md:gap-3 lg:gap-4 space-x-4 md:space-x-6 lg:space-x-8 space-y-2 md:space-y-3 lg:space-y-4">
 							{WORK_AREAS.map((area) => (
 								<Button
 									key={area.id}
