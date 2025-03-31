@@ -105,7 +105,7 @@
 //   }
 // }
 
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db/client";
 import { verifyAuth } from "@/lib/auth/middleware";
 import { z } from "zod";
@@ -113,28 +113,28 @@ import { PostCategory } from "@prisma/client";
 
 // Define the schema for updating a post using Zod
 const updatePostSchema = z.object({
-	title: z.string().min(1),
-	content: z.string().min(1),
-	category: z.nativeEnum(PostCategory),
-	featured_image: z.string().url().optional().nullable(),
-	file_attachment: z.string().url().optional().nullable(),
-	apply_url: z.string().url().optional().nullable(),
-	location: z.string().optional().nullable(),
-	deadline: z.string().datetime().optional().nullable(),
+  title: z.string().min(1),
+  content: z.string().min(1),
+  category: z.nativeEnum(PostCategory),
+  featured_image: z.string().url().optional().nullable(),
+  file_attachment: z.string().url().optional().nullable(),
+  apply_url: z.string().url().optional().nullable(),
+  location: z.string().optional().nullable(),
+  deadline: z.string().datetime().optional().nullable(),
 });
 
 // GET handler: Retrieve a post by ID
-export async function GET(
-  request: NextRequest,
-  { params }: { params: { id: string } }
-) {
+export async function GET(request, { params }) {
   try {
     // Extract the 'id' from the dynamic route parameters
     const id = params.id;
 
     // Check if the 'id' is provided
     if (!id) {
-      return NextResponse.json({ error: "Missing post ID" }, { status: 400 });
+      return NextResponse.json(
+        { error: "Missing post ID" },
+        { status: 400 }
+      );
     }
 
     // Query the database to find the post by ID, including author details
@@ -165,10 +165,7 @@ export async function GET(
 }
 
 // PUT handler: Update a post by ID
-export async function PUT(
-  request: NextRequest,
-  { params }: { params: { id: string } }
-) {
+export async function PUT(request, { params }) {
   // Authenticate the request; only admins can update posts
   const authResult = await verifyAuth(request, "ADMIN");
   if (authResult.error || !authResult.user) {
