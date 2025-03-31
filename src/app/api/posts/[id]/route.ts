@@ -18,11 +18,10 @@ const updatePostSchema = z.object({
 // Properly typed GET handler with array check
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string | string[] } }
+  { params }: { params: { id: string } }
 ) {
   try {
-    // Handle both string and string[] cases
-    const id = Array.isArray(params.id) ? params.id[0] : params.id;
+    const id = params.id;
 
     if (!id) {
       return NextResponse.json(
