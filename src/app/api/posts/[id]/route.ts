@@ -4,7 +4,6 @@ import { verifyAuth } from "@/lib/auth/middleware";
 import { z } from "zod";
 import { PostCategory } from "@prisma/client";
 
-// ... updatePostSchema remains unchanged ...
 const updatePostSchema = z.object({
 	title: z.string().min(1),
 	content: z.string().min(1),
@@ -18,10 +17,10 @@ const updatePostSchema = z.object({
 
 export async function GET(
 	request: NextRequest,
-	{ params }: { params: { id: string | string[] } }
+	{ params }: { params: { id: string } } // Corrected params type
 ) {
 	try {
-		const id = Array.isArray(params.id) ? params.id[0] : params.id;
+		const id = params.id; // Removed array check
 
 		const post = await prisma.blogPost.findUnique({
 			where: { id },
@@ -95,4 +94,30 @@ export async function PUT(
 			{ status: 500 }
 		);
 	}
+}
+export async function DELETE(
+  request: NextRequest,
+  { params }: { params: { id: string } }
+) {
+  const authResult = await verifyAuth(request, "ADMIN");
+  if (authResult.error || !authResult.user) {
+    return NextResponse.json(
+      { error: authResult.error || "Unauthorized" },
+      { status: authResult.status || 401 }
+    );
+  }
+
+  try {
+    const post = await prisma.blogPost.delete({
+      where: { id: params.id },
+    });
+
+    return NextResponse.json({ post });
+  } catch (error) {
+    console.error("Error deleting post:", error);
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500 }
+    );
+  }
 }
