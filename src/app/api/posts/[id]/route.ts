@@ -21,20 +21,7 @@ export async function GET(
   { params }: { params: { id: string } }
 ) {
   try {
-    const { id } = params;
-    const authResult = await verifyAuth(request, "ADMIN");
-    if (authResult.error || !authResult.user) {
-      return NextResponse.json(
-        { error: authResult.error || "Unauthorized" },
-        { status: authResult.status || 401 }
-      );
-    }
-    if (authResult.user.role !== "ADMIN") {
-      return NextResponse.json(
-        { error: "Unauthorized" },
-        { status: 403 }
-      );
-    }
+    const id = params.id;
 
     if (!id) {
       return NextResponse.json(
@@ -80,7 +67,7 @@ export async function PUT(
   }
 
   try {
-    const id = params.id;
+    const id = await params.id;
     const data = updatePostSchema.parse(await request.json());
 
     const post = await prisma.blogPost.update({
