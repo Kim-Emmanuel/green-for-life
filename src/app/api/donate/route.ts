@@ -4,7 +4,15 @@ import { Resend } from 'resend';
 import { z } from 'zod';
 import { prisma } from "@/lib/db/client";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, { apiVersion: '2025-02-24.acacia' });
+if (!process.env.STRIPE_SECRET_KEY) {
+  throw new Error('STRIPE_SECRET_KEY environment variable is not set');
+}
+
+if (!process.env.RESEND_API_KEY) {
+  throw new Error('RESEND_API_KEY environment variable is not set');
+}
+
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, { apiVersion: '2025-02-24.acacia' });
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 // CORS headers
