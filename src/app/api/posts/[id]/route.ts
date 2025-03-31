@@ -15,13 +15,13 @@ const updatePostSchema = z.object({
   deadline: z.string().datetime().optional().nullable(),
 });
 
-// Properly typed GET handler with array check
+// Updated GET handler with correct Next.js 15 type definitions
 export async function GET(
   request: NextRequest,
-  context: { params: { id: string } }
+  { params }: { params: { id: string } }
 ) {
   try {
-    const id = context.params.id;
+    const id = params.id;
 
     if (!id) {
       return NextResponse.json(
