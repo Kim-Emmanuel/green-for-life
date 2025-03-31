@@ -95,29 +95,3 @@ export async function PUT(
 		);
 	}
 }
-export async function DELETE(
-  request: NextRequest,
-  { params }: { params: { id: string } }
-) {
-  const authResult = await verifyAuth(request, "ADMIN");
-  if (authResult.error || !authResult.user) {
-    return NextResponse.json(
-      { error: authResult.error || "Unauthorized" },
-      { status: authResult.status || 401 }
-    );
-  }
-
-  try {
-    const post = await prisma.blogPost.delete({
-      where: { id: params.id },
-    });
-
-    return NextResponse.json({ post });
-  } catch (error) {
-    console.error("Error deleting post:", error);
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    );
-  }
-}
