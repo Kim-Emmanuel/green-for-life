@@ -18,10 +18,10 @@ const updatePostSchema = z.object({
 // Properly typed GET handler with array check
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: { id: string } }
 ) {
   try {
-    const id = await params.id;
+    const id = context.params.id;
 
     if (!id) {
       return NextResponse.json(
