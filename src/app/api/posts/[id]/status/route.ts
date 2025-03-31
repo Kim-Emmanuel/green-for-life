@@ -8,10 +8,8 @@ const statusSchema = z.object({
   status: z.nativeEnum(PostStatus),
 });
 
-export async function PUT(
-  request: NextRequest,
-  { params }: { params: { id: string } }
-) {
+export async function PUT(request: NextRequest, props: { params: Promise<{ id: string }> }) {
+  const params = await props.params;
   const authResponse = await verifyAuth(request, 'ADMIN');
   if (authResponse.error || !authResponse.user) {
     return NextResponse.json(

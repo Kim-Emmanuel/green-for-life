@@ -16,10 +16,8 @@ const updatePostSchema = z.object({
 });
 
 // Updated GET handler with correct Next.js 15 type definitions
-export async function GET(
-  request: NextRequest,
-  { params }: { params: { id: string } }
-) {
+export async function GET(request: NextRequest, props: { params: Promise<{ id: string }> }) {
+  const params = await props.params;
   try {
     const id = params.id;
 
@@ -54,10 +52,8 @@ export async function GET(
   }
 }
 
-export async function PUT(
-  request: NextRequest,
-  { params }: { params: { id: string } }
-) {
+export async function PUT(request: NextRequest, props: { params: Promise<{ id: string }> }) {
+  const params = await props.params;
   const authResult = await verifyAuth(request, "ADMIN");
   if (authResult.error || !authResult.user) {
     return NextResponse.json(
