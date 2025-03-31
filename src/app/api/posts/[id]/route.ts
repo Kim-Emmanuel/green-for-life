@@ -21,7 +21,7 @@ export async function GET(
   { params }: { params: { id: string } }
 ) {
   try {
-    const { id } = await params;
+    const { id } = params;
     const authResult = await verifyAuth(request, "ADMIN");
     if (authResult.error || !authResult.user) {
       return NextResponse.json(
@@ -80,7 +80,7 @@ export async function PUT(
   }
 
   try {
-    const id = await params.id;
+    const id = params.id;
     const data = updatePostSchema.parse(await request.json());
 
     const post = await prisma.blogPost.update({

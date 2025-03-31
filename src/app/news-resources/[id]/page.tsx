@@ -21,13 +21,11 @@ import { BlogPost, PostStatus } from "@prisma/client";
 
 
 export default function PostPage() {
-const router = useRouter();
-	const params = useParams<{ id: string }>();
-	const postId = params.id as string;
+  const router = useRouter();
+  const params = useParams<{ id: string }>();
+  const postId = React.use(Promise.resolve(params.id as string));
 
-	const [post, setPost] = React.useState<
-		(BlogPost & { author: { username: string } }) | null
-	>(null);
+  const [post, setPost] = React.useState<(BlogPost & { author: { username: string } }) | null>(null);
 	const [isLoading, setIsLoading] = React.useState(true);
 	const [isAdmin, setIsAdmin] = React.useState(false);
 	const [isUpdating, setIsUpdating] = React.useState(false);
