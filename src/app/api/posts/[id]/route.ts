@@ -21,7 +21,7 @@ export async function GET(
   { params }: { params: { id: string } }
 ) {
   try {
-    const id = params.id;
+    const id = await params.id;
 
     if (!id) {
       return NextResponse.json(
@@ -67,10 +67,11 @@ export async function PUT(
   }
 
   try {
+    const id = await params.id;
     const data = updatePostSchema.parse(await request.json());
 
     const post = await prisma.blogPost.update({
-      where: { id: params.id },
+      where: { id },
       data: {
         title: data.title,
         content: data.content,
