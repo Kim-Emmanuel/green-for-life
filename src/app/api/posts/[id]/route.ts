@@ -4,7 +4,6 @@ import { verifyAuth } from "@/lib/auth/middleware";
 import { z } from "zod";
 import { PostCategory } from "@prisma/client";
 
-// Schema for PUT request validation
 const updatePostSchema = z.object({
   title: z.string().min(1),
   content: z.string().min(1),
@@ -16,13 +15,21 @@ const updatePostSchema = z.object({
   deadline: z.string().datetime().optional().nullable(),
 });
 
-// GET handler
+// Properly typed GET handler with array check
 export async function GET(
   request: NextRequest,
-  context: { params: Record<string, string> } // Correct type for second argument
+  { params }: { params: { id: string | string[] } }
 ) {
   try {
-    const id = context.params.id; // Access the 'id' parameter
+    // Handle both string and string[] cases
+    const id = Array.isArray(params.id) ? params.id[0] : params.id;
+
+    if (!id) {
+      return NextResponse.json(
+        { error: "Missing post ID" },
+        { status: 400 }
+      );
+    }
 
     const post = await prisma.blogPost.findUnique({
       where: { id },
@@ -48,10 +55,9 @@ export async function GET(
   }
 }
 
-// PUT handler (included for completeness)
 export async function PUT(
   request: NextRequest,
-  context: { params: Record<string, string> } // Same type applied here
+  { params }: { params: { id: string } }
 ) {
   const authResult = await verifyAuth(request, "ADMIN");
   if (authResult.error || !authResult.user) {
@@ -65,7 +71,7 @@ export async function PUT(
     const data = updatePostSchema.parse(await request.json());
 
     const post = await prisma.blogPost.update({
-      where: { id: context.params.id }, // Access 'id' from params
+      where: { id: params.id },
       data: {
         title: data.title,
         content: data.content,
