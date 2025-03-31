@@ -105,7 +105,7 @@
 //   }
 // }
 
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db/client";
 import { verifyAuth } from "@/lib/auth/middleware";
 import { z } from "zod";
