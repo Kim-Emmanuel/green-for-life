@@ -21,14 +21,14 @@ type CoreValue = {
 
 const TEAM_MEMBERS: TeamMember[] = [
 	{
-		name: "Emily Green",
-		title: "Founder & Executive Director",
+		name: "Name",
+		title: "Title",
 		bio: "Environmental scientist with 15 years of experience in sustainable development and community empowerment.",
 		image: "/team/team1.webp",
 	},
 	{
-		name: "Michael Okonkwo",
-		title: "Chief Operations Officer",
+		name: "Name",
+		title: "Title",
 		bio: "Expert in agricultural sustainability and rural community development strategies.",
 		image: "/team/team2.webp",
 	},
