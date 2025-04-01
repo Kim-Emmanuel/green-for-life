@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { Trees, Users, Globe } from "lucide-react";
+import { Trees, Users, Globe, Leaf } from "lucide-react";
 import dynamic from "next/dynamic";
 import { Button } from "./ui/button";
 import { smoothScroll } from "@/lib/utils";
@@ -63,11 +63,11 @@ export default function Home() {
 		<div className="flex flex-col min-h-screen">
 			<main className="flex-grow relative">
 				{/* Hero Section */}
-				<section className="relative h-[clamp(500px,80dvh,1000px)] min-h-[500px] max-h-[min(1200px,90svh)] lg:h-[clamp(600px,100vh,1200px)] xl:max-h-[1400px] flex items-center justify-center text-white overflow-hidden">
+				<section className="relative h-[clamp(500px,100dvh,1000px)] min-h-[500px] max-h-[min(1200px,100svh)] lg:h-[clamp(600px,100vh,1200px)] xl:max-h-[1400px] flex items-center justify-center text-white overflow-hidden">
 					{/* Dynamic Background */}
 					<div className="absolute inset-0 z-0">
 						<Image
-							src="/images/hero.webp"
+							src="/images/coffee.webp"
 							alt="Lush green forest canopy"
 							fill
 							priority
@@ -168,7 +168,7 @@ export default function Home() {
 						</div>
 					</div>
 					{/* ScrollIndicator Component */}
-					<ScrollIndicator />
+						<ScrollIndicator />
 				</section>
 
 				{/* Introduction to Green For Life Section */}
@@ -210,7 +210,7 @@ export default function Home() {
 											alt="Community empowerment illustration"
 											width={640}
 											height={640}
-											src="/images/hero.webp"
+											src="/images/coffee2.webp"
 											priority
 											className="w-full h-auto object-cover rounded-[1.5rem] transform group-hover:scale-[1.02] transition-transform duration-500"
 											sizes="(max-width: 1024px) 100vw, 50vw"
@@ -229,13 +229,7 @@ export default function Home() {
 							>
 								<div className="inline-flex items-center gap-4 p-4 bg-white/80 backdrop-blur-sm rounded-2xl shadow-sm">
 									<div className="w-14 h-14 bg-gradient-to-br from-amber-400 to-green-600 rounded-xl flex items-center justify-center shadow-md">
-										<Image
-											alt="Eco-friendly icon"
-											width={32}
-											height={32}
-											src="/leaf-hand-icon.svg"
-											className="text-white w-8 h-8"
-										/>
+										<Leaf className="w-8 h-8 text-gray-800" />
 									</div>
 									<h3 className="text-3xl md:text-4xl font-bold text-green-900 tracking-tight">
 										Our Commitment
@@ -401,7 +395,7 @@ export default function Home() {
 							transition={{ delay: 0.6 }}
 							className="mt-20 text-center"
 						>
-							<button className="inline-flex items-center gap-3 bg-green-600 hover:bg-green-700 text-white px-8 py-4 rounded-xl transition-all duration-300 shadow-lg hover:shadow-md">
+							<Button className="inline-flex items-center gap-3 text-white px-8 py-4 rounded-xl transition-all duration-300 shadow-lg hover:shadow-md">
 								<span>View Full Impact Report</span>
 								<svg
 									className="w-5 h-5"
@@ -416,7 +410,7 @@ export default function Home() {
 										d="M13 7l5 5m0 0l-5 5m5-5H6"
 									/>
 								</svg>
-							</button>
+							</Button>
 						</motion.div>
 					</div>
 				</section>

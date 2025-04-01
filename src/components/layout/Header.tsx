@@ -520,7 +520,7 @@ export default function Header() {
 							</nav>
 
 							<div className="lg:hidden flex items-center space-x-2 sm:space-x-4">
-								<Button
+								{/* <Button
 									variant="ghost"
 									className="text-base lg:text-base hover:bg-green-50"
 								>
@@ -532,9 +532,9 @@ export default function Header() {
 										height={15}
 										className="w-5 h-5 sm:ml-2"
 									/>
-								</Button>
-								<div className="h-6 w-[0.5px] bg-gray-600" />
-								<Button className="text-base text-black lg:text-base">
+								</Button> */}
+								<div className="h-6 w-[0.5px] bg-white" />
+								<Button className="text-base text-white lg:text-base">
 									Give
 									<Leaf className="w-8 h-8" />
 								</Button>
