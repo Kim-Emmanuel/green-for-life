@@ -802,12 +802,12 @@ export default function NewsResources() {
 								<input
 									type="email"
 									placeholder="Enter your email address"
-									className="w-full rounded-lg border border-gray-300 px-5 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 sm:rounded-r-none sm:text-lg"
+									className="w-full rounded-lg border border-gray-300 px-5 py-3 focus:outline-none focus:ring-1 focus:ring-green-500 focus:ring-offset-1 sm:rounded-r-none sm:text-lg"
 									required
 								/>
 								<button
 									type="submit"
-									className="rounded-lg bg-blue-600 px-6 py-3 font-semibold text-white transition-colors hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 sm:rounded-l-none sm:text-lg"
+									className="rounded-lg bg-primary px-6 py-3 font-semibold text-white transition-colors hover:bg-green-700 focus:outline-none focus:ring-1 focus:ring-green-500 focus:ring-offset-1 sm:rounded-l-none sm:text-lg"
 								>
 									Subscribe
 								</button>
