@@ -97,7 +97,7 @@ export default function Contact() {
 	return (
 		<div className="min-h-screen bg-white">
 			{/* Hero Contact Section */}
-			<section className="relative bg-gradient-to-b h-[400px] from-emerald-50/95 to-green-50/70 py-28 overflow-hidden">
+			<section className="relative bg-gradient-to-b from-emerald-50/95 to-green-50/70 py-28 overflow-hidden">
 				{/* Modern Particle Background */}
 				<div className="absolute flex items-center justify-center inset-0 z-0">
 					{[...Array(30)].map((_, i) => (
