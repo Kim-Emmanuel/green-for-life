@@ -19,25 +19,38 @@ const geistMono = Geist_Mono({
   variable: '--font-geist-mono',
 });
 
+<meta name="apple-mobile-web-app-title" content="Green For Life" />
+
 export const metadata: Metadata = {
-  title: {
-    default: "Next.js Starter Pro",
-    template: "%s | Next.js Starter Pro",
-  },
-  description: "A professional Next.js starter template with modern features.",
-  keywords: ["Next.js", "React", "Tailwind CSS", "Starter Template", "Professional"],
-  authors: [{ name: "Your Name", url: "https://yourwebsite.com" }],
+  title: "Green For Life | Empowering Sustainable Communities",
+  description: "Join Green For Life in creating a sustainable future through community-driven environmental initiatives. Support our mission through donations, volunteering, or subscribing to our impact newsletter.",
+  keywords: [
+    "sustainable communities", 
+    "climate action", 
+    "environmental nonprofit",
+    "green energy solutions",
+    "community empowerment",
+    "eco-friendly initiatives",
+    "environmental charity",
+    "sustainability programs",
+    "carbon reduction",
+    "ecological preservation"
+  ],
+  authors: [{ 
+    name: "Green For Life Team", 
+    url: "https://greenforlife.africa" 
+  }],
   openGraph: {
-    title: "Next.js Starter Pro",
-    description: "A professional Next.js starter template with modern features.",
-    url: "https://yourwebsite.com",
-    siteName: "Next.js Starter Pro",
+    title: "Green For Life | Sustainable Community Development",
+    description: "Driving meaningful environmental change through community-led sustainability programs and green energy initiatives.",
+    url: "https://greenforlife.africa",
+    siteName: "Green For Life",
     images: [
       {
-        url: "https://yourwebsite.com/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "Next.js Starter Pro",
+        url: "https://greenforlife.africa/og-banner.jpg",
+        width: 1920,
+        height: 1080,
+        alt: "Green For Life community sustainability project",
       },
     ],
     locale: "en_US",
@@ -45,9 +58,11 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Next.js Starter Pro",
-    description: "A professional Next.js starter template with modern features.",
-    images: ["https://yourwebsite.com/twitter-image.png"],
+    title: "Join the Green Revolution @GreenForLife",
+    description: "Follow our journey in building sustainable communities and reducing environmental impact worldwide 🌱",
+    // images: ["https://greenforlife.org/twitter-card.jpg"],
+    site: "@GreenForLife",
+    creator: "@GFLCampaigns",
   },
   robots: {
     index: true,
@@ -61,11 +76,11 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: "/favicon.svg",
-    shortcut: "/favicon-16x16.png",
-    apple: "/apple-touch-icon.png",
+    icon: "/favicon.ico",
+    shortcut: "/web-app-manifest-512x512.png",
+    apple: "/apple-icon.png",
   },
-  // manifest: "/site.webmanifest",
+  manifest: "/manifest.json",
 };
 
 export default function RootLayout({

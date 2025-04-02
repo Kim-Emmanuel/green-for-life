@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 const ScrollIndicator = () => {
   return (
     <motion.div
-      className="absolute bottom-20 transform -translate-x-1/2 cursor-pointer group"
+      className="absolute bottom-20 transform -translate-x-1/2 cursor-pointer group hidden md:block"
       style={{ zIndex: 20 }}
       initial={{ opacity: 0, y: -10 }}
       animate={{ opacity: 1, y: 0 }}
