@@ -26,7 +26,7 @@ export default function NotFound() {
 					digital wilderness.
 				</p>
 				<div className="flex justify-center space-x-4">
-					<Button asChild variant="default" className="text-black">
+					<Button asChild variant="default" className="text-white">
 						<Link href="/">Return to Home</Link>
 					</Button>
 					<Button asChild variant="outline">
