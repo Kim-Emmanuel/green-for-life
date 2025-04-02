@@ -43,9 +43,7 @@ export default async function middleware(request: NextRequest) {
 
 // Authentication checker for API routes
 export async function verifyAuth(
-	request: NextRequest,
-	requiredRole?: "ADMIN" | "USER"
-) {
+request: NextRequest, p0: string, p1: string, p2: string, requiredRole?: "ADMIN" | "USER") {
 	try {
 		const token =
 			request.cookies.get("token")?.value ||

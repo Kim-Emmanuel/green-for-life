@@ -67,7 +67,7 @@ export async function POST(request: NextRequest) {
   // Log the request for debugging
   console.log("Received POST request to /api/posts");
   
-  const authResult = await verifyAuth(request, 'ADMIN');
+  const authResult = await verifyAuth(request, 'ADMIN', 'USER', 'CONTENT_MANAGER');
   if (authResult.error || !authResult.user) {
     return NextResponse.json(
       { error: authResult.error || 'Unauthorized' },
