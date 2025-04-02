@@ -217,7 +217,7 @@ export default function NewsResources() {
 									{user.username}
 									{isAdmin && (
 										<span className="ml-2 text-xs bg-green-600 text-white px-2 py-1 rounded-full">
-											Admin
+											{user.role}
 										</span>
 									)}
 								</span>
