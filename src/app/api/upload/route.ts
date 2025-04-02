@@ -88,7 +88,7 @@ export async function POST(req: NextRequest) {
 		});
 
 		// Construct URL using environment variable or default path
-		const baseUrl = (process.env.UPLOAD_URL || "/uploads").replace(/\/$/, "");
+		const baseUrl = (process.env.UPLOAD_URL || "public/uploads").replace(/\/$/, "");
 		const url = `${baseUrl}/${filename}`;
 
 		// Return the response
