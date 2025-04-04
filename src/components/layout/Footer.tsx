@@ -244,7 +244,7 @@ export default function Footer() {
 
 			{/* Copyright and Legal */}
 			<motion.div
-				className="relative z-10 bg-[#156936] mx-auto mt-8 pt-4 border-t border-green-700 text-center px-4 sm:px-6 lg:px-8"
+				className="relative z-10 bg-[#156936] mx-auto mt-8 pt-4 border-t border-primary text-center px-4 sm:px-6 lg:px-8"
 				variants={itemVariants}
 			>
 				<p className="text-sm text-white">

@@ -21,23 +21,17 @@ type CoreValue = {
 
 const TEAM_MEMBERS: TeamMember[] = [
 	{
-		name: "Name",
-		title: "Title",
+		name: "TANGUN STEPHEN",
+		title: "Managing Director",
 		bio: "Environmental scientist with 15 years of experience in sustainable development and community empowerment.",
-		image: "/team/team1.webp",
-	},
-	{
-		name: "Name",
-		title: "Title",
-		bio: "Expert in agricultural sustainability and rural community development strategies.",
 		image: "/team/team2.webp",
 	},
-	// {
-	// 	name: "Zack Rodriguez",
-	// 	title: "Climate Resilience Lead",
-	// 	bio: "Climate change adaptation specialist with a focus on innovative environmental solutions.",
-	// 	image: "/team/team3.webp",
-	// },
+	{
+		name: "CHRISTINE DOGBERENGERE",
+		title: "Operations Manager",
+		bio: "Expert in agricultural sustainability and rural community development strategies.",
+		image: "/team/team1.webp",
+	},
 ];
 
 const CORE_VALUES: CoreValue[] = [
@@ -440,7 +434,7 @@ export default function About() {
 					className="text-[clamp(2rem,5vw,3rem)] font-bold text-green-800 text-center mb-1"
 					aria-label="Our Team Members"
 				>
-					Meet Our Team
+					Meet The Leadership Team 
 				</motion.h2>
 
 				<motion.p
