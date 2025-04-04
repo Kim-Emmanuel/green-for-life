@@ -42,10 +42,22 @@ const CORE_VALUES: CoreValue[] = [
 		icon: <TreePine className="w-12 h-12 text-green-600" />,
 	},
 	{
+		title: "Leadership and Accountability",
+		description:
+			"We take empowerment seriously and exercises transparency at the firm. ",
+		icon: <Users className="w-12 h-12 text-green-600" />,
+	},
+	{
+		title: "Innovation and Creativity",
+		description:
+			"We leverage innovations and creativity to thrive in bringing sustainable solutions to environmental protection and climate change.",
+		icon: <Globe className="w-12 h-12 text-green-600" />,
+	},
+	{
 		title: "Community Empowerment",
 		description:
 			"We believe in supporting and enabling local communities to drive their own sustainable development.",
-		icon: <Users className="w-12 h-12 text-green-600" />,
+		icon: <Globe className="w-12 h-12 text-green-600" />,
 	},
 	{
 		title: "Holistic Approach",
@@ -59,7 +71,10 @@ export default function About() {
 	return (
 		<div className="min-h-screen bg-white">
 			{/* About Us Hero Section */}
-			<section id="about" className="relative bg-gradient-to-b from-emerald-50/95 to-green-50/70 py-28 overflow-hidden">
+			<section
+				id="about"
+				className="relative bg-gradient-to-b from-emerald-50/95 to-green-50/70 py-28 overflow-hidden"
+			>
 				{/* Modern Particle Background */}
 				<div className="absolute flex items-center justify-center inset-0 z-0">
 					{[...Array(30)].map((_, i) => (
@@ -146,9 +161,8 @@ export default function About() {
 							transition={{ duration: 0.8, delay: 0.5 }}
 							className="max-w-2xl mx-auto text-[clamp(1rem,1.5vw,1.25rem)] text-green-800 leading-relaxed mb-10 font-medium px-4 sm:px-0"
 						>
-							Green for Life is a passionate environmental organization
-							dedicated to transforming communities through sustainable
-							solutions, environmental education, and grassroots empowerment.
+							Green4Life (G4L) is a social enterprise envisioned to harmonize
+							environmental protection with human prosperity.
 						</motion.p>
 					</motion.div>
 				</div>
@@ -182,11 +196,98 @@ export default function About() {
 				)}
 			</section>
 
+			{/* About Introduction - Modern Redesign */}
+			<section className="relative overflow-hidden bg-white py-28 lg:py-36">
+				<div className="container mx-auto px-4 sm:px-6 lg:px-8">
+					<div className="grid lg:grid-cols-2 gap-16 items-center">
+						{/* Text Content */}
+						<motion.div
+							initial={{ opacity: 0, x: -30 }}
+							whileInView={{ opacity: 1, x: 0 }}
+							viewport={{ once: true, margin: "-100px" }}
+							transition={{ duration: 0.6, ease: "easeOut" }}
+							className="relative z-10"
+						>
+							<div className="mb-8">
+								<span className="inline-block bg-emerald-100/80 text-emerald-700 px-4 py-2 rounded-full text-sm font-semibold mb-6 shadow-sm">
+									Sustainability in Action
+								</span>
+							</div>
+
+							<motion.h2
+								initial={{ opacity: 0, y: 10 }}
+								whileInView={{ opacity: 1, y: 0 }}
+								transition={{ delay: 0.2, duration: 0.6 }}
+								className="text-4xl md:text-5xl xl:text-[3.5rem] font-bold bg-gradient-to-r from-primary to-emerald-500 bg-clip-text text-transparent leading-tight mb-6"
+							>
+								Harmonizing Ecology with Human Prosperity
+							</motion.h2>
+
+							<motion.p
+								initial={{ opacity: 0 }}
+								whileInView={{ opacity: 1 }}
+								transition={{ delay: 0.4, duration: 0.8 }}
+								className="text-lg md:text-xl text-gray-600 leading-relaxed mb-8 font-medium"
+							>
+								Green4Life{" "}
+								<span className="font-semibold text-emerald-700">(G4L)</span> is
+								a social enterprise envisioned to harmonize environmental
+								protection with human prosperity through promoting responsible
+								livelihood practices and mitigating the negative effects of
+								climate change.{" "}
+								<span className="font-semibold text-emerald-700">G4L</span> is
+								committed to enhancing the Prosperity and wellbeing of the
+								People in a healthy Planet{" "}
+								<span className="font-semibold text-emerald-700">(3Ps)</span>{" "}
+								through well-crafted intersection of sustainable Economics,
+								Energy and Ecology{" "}
+								<span className="font-semibold text-emerald-700">(3Es)</span> .
+							</motion.p>
+
+							<motion.div
+								initial={{ opacity: 0 }}
+								whileInView={{ opacity: 1 }}
+								transition={{ delay: 0.6 }}
+								className="flex gap-4"
+							>
+								<button className="bg-primary hover:bg-green-800/90 text-white px-8 py-4 rounded-lg font-semibold shadow-lg hover:shadow-emerald-100 transition-all duration-300">
+									Our Initiatives
+								</button>
+								<button className="border-2 border-primary text-primary hover:bg-emerald-50 px-8 py-4 rounded-lg font-semibold transition-all duration-300">
+									Impact Report
+								</button>
+							</motion.div>
+						</motion.div>
+
+						{/* Image Section */}
+						<motion.div
+							initial={{ opacity: 0, x: 30 }}
+							whileInView={{ opacity: 1, x: 0 }}
+							viewport={{ once: true }}
+							transition={{ duration: 0.6, ease: "easeOut" }}
+							className="relative"
+						>
+							<Image
+								src="/images/grass-hand.png"
+								alt="Sustainable Community Action"
+								width={640}
+								height={720}
+								className="object-cover w-full h-full"
+								priority
+							/>
+							{/* Decorative Elements */}
+							<div className="absolute -top-8 -right-8 w-32 h-32 bg-emerald-200/30 rounded-full blur-2xl" />
+							<div className="absolute -bottom-12 -left-12 w-48 h-48 bg-emerald-100/40 rounded-full blur-2xl" />
+						</motion.div>
+					</div>
+				</div>
+
+				{/* Background Pattern */}
+				<div className="absolute inset-0 opacity-10 [background-image:linear-gradient(to_right,#059669_1px,transparent_1px),linear-gradient(to_bottom,#059669_1px,transparent_1px)] bg-[size:4rem_4rem]" />
+			</section>
+
 			{/* Our Story Section */}
-			<section
-				id="history"
-				className="relative py-28 overflow-hidden bg-white"
-			>
+			<section id="history" className="relative py-28 overflow-hidden bg-white">
 				<div className="container mx-auto px-4 sm:px-6 lg:px-8">
 					<div className="max-w-8xl mx-auto">
 						<div className="grid lg:grid-cols-2 gap-16 items-center">
@@ -210,7 +311,7 @@ export default function About() {
 										<span className="bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
 											Sustainability
 										</span>{" "}
-										Since 2010
+										Since 2023
 									</motion.h2>
 									<motion.div
 										initial={{ width: 0 }}
@@ -228,26 +329,17 @@ export default function About() {
 										transition={{ duration: 0.6, delay: 0.3 }}
 										className="text-[clamp(1rem,1.5vw,1.25rem)] text-gray-600 leading-relaxed tracking-wide"
 									>
-										Founded in 2010, Green for Life emerged from a bold vision
-										to redefine environmental stewardship through community
-										empowerment. What began as grassroots initiative in a single
-										neighborhood has blossomed into a global sustainability
-										movement.
-									</motion.p>
-
-									<motion.p
-										initial={{ opacity: 0, y: 20 }}
-										whileInView={{ opacity: 1, y: 0 }}
-										transition={{ duration: 0.6, delay: 0.5 }}
-										className="text-[clamp(1rem,1.5vw,1.25rem)] text-gray-600 leading-relaxed tracking-wide"
-									>
-										At our core remains the founding belief:{" "}
-										<span className="font-semibold text-green-700">
-											Local communities hold the power to drive planetary
-											transformation
-										</span>
-										. This principle continues to guide our global operations
-										and partnerships.
+										Conceived in December 2023, Green4Life emerged from a vision
+										to promote environmental stewardship through sustainable
+										community driven initiatives. G4L attained legal
+										registration with the Ministry of Justice of the Republic of
+										South Sudan in 2025 and started operation in{" "}
+										<span className="font-semibold text-green-800">
+											Yambio (Western Equatoria State)
+										</span>{" "}
+										with the establishment of a coffee plantation intended as a
+										springboard for other projects in different parts of South
+										Sudan.
 									</motion.p>
 								</div>
 							</motion.div>
@@ -290,10 +382,7 @@ export default function About() {
 			{/* Mission & Vision Section */}
 			<section className="relative py-24 overflow-hidden">
 				{/* Decorative background element */}
-				<div
-					className="absolute inset-0 bg-green-50"
-					aria-hidden="true"
-				/>
+				<div className="absolute inset-0 bg-green-50" aria-hidden="true" />
 
 				<div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
 					{/* Animated heading with subtle entrance effect */}
@@ -340,9 +429,9 @@ export default function About() {
 									Our Mission
 								</h3>
 								<p className="text-lg text-gray-600 leading-relaxed mb-6">
-									To empower global communities through innovative, sustainable
-									solutions that harmonize environmental protection with human
-									prosperity.
+									Promoting environmental sustainability and mitigating the
+									negative effects of climate change for a prosperous human
+									wellbeing.
 								</p>
 
 								{/* Decorative accent line */}
@@ -434,7 +523,7 @@ export default function About() {
 					className="text-[clamp(2rem,5vw,3rem)] font-bold text-green-800 text-center mb-1"
 					aria-label="Our Team Members"
 				>
-					Meet The Leadership Team 
+					Meet The Leadership Team
 				</motion.h2>
 
 				<motion.p

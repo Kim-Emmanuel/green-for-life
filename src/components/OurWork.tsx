@@ -250,7 +250,7 @@ export default function OurWork() {
 						</motion.section>
 
 						{/* Projects Section */}
-						<motion.section
+						{/* <motion.section
 							initial={{ opacity: 0 }}
 							animate={{ opacity: 1 }}
 							className="space-y-8"
@@ -295,7 +295,7 @@ export default function OurWork() {
 									</motion.article>
 								))}
 							</div>
-						</motion.section>
+						</motion.section> */}
 					</div>
 
 					{/* Image Section */}
