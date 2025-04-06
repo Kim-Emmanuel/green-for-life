@@ -67,8 +67,8 @@ export default function Home() {
 					{/* Dynamic Background */}
 					<div className="absolute inset-0 z-0">
 						<Image
-							src="/images/coffee.webp"
-							alt="Lush green forest canopy"
+							src="/images/coffee-hero.webp"
+							alt="Coffee Tree"
 							fill
 							priority
 							className="object-cover"

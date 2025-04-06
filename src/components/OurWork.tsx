@@ -3,21 +3,22 @@
 import { useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-	TreePine,
-	Leaf,
-	CloudSun,
-	PanelTop as SolarPanel,
-	FlaskConical,
-} from "lucide-react";
+// import {
+// 	TreePine,
+// 	Leaf,
+// 	CloudSun,
+// 	PanelTop as SolarPanel,
+// 	FlaskConical,
+// } from "lucide-react";
 import { Button } from "./ui/button";
 import { smoothScroll } from "@/lib/utils";
+import { ArrowRightIcon, SparklesIcon } from "lucide-react";
 
 type WorkArea = {
 	id: string;
 	title: string;
 	description: string;
-	icon: React.ReactNode;
+	icon: string;
 	image: string;
 	highlights: string[];
 	keyProjects: Array<{
@@ -34,8 +35,8 @@ const WORK_AREAS: WorkArea[] = [
 		description: `With a double aim to build livelihoods and conserve the environment, G4L promotes sustainable agriculture practices which are climate smart and environmentally sensitive. This involves venturing into crops which protect the soils, nurtures forest, and reduces erosion and other benefits. G4L also promotes value chain development of specific crops and integrated livelihoods/farming (beekeeping, shea butter, gum Arabic) with high market potentials.
 
     G4L aims to promote afforestation and reafforestation programs in South Sudan which has faced depletion of many forests due to lumbering and charcoal burning. Through the tree planting initiative, G4L prioritizes the propagation of desired and/or endangered species.`,
-		icon: <TreePine className="w-12 h-12 text-green-600" />,
-		image: "/our-work/agriculture.webp",
+		icon: "/our-work/agriculture-and-forestry-icon.png",
+		image: "/our-work/agriculture-and-forestry.jpg",
 		highlights: [
 			"Climate-resilient crop systems",
 			"Integrated agroforestry models",
@@ -60,8 +61,8 @@ const WORK_AREAS: WorkArea[] = [
 		description: `Globally, the effects of climate change are not only getting rampart, but the severity is increasing, and tends to hit the poor harder. Many communities in South Sudan are already facing serious effects of climate variability including flooding, heat waves, erratic rainfall patterns, dry spells, etc. These factors affect the lives and livelihoods of communities in many ways, adding to the already difficult living conditions. 
 
     G4L works in the climate action spaces to 1) sensitize communities on climate variabilities and climate action, 2) establish early warning systems to mitigate the vulnerability of the people to climatic hazards, 3) promote adaptative response systems and innovative technologies, and 4) promote practices which reduce human contribution to negative effects of climate change.`,
-		icon: <CloudSun className="w-12 h-12 text-blue-600" />,
-		image: "/our-work/climate-adaptation.webp",
+		icon: "/our-work/climate-change-icon.png",
+		image: "/our-work/climate-change.jpg",
 		highlights: [
 			"Early warning systems deployment",
 			"Flood-resistant infrastructure",
@@ -86,8 +87,8 @@ const WORK_AREAS: WorkArea[] = [
 		description: `G4L aims to promote conservation of the environment, biodiversity and local ecosystem by addressing harmful human factors. G4L promotes sustainable livelihood practices like climate smart agriculture practices which not only reduces harm on the environment, but nourishes the environment to flourish. 
 
     Emphasis will be placed on minimizing environmental degradation, through sustainable land management practices to prevent excessive deforestation and wetlands drainage, promoting responsible disposals of wastes, and minimizing pollution.`,
-		icon: <Leaf className="w-12 h-12 text-emerald-600" />,
-		image: "/our-work/coffee.webp",
+		icon: "/our-work/environment-and-bio-icon.png",
+		image: "/our-work/environment-and-bio.webp",
 		highlights: [
 			"Ecosystem restoration programs",
 			"Sustainable waste management",
@@ -112,8 +113,8 @@ const WORK_AREAS: WorkArea[] = [
 		description: `Less than 10% of the population of South Sudan have access to electricity, way below the sub-Saharan average of 48.5%. Despite the low access, South Sudan has significant potential for renewable energy sources like hydropower and solar power. Majority of the population rely on traditional energy sources (wood and charcoal) that involve cutting trees which is destructive to the environment.
 
     G4L is committed to enhancing the access of population to renewal energy and reduce destruction of forests for firewood. G4L explores and promotes sustainable sources of energy and work to increase the access of the population to clean energy.`,
-		icon: <SolarPanel className="w-12 h-12 text-amber-600" />,
-		image: "/our-work/green-energy4.webp",
+		icon: "/our-work/green-energy-icon.png",
+		image: "/our-work/green-energy.webp",
 		highlights: [
 			"Solar microgrid installations",
 			"Clean cooking solutions",
@@ -138,8 +139,8 @@ const WORK_AREAS: WorkArea[] = [
 		description: `G4L aims to explore new knowledge on many facets of the key pillars of 1) agriculture and forestry, 2) climate change adaptation and resilience, 3) environment and biodiversity, and 4) green energy.
 
     G4L will be collaborating with mission-aligned agencies in research and development in these areas focused on reduction of undesirable outcomes and promotion of improved practices.`,
-		icon: <FlaskConical className="w-12 h-12 text-purple-600" />,
-		image: "/our-work/research.webp",
+		icon: "/our-work/research-and-development-icon.png",
+		image: "/our-work/research-and-development.webp",
 		highlights: [
 			"Agri-tech innovation",
 			"Renewable energy storage R&D",
@@ -186,32 +187,56 @@ export default function OurWork() {
 					initial={{ opacity: 0, y: 20 }}
 					animate={{ opacity: 1, y: 0 }}
 					exit={{ opacity: 0, y: -20 }}
-					transition={{ duration: 0.3 }}
-					className="grid lg:grid-cols-[1.2fr_1fr] gap-8 xl:gap-16 items-start"
+					transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
+					className="grid lg:grid-cols-[1.2fr_1fr] gap-8 xl:gap-20 items-start"
 				>
 					{/* Text Content */}
-					<div className="space-y-10">
+					<div className="space-y-12">
 						<motion.header
-							initial={{ opacity: 0 }}
-							animate={{ opacity: 1 }}
-							className="flex items-center gap-6 pb-8 border-b border-gray-300"
+							initial={{ opacity: 0, x: -20 }}
+							animate={{ opacity: 1, x: 0 }}
+							className="flex flex-col sm:flex-row items-start sm:items-center gap-6 pb-8 border-b border-gray-200/60"
 						>
-							<div className="p-4 bg-green-100/50 rounded-2xl backdrop-blur-sm border border-green-200">
-								{area.icon}
+							<motion.div
+								whileHover={{ scale: 1.05 }}
+								className="p-3 bg-white rounded-2xl backdrop-blur-lg border border-green-300 shadow-xs hover:shadow-sm transition-all duration-300"
+							>
+								<div className="p-3 bg-white rounded-xl">
+									<Image
+										src={area.icon}
+										alt={area.title}
+										width={72}
+										height={72}
+										className="w-16 h-16 sm:w-16 sm:h-16 object-contain object-center"
+										loading="lazy"
+										style={{ transform: "translateZ(0)" }}
+									/>
+								</div>
+							</motion.div>
+
+							<div className="space-y-2">
+								<h2 className="text-[clamp(2rem,4vw,2.75rem)] font-bold text-gray-900 leading-tight tracking-tight">
+									<span className="bg-gradient-to-r from-green-700 to-green-600 bg-clip-text text-transparent">
+										{area.title.split(" ")[0]}
+									</span>
+									<span className="text-gray-800 ml-2">
+										{area.title.split(" ").slice(1).join(" ")}
+									</span>
+								</h2>
+								{/* <p className="text-lg text-green-700/90 font-medium">
+            {area.subtitle || "Strategic Development Focus"}
+          </p> */}
 							</div>
-							<h2 className="text-[clamp(2.25rem,1.5vw,2.625rem)] font-bold text-gray-800">
-								{area.title}
-							</h2>
 						</motion.header>
 
-						<div className="prose-xl text-gray-600 space-y-8">
+						<div className="prose-xl text-gray-600 space-y-10">
 							{area.description.split("\n\n").map((para, i) => (
 								<motion.p
 									key={i}
-									initial={{ opacity: 0 }}
-									animate={{ opacity: 1 }}
-									transition={{ delay: i * 0.1 }}
-									className="text-[clamp(1rem,1.5vw,1.25rem)] text-gray-700 leading-relaxed"
+									initial={{ opacity: 0, y: 10 }}
+									animate={{ opacity: 1, y: 0 }}
+									transition={{ delay: i * 0.15 + 0.2 }}
+									className="text-[clamp(1rem,1.25vw,1.25rem)] text-gray-700/90 font-medium leading-relaxed tracking-wide"
 								>
 									{para}
 								</motion.p>
@@ -224,24 +249,31 @@ export default function OurWork() {
 							animate={{ y: 0 }}
 							className="space-y-8"
 						>
-							<div className="bg-green-50 p-8 rounded-3xl border border-green-200 shadow-sm">
-								<h3 className="text-2xl font-bold text-green-800 mb-6">
-									Strategic Highlights
-								</h3>
+							<div className="bg-green-50/50 p-8 rounded-3xl border border-green-200/60 shadow-sm backdrop-blur-sm">
+								<div className="flex items-center gap-4 mb-8">
+									<div className="w-8 h-8 bg-green-600 rounded-lg flex items-center justify-center">
+										<SparklesIcon className="w-5 h-5 text-white" />
+									</div>
+									<h3 className="text-2xl font-bold text-green-900">
+										Strategic Highlights
+									</h3>
+								</div>
 								<ul className="grid md:grid-cols-2 gap-4">
 									{area.highlights.map((highlight, index) => (
 										<motion.li
 											key={index}
 											initial={{ opacity: 0, x: -20 }}
 											animate={{ opacity: 1, x: 0 }}
-											transition={{ delay: index * 0.15 }}
-											className="p-5 bg-white rounded-xl shadow-xs hover:shadow-sm transition-all border border-green-50 group"
+											transition={{ delay: index * 0.15 + 0.3 }}
+											className="p-5 bg-white/90 rounded-xl shadow-xs hover:shadow-sm transition-all duration-300 border border-green-100/80 group hover:border-green-200"
 										>
 											<div className="flex gap-4 items-start">
-												<div className="flex-shrink-0 w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center">
-													<span className="w-2 h-2 bg-green-500 rounded-full transition-transform group-hover:scale-125" />
+												<div className="flex-shrink-0 w-8 h-8 bg-green-100/80 rounded-lg flex items-center justify-center transition-all group-hover:bg-green-200/50">
+													<span className="w-2 h-2 bg-green-600 rounded-full transition-transform group-hover:scale-150" />
 												</div>
-												<p className="text-[clamp(.875rem,1.5vw,.875rem)] leading-relaxed text-gray-700 font-medium">{highlight}</p>
+												<p className="text-[clamp(.875rem,1.25vw,1rem)] leading-relaxed text-gray-700/90 font-medium">
+													{highlight}
+												</p>
 											</div>
 										</motion.li>
 									))}
@@ -249,60 +281,37 @@ export default function OurWork() {
 							</div>
 						</motion.section>
 
-						{/* Projects Section */}
-						{/* <motion.section
-							initial={{ opacity: 0 }}
-							animate={{ opacity: 1 }}
-							className="space-y-8"
+						{/* Image Section */}
+						<motion.div
+							initial={{ opacity: 0, scale: 0.98 }}
+							animate={{ opacity: 1, scale: 1 }}
+							transition={{ delay: 0.2 }}
+							className="lg:hidden sticky top-24 h-[60vh] rounded-xl overflow-hidden bg-gray-50 border border-gray-200/60 shadow-sm"
 						>
-							<h3 className="text-2xl font-bold text-green-800">
-								Impactful Initiatives
-							</h3>
-							<div className="grid md:grid-cols-2 gap-6">
-								{area.keyProjects.map((project, index) => (
-									<motion.article
-										key={index}
-										initial={{ opacity: 0, y: 20 }}
-										animate={{ opacity: 1, y: 0 }}
-										transition={{ delay: index * 0.1 }}
-										className="relative bg-white p-6 rounded-2xl shadow-xs hover:shadow-sm transition-all border border-green-200 overflow-hidden"
-									>
-										<div className="absolute inset-0 bg-gradient-to-br from-white via-green-50/50 to-white" />
-										<div className="relative">
-											<div className="flex justify-between items-start mb-4">
-												<h4 className="text-[clamp(.875rem,1.5vw,.875rem)] font-semibold text-gray-900 pr-4">
-													{project.name}
-												</h4>
-												<span className="text-sm px-3 py-1 bg-green-100/80 text-green-800 rounded-full backdrop-blur-sm">
-													{project.location}
-												</span>
-											</div>
-											<p className="text-gray-600 text-base leading-relaxed">
-												{project.impact}
-											</p>
-											<div className="mt-6 flex items-center gap-2 text-sm text-green-700">
-												<span className="font-medium">Progress</span>
-												<div className="h-2 flex-1 bg-green-100 rounded-full overflow-hidden">
-													<div
-														className="h-full bg-gradient-to-r from-green-400 to-green-600 transition-all duration-700"
-														style={{
-															width: `${Math.min(100, (index + 1) * 33)}%`,
-														}}
-													/>
-												</div>
-											</div>
-										</div>
-									</motion.article>
-								))}
+							<Image
+								src={area.image}
+								alt={area.title}
+								fill
+								priority
+								className="object-cover object-center"
+								sizes="(max-width: 1024px) 100vw, 50vw"
+							/>
+							<div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/70 via-black/40 to-transparent">
+								<span className="text-xl font-semibold text-white/95 tracking-wide block mb-2">
+									{area.title} Initiatives
+								</span>
+								{/* <span className="text-green-300/90 font-medium">
+            {area.projectsCount}+ Successful Projects
+          </span> */}
 							</div>
-						</motion.section> */}
+						</motion.div>
 					</div>
 
-					{/* Image Section */}
+					{/* Desktop Image Section */}
 					<motion.div
 						initial={{ opacity: 0, scale: 0.98 }}
 						animate={{ opacity: 1, scale: 1 }}
-						className="sticky top-24 h-screen-60 lg:h-[85vh] rounded-sm overflow-hidden bg-gray-50"
+						className="hidden lg:block sticky top-24 h-[85vh] rounded-2xl overflow-hidden bg-gray-50 border border-gray-200/60 shadow-lg"
 					>
 						<Image
 							src={area.image}
@@ -312,10 +321,21 @@ export default function OurWork() {
 							className="object-cover object-center"
 							sizes="(max-width: 1024px) 100vw, 50vw"
 						/>
-						<div className="absolute bottom-0 left-0 right-0 p-8 bg-gradient-to-t from-black/60 via-black/30 to-transparent">
-							<span className="text-lg font-semibold text-white/90 tracking-wide">
-								{area.title} Initiatives
-							</span>
+						<div className="absolute bottom-0 left-0 right-0 p-8 bg-gradient-to-t from-black/80 via-black/50 to-transparent">
+							<div className="max-w-[600px] space-y-3">
+								<h2 className="text-2xl font-bold text-white/95 tracking-tight">
+									Transforming {area.title} Initiatives
+								</h2>
+								{/* <p className="text-green-200/90 leading-relaxed">
+            {area.imageCaption || "Sustainable development through innovative solutions"}
+          </p> */}
+								<div className="flex gap-4 mt-4">
+									<button className="px-5 py-2.5 bg-green-600/90 hover:bg-green-700 text-white rounded-lg font-medium transition-all flex items-center gap-2">
+										<ArrowRightIcon className="w-4 h-4" />
+										View Projects
+									</button>
+								</div>
+							</div>
 						</div>
 					</motion.div>
 				</motion.div>
@@ -452,49 +472,60 @@ export default function OurWork() {
 				)}
 			</section>
 
-			{/* Sticky Navigation */}
-			<nav className="bg-white border-b border-gray-300 py-4">
+			{/* Sticky Navigation - Modern Enhanced */}
+			<nav className="bg-white border-b border-gray-200 shadow-sm">
 				<div className="container mx-auto px-4 sm:px-6 lg:px-8">
-					<div className="flex overflow-x-auto pb-2 scrollbar-hide">
-						<div className="flex-col justify-center items-center text-center gap-2 md:gap-3 lg:gap-4 space-x-4 md:space-x-6 lg:space-x-8 space-y-2 md:space-y-3 lg:space-y-4">
-							{WORK_AREAS.map((area) => (
-								<Button
-									key={area.id}
-									onClick={(e) => handleNavClick(e, `#${area.id}`)}
-									variant="ghost"
-									className={`px-4 py-3 md:px-5 lg:px-6 text-sm sm:text-base md:text-[15px] lg:text-base rounded-lg md:rounded-xl font-medium transition-all relative
-              flex-shrink-0 min-w-[120px] md:min-w-[140px] lg:min-w-auto
-              ${
-								activeArea === area.id
-									? "text-primary bg-white/90 hover:bg-white/90 shadow-inner"
-									: "text-gray-700 hover:bg-green-50"
-							}`}
-								>
-									{activeArea === area.id && (
-										<motion.span
-											layoutId="nav-underline"
-											className="absolute inset-0 rounded-lg md:rounded-xl border-2 border-green-700"
-											transition={{
-												type: "spring",
-												bounce: 0.25,
-												duration: 0.6,
-											}}
-										/>
-									)}
-									<span className="whitespace-nowrap px-1.5">
-										{area.title.split(" ").map((word, i, arr) => (
-											<span
-												key={i}
-												className="inline-block transition-transform hover:scale-105"
-											>
-												{word}
-												{i !== arr.length - 1 && "\u00A0"}
-											</span>
-										))}
-									</span>
-								</Button>
-							))}
+					<div className="relative">
+						<div className="flex overflow-x-auto pb-3 scrollbar-thin scrollbar-track-transparent scrollbar-thumb-gray-300 hover:scrollbar-thumb-gray-400">
+							<div className="grid grid-flow-col auto-cols-max items-center gap-4 md:gap-5 lg:gap-6 py-1">
+								{WORK_AREAS.map((area) => (
+									<Button
+										key={area.id}
+										onClick={(e) => handleNavClick(e, `#${area.id}`)}
+										variant="ghost"
+										className={`
+                px-4 py-2.5 md:px-5 md:py-3 lg:px-6 lg:py-3.5 
+                text-sm sm:text-base md:text-[15px] lg:text-base 
+                rounded-xl md:rounded-2xl 
+                font-medium transition-all duration-300 
+                flex-shrink-0 
+                min-w-[120px] md:min-w-[140px] lg:min-w-[160px] 
+                group relative
+                ${
+									activeArea === area.id
+										? "text-primary bg-white shadow-sm ring-2 ring-green-600 ring-inset"
+										: "text-gray-600 hover:text-green-700 hover:bg-green-50/80 active:bg-green-100/60"
+								}
+              `}
+									>
+										{activeArea === area.id && (
+											<motion.span
+												layoutId="nav-underline"
+												className="absolute inset-0 rounded-xl md:rounded-2xl bg-green-100/40"
+												transition={{
+													type: "spring",
+													bounce: 0.25,
+													duration: 0.6,
+												}}
+											/>
+										)}
+										<span className="relative z-10 whitespace-nowrap px-1.5">
+											{area.title.split(" ").map((word, i, arr) => (
+												<span
+													key={i}
+													className="inline-block transition-transform duration-200 group-hover:scale-105 group-hover:text-green-800"
+												>
+													{word}
+													{i !== arr.length - 1 && "\u00A0"}
+												</span>
+											))}
+										</span>
+									</Button>
+								))}
+							</div>
 						</div>
+						{/* Scroll indicator gradient */}
+						<div className="absolute inset-y-0 right-0 w-8 bg-gradient-to-l from-white pointer-events-none"></div>
 					</div>
 				</div>
 			</nav>
