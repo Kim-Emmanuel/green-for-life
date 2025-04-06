@@ -2,9 +2,18 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { Trees, Users, Globe, Leaf } from "lucide-react";
+import {
+	Trees,
+	Users,
+	Globe,
+	Leaf,
+	HeartIcon,
+	ShieldCheckIcon,
+	SparklesIcon,
+	Mailbox,
+	CircleDollarSign,
+} from "lucide-react";
 import dynamic from "next/dynamic";
-import { Button } from "./ui/button";
 import { smoothScroll } from "@/lib/utils";
 
 const ScrollIndicator = dynamic(() => import("@/components/ScrollIndicator"), {
@@ -135,7 +144,7 @@ export default function Home() {
 										whileTap={{ scale: 0.95 }}
 										className="relative inline-block w-full sm:w-auto"
 									>
-										<div className="absolute inset-0 bg-gradient-to-r from-green-600 to-emerald-500 rounded-md blur-lg opacity-50 -z-10 transition-opacity duration-300 group-hover:opacity-60" />
+										<div className="absolute inset-0 bg-gradient-to-r from-green-600 to-primary rounded-md blur-lg opacity-50 -z-10 transition-opacity duration-300 group-hover:opacity-60" />
 										<button
 											onClick={(e) =>
 												handleNavClick(
@@ -143,7 +152,7 @@ export default function Home() {
 													index === 0 ? "#introduction" : "#mission"
 												)
 											}
-											className="group flex items-center justify-center gap-3 bg-gradient-to-r from-green-600 to-emerald-500 text-white w-full sm:w-auto px-8 py-4 sm:px-10 sm:py-5 lg:px-12 lg:py-6 rounded-md transition-all duration-300 shadow-lg hover:shadow-xl active:shadow-md"
+											className="group flex items-center justify-center gap-3 bg-gradient-to-r from-green-600 to-primary text-white w-full sm:w-auto px-8 py-4 sm:px-10 sm:py-5 lg:px-12 lg:py-6 rounded-md transition-all duration-300 shadow-lg hover:shadow-xl active:shadow-md"
 										>
 											<span className="text-base font-semibold sm:text-lg lg:text-xl whitespace-nowrap">
 												{text}
@@ -168,7 +177,7 @@ export default function Home() {
 						</div>
 					</div>
 					{/* ScrollIndicator Component */}
-						<ScrollIndicator />
+					<ScrollIndicator />
 				</section>
 
 				{/* Introduction to Green For Life Section */}
@@ -274,29 +283,97 @@ export default function Home() {
 								</ul> */}
 
 								<motion.div
-									whileHover={{ scale: 1.02 }}
-									whileTap={{ scale: 0.98 }}
-									className="mt-12 relative inline-block"
+									whileHover="hover"
+									whileTap="tap"
+									className="mt-12 relative inline-block group"
+									initial={{ scale: 1 }}
+									variants={{
+										hover: { scale: 1.02 },
+										tap: { scale: 0.97 },
+									}}
+									transition={{ type: "spring", stiffness: 400, damping: 20 }}
 								>
-									<div className="absolute inset-0 bg-gradient-to-r from-green-600 to-emerald-500 rounded-xl blur-lg opacity-40 -z-10" />
-									<button className="flex items-center gap-4 bg-gradient-to-r from-green-600 to-emerald-500 text-white px-10 py-5 rounded-xl transition-all duration-300 shadow-xl hover:shadow-lg">
-										<span className="text-lg font-semibold">
+									{/* Animated gradient backdrop */}
+									<motion.div
+										className="absolute inset-0 rounded-xl blur-xl opacity-40 -z-10"
+										initial={{
+											background:
+												"linear-gradient(45deg, #16a34a 0%, #10b981 100%)",
+										}}
+										animate={{
+											background: [
+												"linear-gradient(45deg, #16a34a 0%, #10b981 100%)",
+												"linear-gradient(45deg, #10b981 0%, #059669 100%)",
+												"linear-gradient(45deg, #059669 0%, #16a34a 100%)",
+											],
+										}}
+										transition={{
+											duration: 6,
+											repeat: Infinity,
+											repeatType: "reverse",
+										}}
+									/>
+
+									{/* Main button container */}
+									<button className="relative overflow-hidden flex items-center gap-4 bg-gradient-to-r from-green-600 to-primary text-white px-12 py-6 rounded-xl shadow-2xl hover:shadow-xl transition-all duration-300">
+										{/* Hover shine effect */}
+										<div className="absolute inset-0 opacity-0 group-hover:opacity-30 transition-opacity duration-500">
+											<div className="absolute top-0 left-[-100%] w-1/2 h-full bg-gradient-to-r from-white/30 via-white/0 to-white/30 animate-shine" />
+										</div>
+
+										{/* Floating particles */}
+										<div className="absolute inset-0 opacity-20 group-hover:opacity-40 transition-opacity">
+											{[...Array(6)].map((_, i) => (
+												<motion.div
+													key={i}
+													className="absolute w-1 h-1 bg-white rounded-full"
+													initial={{ opacity: 0 }}
+													animate={{
+														opacity: [0, 0.4, 0],
+														x: Math.random() * 100 - 50,
+														y: Math.random() * 100 - 50,
+													}}
+													transition={{
+														duration: 2 + Math.random() * 2,
+														repeat: Infinity,
+														delay: Math.random() * 2,
+													}}
+												/>
+											))}
+										</div>
+
+										{/* Content */}
+										<span className="relative z-10 text-lg font-semibold tracking-wide text-shadow">
 											Join Our Mission
 										</span>
-										<svg
-											className="w-6 h-6 group-hover:translate-x-1 transition-transform"
+
+										{/* Animated arrow icon */}
+										<motion.svg
+											className="w-7 h-7 relative z-10"
 											fill="none"
-											stroke="currentColor"
 											viewBox="0 0 24 24"
+											stroke="currentColor"
+											strokeWidth={2}
+											variants={{
+												hover: {
+													x: [0, 5, 0],
+													transition: { duration: 1.2, repeat: Infinity },
+												},
+											}}
 										>
 											<path
 												strokeLinecap="round"
 												strokeLinejoin="round"
-												strokeWidth={2}
 												d="M17 8l4 4m0 0l-4 4m4-4H3"
 											/>
-										</svg>
+										</motion.svg>
+
+										{/* Subtle border animation */}
+										<div className="absolute inset-0 rounded-xl border-2 border-white/10 group-hover:border-white/20 transition-all" />
 									</button>
+
+									{/* Focus state */}
+									<div className="absolute inset-0 rounded-xl ring-2 ring-white/30 opacity-0 group-focus-within:opacity-100 transition-opacity" />
 								</motion.div>
 							</motion.div>
 						</div>
@@ -390,27 +467,61 @@ export default function Home() {
 						</div>
 
 						<motion.div
-							initial={{ opacity: 0 }}
-							whileInView={{ opacity: 1 }}
-							transition={{ delay: 0.6 }}
+							initial={{ opacity: 0, y: 20 }}
+							whileInView={{ opacity: 1, y: 0 }}
+							whileHover={{ scale: 1.02 }}
+							whileTap={{ scale: 0.98 }}
+							transition={{
+								type: "spring",
+								stiffness: 300,
+								damping: 20,
+								delay: 0.4,
+							}}
 							className="mt-20 text-center"
 						>
-							<Button className="inline-flex items-center gap-3 text-white px-8 py-4 rounded-xl transition-all duration-300 shadow-lg hover:shadow-md">
-								<span>View Full Impact Report</span>
-								<svg
-									className="w-5 h-5"
+							<button className="group relative inline-flex items-center gap-4 px-10 py-5 md:px-12 md:py-6 rounded-2xl transition-all duration-300 overflow-hidden border border-transparent">
+								{/* Gradient background */}
+								<div className="absolute inset-0 bg-gradient-to-r from-green-600 to-primary opacity-95 transition-opacity duration-300 group-hover:opacity-100" />
+
+								{/* Animated shine effect */}
+								<div className="absolute inset-0 opacity-0 group-hover:opacity-30 transition-opacity duration-500">
+									<div className="absolute top-0 left-[-100%] w-1/2 h-full bg-gradient-to-r from-white/30 via-white/0 to-white/30 animate-shine" />
+								</div>
+
+								{/* Content */}
+								<span className="relative z-10 text-lg font-semibold text-white/95 tracking-wide">
+									View Full Impact Report
+								</span>
+
+								{/* Animated arrow icon */}
+								<motion.svg
+									className="w-6 h-6 relative text-white z-10"
 									fill="none"
-									stroke="currentColor"
 									viewBox="0 0 24 24"
+									stroke="currentColor"
+									initial={{ x: 0 }}
+									animate={{ x: [0, 4, 0] }}
+									transition={{
+										duration: 1.5,
+										repeat: Infinity,
+										ease: "easeInOut",
+									}}
 								>
 									<path
 										strokeLinecap="round"
 										strokeLinejoin="round"
 										strokeWidth={2}
-										d="M13 7l5 5m0 0l-5 5m5-5H6"
+										d="M14 5l7 7m0 0l-7 7m7-7H3"
 									/>
-								</svg>
-							</Button>
+								</motion.svg>
+
+								{/* Hover effect layer */}
+								<div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+								{/* Focus state */}
+								<div className="absolute inset-0 ring-2 ring-white/30 opacity-0 group-focus:opacity-100 transition-opacity duration-200" />
+								<div className="absolute inset-0 bg-gradient-to-r from-green-700 to-primary opacity-0 group-hover:opacity-100 rounded-2xl transition-opacity" />
+							</button>
 						</motion.div>
 					</div>
 				</section>
@@ -448,29 +559,87 @@ export default function Home() {
 				</section>
 
 				{/* Call to Action Section */}
-				<section id="donation" className="py-16 bg-white">
-					<div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-						<h2 className="text-3xl md:text-4xl font-bold text-green-800 mb-6">
-							Join Us in Making a Difference
-						</h2>
-						<p className="text-lg text-gray-700 mb-8">
-							Your support helps us create a sustainable future for communities
-							and the planet. Take action today.
-						</p>
-						<div className="flex justify-center space-x-4">
-							<Button
-								className="bg-green-800 px-8 py-3 rounded-lg text-lg font-semibold text-white hover:bg-green-900 transition-colors"
-								onClick={(e) => handleNavClick(e, "#donation")}
-							>
-								Donate Now
-							</Button>
-							<Button
-								className="bg-white text-green-800 px-8 py-3 rounded-lg text-lg font-semibold border border-green-600 hover:bg-green-50 transition-colors"
-								onClick={(e) => handleNavClick(e, "#subscribe")}
-							>
-								Subscribe
-							</Button>
-						</div>
+				<section id="cta" className="relative py-24 bg-white overflow-hidden">
+					{/* Subtle animated elements */}
+					<div className="absolute inset-0 opacity-15">
+						<div className="absolute top-0 right-0 w-96 h-96 bg-green-100/40 rounded-full blur-3xl" />
+						<div className="absolute bottom-0 left-0 w-80 h-80 bg-emerald-100/30 rounded-full blur-3xl" />
+					</div>
+
+					<div className="container mx-auto px-4 sm:px-6 lg:px-8">
+						<motion.div
+							initial={{ opacity: 0, y: 40 }}
+							whileInView={{ opacity: 1, y: 0 }}
+							viewport={{ once: true, margin: "-100px" }}
+							transition={{ duration: 0.8, ease: "easeOut" }}
+							className="max-w-4xl mx-auto text-center"
+						>
+							{/* Heading hierarchy */}
+							<div className="mb-10">
+								<h2 className="text-[clamp(2.5rem,6vw,3.75rem)] font-bold text-gray-900 leading-tight tracking-tight mb-6">
+									<span className="bg-gradient-to-r from-primary to-green-600 bg-clip-text text-transparent">
+										Create Lasting Impact
+									</span>
+									<br />
+									<span className="text-gray-800">
+										Your Support Changes Lives
+									</span>
+								</h2>
+
+								<p className="text-[clamp(1.125rem,2vw,1.25rem)] text-gray-600 leading-relaxed max-w-2xl mx-auto mb-8">
+									Join 100+ donors helping us prevent environmental crises and
+									build sustainable communities.{" "}
+									<strong>Every contribution matters.</strong>
+								</p>
+							</div>
+
+							{/* Enhanced CTA buttons */}
+							<div className="flex flex-col sm:flex-row justify-center gap-4 md:gap-6">
+								<button
+									className="group relative bg-gradient-to-r from-green-600 to-primary px-10 py-5 rounded-2xl text-lg font-semibold text-white 
+            shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-0.5
+            focus:ring-4 focus:ring-green-100 border border-emerald-800/20"
+									onClick={(e) => handleNavClick(e, "#donation")}
+								>
+									<span className="relative z-10 flex items-center gap-3">
+										<HeartIcon className="w-6 h-6 text-white/90 group-hover:scale-110 transition-transform" />
+										Support Our Mission
+									</span>
+									<div className="absolute inset-0 bg-gradient-to-r from-green-700 to-primary opacity-0 group-hover:opacity-100 rounded-2xl transition-opacity" />
+								</button>
+
+								<button
+									className="group relative bg-white px-10 py-5 rounded-2xl text-lg font-semibold text-emerald-900 
+            shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-0.5
+            focus:ring-4 focus:ring-green-100 border-2 border-emerald-100 hover:border-emerald-200"
+									onClick={(e) => handleNavClick(e, "#subscribe")}
+								>
+									<span className="relative z-10 flex items-center gap-3">
+										<Mailbox className="w-6 h-6 text-emerald-700 group-hover:text-emerald-900 transition-colors" />
+										Stay Informed
+									</span>
+									<div className="absolute inset-0 bg-emerald-50/40 opacity-0 group-hover:opacity-100 rounded-2xl transition-opacity" />
+								</button>
+							</div>
+
+							{/* Trust indicators */}
+							<div className="mt-10 flex flex-wrap justify-center items-center gap-4 text-gray-500 text-sm">
+								<div className="flex items-center gap-2">
+									<ShieldCheckIcon className="w-5 h-5 text-green-700" />
+									<span>Secure & Transparent</span>
+								</div>
+								<div className="h-4 w-px bg-gray-200" />
+								<div className="flex items-center gap-2">
+									<SparklesIcon className="w-5 h-5 text-green-700" />
+									<span>Top-Rated Nonprofit</span>
+								</div>
+								<div className="h-4 w-px bg-gray-200" />
+								<div className="flex items-center gap-2">
+									<CircleDollarSign className="w-5 h-5 text-green-700" />
+									<span>Tax-Deductible</span>
+								</div>
+							</div>
+						</motion.div>
 					</div>
 				</section>
 			</main>
