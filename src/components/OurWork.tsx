@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion} from "framer-motion";
 import {
 	Select,
 	SelectContent,
@@ -400,27 +400,24 @@ const WorkSection = ({ area }: { area: WorkArea }) => {
 
 export default function OurWork() {
 	const [activeSection, setActiveSection] = useState(WORK_AREAS[0].id);
-	const { scrollYProgress } = useScroll();
-	const yRange = useTransform(scrollYProgress, [0, 0.1], [0, 1]);
-
+	
 	useEffect(() => {
 		const handleScroll = () => {
-			const sections = WORK_AREAS.map((area) => {
+			const sections = WORK_AREAS.map(area => {
 				const el = document.getElementById(area.id);
-				if (!el) return { id: area.id, top: 0 };
-				return { id: area.id, top: el.getBoundingClientRect().top };
+				return { id: area.id, top: el?.getBoundingClientRect().top || 0 };
 			});
-
-			const visibleSection = sections.find(
-				(s) => s.top >= 0 && s.top <= window.innerHeight * 0.5
-			);
+	
+			// Find section entering viewport with 100px offset
+			const visibleSection = sections.find(s => s.top <= window.innerHeight * 0.3 && s.top >= -100);
+			
 			if (visibleSection) {
 				setActiveSection(visibleSection.id);
 			}
 		};
-
-		window.addEventListener("scroll", handleScroll, { passive: true });
-		return () => window.removeEventListener("scroll", handleScroll);
+	
+		window.addEventListener('scroll', handleScroll, { passive: true });
+		return () => window.removeEventListener('scroll', handleScroll);
 	}, []);
 
 	return (
