@@ -312,7 +312,7 @@ export default function Contact() {
 							</h2>
 
 							<p className="text-[clamp(1rem,1.25vw,1.25rem)] text-gray-700/90 font-medium leading-relaxed">
-								With every partnership and initiative, we're building a network
+								With every partnership and initiative, we&apos;re building a network
 								of environmental stewardship that spans the globe. Our
 								collective efforts create ripples of positive change in
 								ecosystems and communities.
@@ -541,7 +541,7 @@ export default function Contact() {
 										className="bg-emerald-50 p-4 rounded-lg flex items-center gap-3 text-emerald-700"
 									>
 										<CheckCircle className="h-5 w-5" />
-										Message sent! We'll respond within 24 hours.
+										Message sent! We&apos;ll respond within 24 hours.
 									</motion.div>
 								)}
 							</form>
