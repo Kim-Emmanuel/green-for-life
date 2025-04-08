@@ -5,7 +5,12 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-export function smoothScroll(target: string | HTMLElement, offset: number = 100) {
+export function smoothScroll(
+  target: string | HTMLElement,
+  duration: number = 1000,
+  callback?: () => void,
+  offset: number = -100
+) {
   // Set up smooth scrolling behavior
   document.documentElement.style.scrollBehavior = 'smooth';
   document.documentElement.style.scrollPaddingTop = `${offset}px`;
@@ -15,4 +20,8 @@ export function smoothScroll(target: string | HTMLElement, offset: number = 100)
   if (!targetElement) return;
 
   targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+  if (callback) {
+    setTimeout(callback, duration);
+  }
 }

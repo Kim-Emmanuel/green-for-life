@@ -4,7 +4,7 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 130px;
+  scroll-padding-top: 100px;
   transition: scroll-padding-top 0.5s ease;
 }
 
@@ -199,6 +199,11 @@ html {
 
 .animate-shine {
   animation: shine 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+/* Add scroll-margin-top to all work sections */
+section[id] {
+  scroll-margin-top: 100px; /* Adjust based on header height */
 }
 
 @layer base {

@@ -13,6 +13,7 @@ import {
 	Globe,
 	CheckCircle,
 	AlertCircle,
+	LifeBuoy,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -187,34 +188,36 @@ export default function Contact() {
 							within 24 hours.
 						</motion.p>
 					</motion.div>
-
-					{/* Animated Interactive Buttons */}
-					<motion.div
-						className="flex justify-center gap-4"
-						initial={{ opacity: 0 }}
-						animate={{ opacity: 1 }}
-						transition={{ delay: 0.7 }}
-					>
-						<Button
-							variant={activeTab === "form" ? "default" : "outline"}
-							onClick={() => handleTabChange("form")}
-						>
-							<MessageCircle className="mr-2 h-4 w-4" />
-							Send Message
-						</Button>
-						<Button
-							variant={activeTab === "direct" ? "default" : "outline"}
-							onClick={() => handleTabChange("direct")}
-						>
-							<Phone className="mr-2 h-4 w-4" />
-							Direct Contact
-						</Button>
-					</motion.div>
 				</div>
 			</section>
 
+
+
 			{/* Contact Content */}
 			<section className="container mx-auto px-4 sm:px-6 lg:px-8 pb-16 mt-8">
+				{/* Animated Interactive Buttons */}
+				<motion.div
+					className="flex justify-center gap-4 py-12"
+					initial={{ opacity: 0 }}
+					animate={{ opacity: 1 }}
+					transition={{ delay: 0.7 }}
+				>
+					<Button
+						variant={activeTab === "form" ? "default" : "outline"}
+						onClick={() => handleTabChange("form")}
+					>
+						<MessageCircle className="mr-2 h-4 w-4" />
+						Send Message
+					</Button>
+					<Button
+						variant={activeTab === "direct" ? "default" : "outline"}
+						onClick={() => handleTabChange("direct")}
+					>
+						<Phone className="mr-2 h-4 w-4" />
+						Direct Contact
+					</Button>
+				</motion.div>
+
 				{activeTab === "form" ? (
 					<motion.div
 						id="contact-form"
@@ -519,6 +522,16 @@ export default function Contact() {
 					</motion.div>
 				)}
 			</section>
+
+			{/* NEW: Sticky Help Button */}
+			<div className="fixed bottom-8 right-8 z-50">
+				<motion.div
+					whileHover={{ scale: 1.05 }}
+					className="bg-emerald-600 text-white p-4 rounded-full shadow-lg cursor-pointer"
+				>
+					<LifeBuoy className="h-6 w-6" />
+				</motion.div>
+			</div>
 		</div>
 	);
 }
