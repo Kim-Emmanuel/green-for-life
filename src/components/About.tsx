@@ -2,7 +2,15 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { TreePine, Users, Globe } from "lucide-react";
+import {
+	TreePine,
+	Users,
+	Network,
+	Handshake,
+	Lightbulb,
+	Flag,
+	Eye,
+} from "lucide-react";
 
 // Team Member Type
 type TeamMember = {
@@ -51,19 +59,19 @@ const CORE_VALUES: CoreValue[] = [
 		title: "Innovation and Creativity",
 		description:
 			"We leverage innovations and creativity to thrive in bringing sustainable solutions to environmental protection and climate change.",
-		icon: <Globe className="w-12 h-12 text-green-600" />,
+		icon: <Lightbulb className="w-12 h-12 text-green-600" />,
 	},
 	{
 		title: "Community Empowerment",
 		description:
 			"We believe in supporting and enabling local communities to drive their own sustainable development.",
-		icon: <Globe className="w-12 h-12 text-green-600" />,
+		icon: <Handshake className="w-12 h-12 text-green-600" />,
 	},
 	{
 		title: "Holistic Approach",
 		description:
 			"We integrate environmental, social, and economic considerations in all our initiatives.",
-		icon: <Globe className="w-12 h-12 text-green-600" />,
+		icon: <Network className="w-12 h-12 text-green-600" />,
 	},
 ];
 
@@ -327,19 +335,15 @@ export default function About() {
 										initial={{ opacity: 0, y: 20 }}
 										whileInView={{ opacity: 1, y: 0 }}
 										transition={{ duration: 0.6, delay: 0.3 }}
-										className="text-[clamp(1rem,1.5vw,1.25rem)] text-gray-600 leading-relaxed tracking-wide"
+										className="text-[clamp(1rem,1.5vw,1.25rem)] text-gray-700/90 font-medium leading-relaxed tracking-wide"
 									>
 										Conceived in December 2023, Green4Life emerged from a vision
-										to promote environmental stewardship through sustainable
-										community driven initiatives. G4L attained legal
+										to promote environmental stewardship through sustainable,
+										community-driven initiatives. G4L attained legal
 										registration with the Ministry of Justice of the Republic of
-										South Sudan in 2025 and started operation in{" "}
-										<span className="font-semibold text-green-800">
-											Yambio (Western Equatoria State)
-										</span>{" "}
-										with the establishment of a coffee plantation intended as a
-										springboard for other projects in different parts of South
-										Sudan.
+										South Sudan in 2025, and with the establishment of a coffee
+										plantation intended as a springboard for other projects in
+										different parts of South Sudan.
 									</motion.p>
 								</div>
 							</motion.div>
@@ -354,7 +358,7 @@ export default function About() {
 							>
 								<div className="relative overflow-hidden rounded-2xl shadow-2xl transform transition-all duration-500 hover:shadow-3xl">
 									<Image
-										src="/images/agric.webp"
+										src="/images/leaves.webp"
 										alt="Green for Life founding team working on community project"
 										width={800}
 										height={600}
@@ -397,7 +401,7 @@ export default function About() {
 							Guiding Our <span className="text-green-600">Eco-Friendly</span>{" "}
 							Journey
 						</h2>
-						<p className="text-lg text-gray-600 md:text-xl">
+						<p className="text-lg text-gray-700/90 leading-relaxed md:text-xl">
 							Our core principles shaping a sustainable future
 						</p>
 					</motion.div>
@@ -415,14 +419,7 @@ export default function About() {
 							<div className="p-8 md:p-10">
 								{/* Icon container with gradient background */}
 								<div className="mb-6 inline-flex items-center justify-center p-5 bg-gradient-to-br from-green-100 to-green-50 rounded-2xl shadow-sm">
-									<Image
-										src="/icons/compass.svg"
-										alt="Mission compass icon"
-										width={48}
-										height={48}
-										className="w-12 h-12 text-green-700"
-										aria-hidden="true"
-									/>
+									<Flag className="w-12 h-12 text-green-700" />
 								</div>
 
 								<h3 className="text-2xl md:text-3xl font-semibold text-green-900 mb-4">
@@ -435,7 +432,7 @@ export default function About() {
 								</p>
 
 								{/* Decorative accent line */}
-								<div className="absolute bottom-0 left-0 right-0 h-2 bg-gradient-to-r from-green-400 to-emerald-400 opacity-0 group-hover:opacity-100 transition-opacity" />
+								<div className="absolute bottom-0 left-0 right-0 h-3 bg-gradient-to-r from-green-400 to-emerald-400 rounded-b-2xl opacity-0 group-hover:opacity-100 transition-opacity" />
 							</div>
 						</motion.div>
 
@@ -449,14 +446,7 @@ export default function About() {
 						>
 							<div className="p-8 md:p-10">
 								<div className="mb-6 inline-flex items-center justify-center p-5 bg-gradient-to-br from-amber-100 to-amber-50 rounded-2xl shadow-sm">
-									<Image
-										src="/icons/telescope.svg"
-										alt="Vision telescope icon"
-										width={48}
-										height={48}
-										className="w-12 h-12 text-amber-600"
-										aria-hidden="true"
-									/>
+									<Eye className="w-12 h-12 text-amber-600" />
 								</div>
 
 								<h3 className="text-2xl md:text-3xl font-semibold text-amber-900 mb-4">
@@ -468,7 +458,7 @@ export default function About() {
 									ecosystem.
 								</p>
 
-								<div className="absolute bottom-0 left-0 right-0 h-2 bg-gradient-to-r from-amber-400 to-orange-400 opacity-0 group-hover:opacity-100 transition-opacity" />
+								<div className="absolute bottom-0 left-0 right-0 h-3 bg-gradient-to-r from-amber-400 to-orange-400 rounded-b-2xl opacity-0 group-hover:opacity-100 transition-opacity" />
 							</div>
 						</motion.div>
 					</div>
@@ -487,7 +477,7 @@ export default function About() {
 					>
 						Our Core Values
 					</motion.h2>
-					<div className="grid md:grid-cols-3 gap-8">
+					<div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
 						{CORE_VALUES.map((value, index) => (
 							<motion.div
 								key={value.title}
@@ -538,7 +528,7 @@ export default function About() {
 					people behind Green for Life.
 				</motion.p>
 
-				<div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+				<div className="flex flex-wrap justify-center gap-8">
 					{TEAM_MEMBERS.map((member, index) => (
 						<motion.div
 							key={member.name}
@@ -546,7 +536,7 @@ export default function About() {
 							whileInView={{ opacity: 1, y: 0 }}
 							viewport={{ once: true }}
 							transition={{ duration: 0.8, delay: index * 0.2 }}
-							className="group bg-white shadow-sm border rounded-xl overflow-hidden"
+							className="group bg-white shadow-sm border rounded-xl overflow-hidden w-full md:max-w-[400px]"
 							role="article"
 							aria-label={`Team member ${member.name}`}
 						>

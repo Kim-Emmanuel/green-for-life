@@ -27,6 +27,7 @@
     "framer-motion": "^12.4.7",
     "isomorphic-dompurify": "^2.22.0",
     "jsonwebtoken": "^9.0.2",
+    "lodash.throttle": "^4.1.1",
     "lucide-react": "^0.475.0",
     "next": "15.1.7",
     "nodemailer": "^6.10.0",
@@ -44,6 +45,7 @@
     "tailwind-merge": "^3.0.2",
     "tailwind-scrollbar-hide": "^2.0.0",
     "tailwindcss-animate": "^1.0.7",
+    "throttle": "^1.0.3",
     "uuid": "^11.1.0",
     "zod": "^3.24.2"
   },
@@ -51,6 +53,7 @@
     "@eslint/eslintrc": "^3",
     "@prisma/client": "^6.5.0",
     "@types/jsonwebtoken": "^9.0.9",
+    "@types/lodash.throttle": "^4.1.9",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",

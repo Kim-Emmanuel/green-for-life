@@ -4,6 +4,7 @@ import { Toaster } from "sonner";
 import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import ScrollToTop from "@/components/ScrollToTop";
 
 // Load the Montserrat font with specific subsets and weights
 const montserrat = Montserrat({
@@ -102,6 +103,7 @@ export default function RootLayout({
         </main>
         {/* Footer */}
         <Footer />
+        <ScrollToTop />
       </body>
     </html>
   );

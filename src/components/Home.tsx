@@ -407,29 +407,29 @@ export default function Home() {
 									Lasting Change
 								</span>
 							</h2>
-							<p className="mt-6 text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
+							<p className="mt-6 text-[clamp(1.125rem,1.5vw,1.375rem)] text-gray-700/90 font-medium leading-relaxed max-w-3xl mx-auto">
 								Measuring our progress through tangible environmental and
 								community impact
 							</p>
 						</motion.div>
 
-						<div className="grid md:grid-cols-3 gap-8 lg:gap-12">
+						<div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-8">
 							{[
 								{
 									icon: <Trees className="w-16 h-16 mx-auto" />,
-									title: "500,000+ Trees Planted",
+									title: "#+ Trees Planted",
 									text: "Restoring ecosystems worldwide through strategic reforestation",
 									color: "from-green-500 to-emerald-400",
 								},
 								{
 									icon: <Users className="w-16 h-16 mx-auto" />,
-									title: "1,000+ Communities Reached",
+									title: "#+ Communities Reached",
 									text: "Empowering sustainable development through education",
 									color: "from-amber-500 to-green-500",
 								},
 								{
 									icon: <Globe className="w-16 h-16 mx-auto" />,
-									title: "10+ Countries Impacted",
+									title: "#+ Countries Impacted",
 									text: "Global initiatives creating cross-border environmental change",
 									color: "from-teal-400 to-emerald-500",
 								},
@@ -440,7 +440,7 @@ export default function Home() {
 									whileInView={{ opacity: 1, scale: 1 }}
 									viewport={{ once: true, margin: "0px 0px -100px 0px" }}
 									transition={{ duration: 0.6, delay: index * 0.15 }}
-									className="group relative"
+									className="group relative text-center"
 								>
 									<div className="absolute -inset-1 rounded-3xl bg-gradient-to-br opacity-20 blur transition-all duration-300 group-hover:opacity-30 group-hover:blur-lg" />
 									<div className="relative h-full bg-white/90 backdrop-blur-sm p-8 rounded-3xl shadow-sm hover:shadow-md transition-all duration-300">
@@ -587,7 +587,7 @@ export default function Home() {
 								</h2>
 
 								<p className="text-[clamp(1.125rem,2vw,1.25rem)] text-gray-600 leading-relaxed max-w-2xl mx-auto mb-8">
-									Join 100+ donors helping us prevent environmental crises and
+									Join us in helping prevent environmental crises and
 									build sustainable communities.{" "}
 									<strong>Every contribution matters.</strong>
 								</p>

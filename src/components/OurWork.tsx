@@ -155,7 +155,7 @@ const WORK_AREAS: WorkArea[] = [
 	
 	    G4L will be collaborating with mission-aligned agencies in research and development in these areas focused on reduction of undesirable outcomes and promotion of improved practices.`,
 		icon: "/our-work/research-and-development-icon.png",
-		image: "/our-work/research-and-development.webp",
+		image: "/our-work/research-and-development.jpg",
 		highlights: [
 			"Agri-tech innovation",
 			"Renewable energy storage R&D",
@@ -666,7 +666,7 @@ export default function OurWork() {
 						<div className="mt-14 flex flex-wrap items-center justify-center gap-5 text-gray-500">
 							<div className="flex items-center gap-2.5 px-4 py-2 bg-gray-50 rounded-lg">
 								<Globe className="w-5 h-5 text-green-700" />
-								<span className="text-sm">Active in 68 countries</span>
+								<span className="text-sm">Active in # regions</span>
 							</div>
 							<div className="flex items-center gap-2.5 px-4 py-2 bg-gray-50 rounded-lg">
 								<ShieldCheck className="w-5 h-5 text-green-700" />

@@ -307,7 +307,7 @@ export default function Contact() {
 							<h2 className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight">
 								Driving Sustainable Change
 								<span className="block mt-3 bg-gradient-to-r from-green-600 to-green-800 bg-clip-text text-transparent">
-									Across Continents
+									Across Regions
 								</span>
 							</h2>
 
@@ -322,22 +322,22 @@ export default function Contact() {
 						{/* Animated Statistics Grid */}
 						<div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
 							{[
-								{ icon: Globe, value: 68, label: "Areas Active", suffix: "+" },
+								{ icon: Globe, value: '#', label: "Areas Active", suffix: "+" },
 								{
 									icon: Leaf,
-									value: 15,
+									value: '#',
 									label: "Projects Completed",
 									suffix: "+",
 								},
 								{
 									icon: Users,
-									value: 150000,
+									value: '#',
 									label: "Volunteers Engaged",
 									suffix: "+",
 								},
 								{
 									icon: Clock,
-									value: 2,
+									value: '#',
 									label: "Avg. Response Time",
 									suffix: "hrs",
 								},
