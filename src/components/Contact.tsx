@@ -13,7 +13,6 @@ import {
 	Globe,
 	CheckCircle,
 	AlertCircle,
-	LifeBuoy,
 	Clock,
 	Users,
 	HelpCircle,
@@ -731,7 +730,7 @@ export default function Contact() {
 			</section>
 
 			{/* Help Floating Button */}
-			<motion.div
+			{/* <motion.div
 				className="fixed bottom-8 right-8 z-50"
 				whileHover={{ scale: 1.1 }}
 				whileTap={{ scale: 0.9 }}
@@ -739,7 +738,7 @@ export default function Contact() {
 				<Button className="rounded-full h-14 w-14 shadow-lg ">
 					<LifeBuoy className="h-6 w-6" />
 				</Button>
-			</motion.div>
+			</motion.div> */}
 		</div>
 	);
 }
