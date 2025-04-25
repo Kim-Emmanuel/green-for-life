@@ -49,7 +49,7 @@ const NAV_ITEMS: NavItem[] = [
 		label: "About Us",
 		href: "/about-us",
 		dropdown: [
-			{ label: "Who We Are", href: "/about-us#about" },
+			{ label: "Who We Are", href: "/about-us" },
 			{ label: "History", href: "/about-us#history" },
 			{ label: "Team", href: "/about-us#team" },
 			{ label: "Core Values", href: "/about-us#values" },
@@ -71,10 +71,10 @@ const NAV_ITEMS: NavItem[] = [
 		label: "Get Involved",
 		href: "/get-involved",
 		dropdown: [
-			{ label: "Partner with Us", href: "/get-involved#partnership" },
-			{ label: "Donate", href: "/get-involved#donate" },
-			{ label: "Volunteer", href: "/get-involved#volunteer" },
-			{ label: "Subscribe", href: "/get-involved#subscribe" },
+			{ label: "Partner with Us", href: "/get-involved#program-partnership" },
+			{ label: "Donate", href: "/get-involved#program-donation" },
+			{ label: "Volunteer", href: "/get-involved#program-volunteer" },
+			{ label: "Subscribe", href: "/get-involved#program-subscribe" },
 		],
 	},
 	{
