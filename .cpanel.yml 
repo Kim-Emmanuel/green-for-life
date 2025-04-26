@@ -1,8 +1,9 @@
----
+    ---
 deployment:
   tasks:
     - export NODE_ENV=production
-    - source /opt/cpanel/ea-nodejs22/bin/enable
+    - /bin/cp -rf $HOME/cpanel-nodejs-dependencies/node_modules ./  # Only if using cPanel Node.js Manager
     - npm install
-    - npm run build # (only if you have a build step, else remove this line)
-    - pm2 restart ecosystem.config.js || node app.js 
+    - npm run build
+    - /bin/rm -rf node_modules  # Optional: Remove dev dependencies after build
+    - /bin/cp -rf .next public package.json package-lock.json .env.production $HOME/public_html/index.html
