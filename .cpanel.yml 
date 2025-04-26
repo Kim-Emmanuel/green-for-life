@@ -1,9 +1,6 @@
-    ---
+---
 deployment:
   tasks:
-    - export NODE_ENV=production
-    - /bin/cp -rf $HOME/cpanel-nodejs-dependencies/node_modules ./  # Only if using cPanel Node.js Manager
-    - npm install
-    - npm run build
-    - /bin/rm -rf node_modules  # Optional: Remove dev dependencies after build
-    - /bin/cp -rf .next public package.json package-lock.json .env.production $HOME/public_html/index.html
+    - export DEPLOYPATH=/home/example/public_html/
+    - /bin/cp index.html $DEPLOYPATH
+    - /bin/cp style.css $DEPLOYPATH
