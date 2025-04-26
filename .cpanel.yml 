@@ -1,6 +1,25 @@
----
+    ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/example/public_html/
-    - /bin/cp index.html $DEPLOYPATH
-    - /bin/cp style.css $DEPLOYPATH
+    # Set environment variables and paths
+    - export NODE_ENV=production
+    - export DEPLOYPATH=/home/greenli3/public_html/  # Replace "example" with your cPanel username
+
+    # Install dependencies and build Next.js
+    - npm install
+    - npm run build
+
+    # Clean the deployment directory (optional)
+    - /bin/rm -rf $DEPLOYPATH/*
+
+    # Copy required files
+    - /bin/cp -rf .next $DEPLOYPATH
+    - /bin/cp -rf public $DEPLOYPATH
+    - /bin/cp -rf package*.json $DEPLOYPATH
+    - /bin/cp -rf next.config.js $DEPLOYPATH  # If you have one
+
+    # Install production dependencies in the deployment directory
+    - cd $DEPLOYPATH && npm install --production
+
+    # Start the server (if using a custom server.js)
+    # - cd $DEPLOYPATH && npm run start
