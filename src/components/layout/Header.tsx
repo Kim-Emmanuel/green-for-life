@@ -415,11 +415,11 @@ const SocialLinks = () => (
 				icon: "Facebook",
 			},
 			{
-				href: "https://www.instagram.com/sunra_ysfoundation19/",
+				href: "https://www.instagram.com/g4l/",
 				icon: "Instagram",
 			},
 			{ href: "https://www.linkedin.com/", icon: "Linkedin" },
-			{ href: "https://www.youtube.com/@SunRaysFoundation", icon: "Youtube" },
+			{ href: "https://www.youtube.com/@g4l", icon: "Youtube" },
 		].map(({ href, icon }) => (
 			<Link
 				key={icon}

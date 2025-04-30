@@ -198,7 +198,7 @@ export default function Footer() {
 						>
 							{section.title}
 						</motion.h4>
-						<nav className="space-y-2">
+						<nav className="space-y-2 w-32">
 							{section.links.map((link) => (
 								<motion.div key={link.href} whileHover={{ x: 5 }}>
 									<Link
@@ -244,13 +244,13 @@ export default function Footer() {
 
 			{/* Copyright and Legal */}
 			<motion.div
-				className="relative z-10 bg-[#156936] mx-auto mt-8 pt-4 border-t border-primary text-center px-4 sm:px-6 lg:px-8"
+				className="relative z-10 bg-[#156936] mx-auto mt-8 pt-4 border-t border-primary text-center px-4 sm:px-6 lg:px-8 pb-4"
 				variants={itemVariants}
 			>
 				<p className="text-sm text-white">
 					© {currentYear} Green for Life. All Rights Reserved.
 				</p>
-				<div className="mt-2 flex justify-center gap-6 text-sm">
+				{/* <div className="mt-2 flex justify-center gap-6 text-sm">
 					<motion.div className="p-2" whileHover={{ x: 5 }}>
 						<Link
 							href="/privacy"
@@ -267,7 +267,7 @@ export default function Footer() {
 							Terms of Service
 						</Link>
 					</motion.div>
-				</div>
+				</div> */}
 			</motion.div>
 		</footer>
 	);
