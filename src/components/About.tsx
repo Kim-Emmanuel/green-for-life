@@ -13,12 +13,12 @@ import {
 } from "lucide-react";
 
 // Team Member Type
-type TeamMember = {
-	name: string;
-	title: string;
-	bio: string;
-	image: string;
-};
+// type TeamMember = {
+// 	name: string;
+// 	title: string;
+// 	bio: string;
+// 	image: string;
+// };
 
 // Core Value Type
 type CoreValue = {
@@ -27,20 +27,20 @@ type CoreValue = {
 	icon: React.ReactNode;
 };
 
-const TEAM_MEMBERS: TeamMember[] = [
-	{
-		name: "TANGUN STEPHEN",
-		title: "Managing Director",
-		bio: "Environmental scientist with 15 years of experience in sustainable development and community empowerment.",
-		image: "/team/team2.webp",
-	},
-	{
-		name: "CHRISTINE DOGBERENGERE",
-		title: "Operations Manager",
-		bio: "Expert in agricultural sustainability and rural community development strategies.",
-		image: "/team/team1.webp",
-	},
-];
+// const TEAM_MEMBERS: TeamMember[] = [
+// 	{
+// 		name: "TANGUN STEPHEN",
+// 		title: "Managing Director",
+// 		bio: "Environmental scientist with 15 years of experience in sustainable development and community empowerment.",
+// 		image: "/team/team2.webp",
+// 	},
+// 	{
+// 		name: "CHRISTINE DOGBERENGERE",
+// 		title: "Operations Manager",
+// 		bio: "Expert in agricultural sustainability and rural community development strategies.",
+// 		image: "/team/team1.webp",
+// 	},
+// ];
 
 const CORE_VALUES: CoreValue[] = [
 	{

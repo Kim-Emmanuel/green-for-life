@@ -20,10 +20,11 @@ const ScrollToTop = () => {
 	}, []);
 
 	useEffect(() => {
-		window.addEventListener("scroll", throttledToggleVisibility.current);
+		const throttledFn = throttledToggleVisibility.current;
+		window.addEventListener("scroll", throttledFn);
 		return () => {
-			window.removeEventListener("scroll", throttledToggleVisibility.current);
-			throttledToggleVisibility.current.cancel();
+			window.removeEventListener("scroll", throttledFn);
+			throttledFn.cancel();
 		};
 	}, []);
 

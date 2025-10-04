@@ -49,14 +49,9 @@ const AnimatedParticles = () => (
 	</div>
 );
 
-// Dynamically import particles with SSR disabled
-const ClientOnlyParticles = dynamic(() => Promise.resolve(AnimatedParticles), {
-	ssr: false,
-});
+// ...existing code...
 
-interface HeroSectionProps {
-	handleNavClick?: (e: React.MouseEvent, target: string) => void;
-}
+// ...existing code...
 
 const Typewriter: React.FC<{
 	words: string[];
@@ -89,14 +84,20 @@ const Typewriter: React.FC<{
 					if (currentText.length < currentWord.length) {
 						setCurrentText(currentWord.substring(0, currentText.length + 1));
 					} else {
-						setTimeout(() => setIsDeleting(true), delaySpeed);
+						// Only start deleting if looping is enabled or not on the last word
+						if (loop || currentWordIndex < words.length - 1) {
+							setTimeout(() => setIsDeleting(true), delaySpeed);
+						}
 					}
 				} else {
 					if (currentText.length > 0) {
 						setCurrentText(currentText.substring(0, currentText.length - 1));
 					} else {
 						setIsDeleting(false);
-						setCurrentWordIndex((prev) => (prev + 1) % words.length);
+						// Advance only when looping is enabled
+						if (loop) {
+							setCurrentWordIndex((prev) => (prev + 1) % words.length);
+						}
 					}
 				}
 			},
@@ -112,6 +113,7 @@ const Typewriter: React.FC<{
 		typeSpeed,
 		deleteSpeed,
 		delaySpeed,
+		loop,
 	]);
 
 	useEffect(() => {
