@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import {
 	Trees,
 	Users,
@@ -15,17 +15,12 @@ import {
 } from "lucide-react";
 import dynamic from "next/dynamic";
 import { smoothScroll } from "@/lib/utils";
+import { useEffect, useState } from "react";
 
 const ScrollIndicator = dynamic(() => import("@/components/ScrollIndicator"), {
 	ssr: false,
 	loading: () => null,
 });
-
-// Dynamically import Typewriter with SSR disabled
-const Typewriter = dynamic(
-	() => import("react-simple-typewriter").then((mod) => mod.Typewriter),
-	{ ssr: false, loading: () => <span>Future...</span> }
-);
 
 // Create a client-side only particles component
 const AnimatedParticles = () => (
@@ -59,7 +54,99 @@ const ClientOnlyParticles = dynamic(() => Promise.resolve(AnimatedParticles), {
 	ssr: false,
 });
 
+interface HeroSectionProps {
+	handleNavClick?: (e: React.MouseEvent, target: string) => void;
+}
+
+const Typewriter: React.FC<{
+	words: string[];
+	loop?: boolean;
+	cursor?: boolean;
+	cursorStyle?: React.ReactNode;
+	typeSpeed?: number;
+	deleteSpeed?: number;
+	delaySpeed?: number;
+}> = ({
+	words,
+	loop = true,
+	cursor = true,
+	cursorStyle = "|",
+	typeSpeed = 70,
+	deleteSpeed = 50,
+	delaySpeed = 1500,
+}) => {
+	const [currentWordIndex, setCurrentWordIndex] = useState(0);
+	const [currentText, setCurrentText] = useState("");
+	const [isDeleting, setIsDeleting] = useState(false);
+	const [showCursor, setShowCursor] = useState(true);
+
+	useEffect(() => {
+		const currentWord = words[currentWordIndex];
+
+		const timeout = setTimeout(
+			() => {
+				if (!isDeleting) {
+					if (currentText.length < currentWord.length) {
+						setCurrentText(currentWord.substring(0, currentText.length + 1));
+					} else {
+						setTimeout(() => setIsDeleting(true), delaySpeed);
+					}
+				} else {
+					if (currentText.length > 0) {
+						setCurrentText(currentText.substring(0, currentText.length - 1));
+					} else {
+						setIsDeleting(false);
+						setCurrentWordIndex((prev) => (prev + 1) % words.length);
+					}
+				}
+			},
+			isDeleting ? deleteSpeed : typeSpeed
+		);
+
+		return () => clearTimeout(timeout);
+	}, [
+		currentText,
+		isDeleting,
+		currentWordIndex,
+		words,
+		typeSpeed,
+		deleteSpeed,
+		delaySpeed,
+	]);
+
+	useEffect(() => {
+		if (cursor) {
+			const cursorInterval = setInterval(() => {
+				setShowCursor((prev) => !prev);
+			}, 530);
+			return () => clearInterval(cursorInterval);
+		}
+	}, [cursor]);
+
+	return (
+		<span>
+			{currentText}
+			{cursor && (
+				<span
+					className={`${
+						showCursor ? "opacity-100" : "opacity-0"
+					} transition-opacity`}
+				>
+					{cursorStyle}
+				</span>
+			)}
+		</span>
+	);
+};
+
 export default function Home() {
+	const [isMounted, setIsMounted] = useState(false);
+	const shouldReduceMotion = useReducedMotion();
+
+	useEffect(() => {
+		setIsMounted(true);
+	}, []);
+
 	const handleNavClick = (
 		e: React.MouseEvent<HTMLButtonElement>,
 		target: string
@@ -68,116 +155,387 @@ export default function Home() {
 		smoothScroll(target);
 	};
 
+	// Icon data
+  const icons = [
+    { icon: '🌱', delay: 0, scale: 1 },
+    { icon: '🌍', delay: 0.2, scale: 0.8 },
+    { icon: '♻️', delay: 0.4, scale: 0.6 },
+  ];
+
+	// Animation variants for better performance
+	const containerVariants = {
+		hidden: { opacity: 0 },
+		visible: {
+			opacity: 1,
+			transition: {
+				duration: 0.6,
+				staggerChildren: 0.1,
+				ease: "easeOut",
+			},
+		},
+	};
+
+	const itemVariants = {
+		hidden: { opacity: 0, y: 20 },
+		visible: {
+			opacity: 1,
+			y: 0,
+			transition: {
+				duration: 0.6,
+				ease: "easeOut",
+			},
+		},
+	};
+
+	const slideInLeft = {
+		hidden: { opacity: 0, x: -30 },
+		visible: {
+			opacity: 1,
+			x: 0,
+			transition: {
+				duration: 0.8,
+				ease: "easeOut",
+			},
+		},
+	};
+
+	const slideInRight = {
+		hidden: { opacity: 0, x: 30 },
+		visible: {
+			opacity: 1,
+			x: 0,
+			transition: {
+				duration: 0.8,
+				ease: "easeOut",
+			},
+		},
+	};
+
 	return (
 		<div className="flex flex-col min-h-screen">
 			<main className="flex-grow relative">
 				{/* Hero Section */}
-				<section className="relative h-[clamp(500px,100dvh,1000px)] min-h-[500px] max-h-[min(1200px,100svh)] lg:h-[clamp(600px,100vh,1200px)] xl:max-h-[1400px] flex items-center justify-center text-white overflow-hidden">
-					{/* Dynamic Background */}
-					<div className="absolute inset-0 z-0">
-						<Image
-							src="/images/coffee-hero.webp"
-							alt="Coffee Tree"
-							fill
-							priority
-							className="object-cover"
-							quality={100}
-							sizes="100vw"
-						/>
-						<div className="absolute inset-0 bg-gradient-to-b from-black/50 to-emerald-900/30" />
-						<div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-green-900 to-transparent" />
-					</div>
 
-					{/* Client-only particles */}
-					<ClientOnlyParticles />
+				<section className="relative min-h-screen flex items-center justify-center text-gray-900 overflow-hidden bg-gradient-to-br from-white via-emerald-50/30 to-white">
+					{/* Enhanced Grid Background Pattern - Responsive */}
+					<div
+						className="absolute inset-0 opacity-[0.08] sm:opacity-10 lg:opacity-15"
+						style={{
+							backgroundImage: `
+            linear-gradient(to right, #55B948 1px, transparent 1px),
+            linear-gradient(to bottom, #55B948 1px, transparent 1px)
+          `,
+							backgroundSize: "1.5rem 1.5rem",
+						}}
+					/>
 
-					{/* Hero Content */}
-					<div className="relative z-20 container mx-auto px-4 sm:px-6 lg:px-8">
-						<div className="flex flex-col items-center md:items-start text-center md:text-left max-w-[95%] lg:max-w-3xl xl:max-w-4xl mx-auto">
-							<motion.h1
-								initial={{ y: 50, opacity: 0 }}
-								animate={{ y: 0, opacity: 1 }}
-								transition={{ duration: 0.8, ease: [0.33, 1, 0.68, 1] }}
-								className="text-[clamp(2.5rem,5vw,3.5rem)] font-extrabold leading-[1.2] tracking-tight mb-6"
-							>
-								<span className="bg-gradient-to-r from-[#55B948] to-emerald-400 bg-clip-text text-transparent">
-									Greening
-								</span>{" "}
-								Communities for a Sustainable{" "}
-								<span className="inline-block text-[#55B948]">
-									<Typewriter
-										words={["Future..."]}
-										loop={true}
-										cursor
-										cursorStyle="|"
-										typeSpeed={80}
-										deleteSpeed={50}
-										delaySpeed={1500}
-									/>
-								</span>
-							</motion.h1>
+					{/* Enhanced responsive background pattern for larger screens */}
+					<div
+						className="absolute inset-0 opacity-0 sm:opacity-5 lg:opacity-8 hidden sm:block"
+						style={{
+							backgroundImage: `
+            linear-gradient(to right, #55B948 1px, transparent 1px),
+            linear-gradient(to bottom, #55B948 1px, transparent 1px)
+          `,
+							backgroundSize: "4rem 4rem",
+						}}
+					/>
 
-							<motion.p
-								initial={{ y: 30, opacity: 0 }}
-								animate={{ y: 0, opacity: 1 }}
-								transition={{ delay: 0.3, duration: 0.6 }}
-								className="text-[clamp(1.1rem,1.5vw,1.3rem)] leading-relaxed text-white/90 max-w-2xl mx-auto lg:mx-0 mb-8"
-							>
-								Green for Life (G4L) pioneers{" "}
-								<span className="font-semibold text-emerald-300">
-									eco-innovation{" "}
-								</span>
-								that bridges community needs with environmental stewardship.
-								Join our global movement.
-							</motion.p>
-
+					{/* Main Content Container */}
+					<div className="container mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 relative z-10 w-full max-w-7xl">
+						<motion.div
+							variants={containerVariants}
+							initial="hidden"
+							whileInView="visible"
+							viewport={{ once: true, margin: "-50px" }}
+							className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 xl:gap-20 items-center min-h-[80vh] lg:min-h-[70vh]"
+						>
+							{/* Text Content - Enhanced Mobile First */}
 							<motion.div
-								initial={{ scale: 0.95, opacity: 0 }}
-								animate={{ scale: 1, opacity: 1 }}
-								transition={{ delay: 0.6, type: "spring" }}
-								className="flex flex-col sm:flex-row items-center gap-6 w-full sm:w-auto"
+								variants={slideInLeft}
+								className="relative order-2 lg:order-1 text-center lg:text-left space-y-6 sm:space-y-8"
 							>
-								{["Learn More"].map((text, index) => (
-									<motion.div
-										key={text}
-										whileHover={{ scale: 1.05 }}
-										whileTap={{ scale: 0.95 }}
-										className="relative inline-block w-full sm:w-auto"
+								{/* Badge - Enhanced Responsiveness */}
+								<motion.div variants={itemVariants} className="inline-block">
+									<span className="inline-flex items-center bg-green-100/90 backdrop-blur-sm text-green-700 px-3 sm:px-4 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-semibold shadow-sm border border-green-200/50 transition-all duration-300 hover:shadow-md hover:scale-105">
+										<span className="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse" />
+										Green Innovation Initiative
+									</span>
+								</motion.div>
+
+								{/* Enhanced Typography - Fluid & Responsive */}
+								<motion.h1
+									variants={itemVariants}
+									className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-[4rem] 2xl:text-[4.5rem] font-bold leading-[1.1] sm:leading-tight tracking-tight"
+								>
+									<span className="bg-gradient-to-r from-[#55B948] via-emerald-500 to-[#7ED321] bg-clip-text text-transparent block">
+										Building Sustainable
+									</span>
+									<span className="block mt-2 sm:mt-4 lg:mt-6 min-h-[1.2em]">
+										{isMounted && (
+											<Typewriter
+												words={["Communities", "Ecosystems", "Futures"]}
+												loop
+												cursor
+												cursorStyle={
+													<span className="text-green-700">|</span>
+												}
+												typeSpeed={shouldReduceMotion ? 10 : 70}
+												deleteSpeed={shouldReduceMotion ? 10 : 50}
+												delaySpeed={shouldReduceMotion ? 100 : 1500}
+											/>
+										)}
+									</span>
+								</motion.h1>
+
+								{/* Enhanced Description */}
+								<motion.p
+									variants={itemVariants}
+									className="text-base sm:text-lg lg:text-xl xl:text-[1.375rem] text-gray-600 leading-relaxed font-medium max-w-none lg:max-w-2xl mx-auto lg:mx-0 px-4 sm:px-0"
+								>
+									Green for Life (G4L) pioneers{" "}
+									<span className="font-semibold text-green-700 relative">
+										eco-innovation
+										<motion.span
+											className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-green-400 to-[#55B948] rounded-full"
+											initial={{ scaleX: 0 }}
+											whileInView={{ scaleX: 1 }}
+											transition={{ duration: 1, delay: 0.8 }}
+										/>
+									</span>{" "}
+									that bridges community needs with environmental stewardship.
+									Join our global movement toward a sustainable future.
+								</motion.p>
+
+								{/* Enhanced CTA Buttons - Mobile Optimized */}
+								<motion.div
+									variants={itemVariants}
+									className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full sm:w-auto max-w-md sm:max-w-none mx-auto lg:mx-0"
+								>
+									<motion.button
+										onClick={(e) => handleNavClick?.(e, "#programs")}
+										whileHover={{
+											scale: shouldReduceMotion ? 1 : 1.02,
+											y: shouldReduceMotion ? 0 : -2,
+										}}
+										whileTap={{ scale: shouldReduceMotion ? 1 : 0.98 }}
+										className="group relative bg-gradient-to-r from-primary to-[#55B948] hover:from-green-700 hover:to-green-600 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold text-sm sm:text-base shadow-lg hover:shadow-xl hover:shadow-green-200/50 transition-all duration-300 overflow-hidden w-full sm:w-auto"
 									>
-										<div className="absolute inset-0 bg-gradient-to-r from-green-600 to-primary rounded-md blur-lg opacity-50 -z-10 transition-opacity duration-300 group-hover:opacity-60" />
-										<button
-											onClick={(e) =>
-												handleNavClick(
-													e,
-													index === 0 ? "#introduction" : "#mission"
-												)
-											}
-											className="group flex items-center justify-center gap-3 bg-gradient-to-r from-green-600 to-primary text-white w-full sm:w-auto px-8 py-4 sm:px-10 sm:py-5 lg:px-12 lg:py-6 rounded-md transition-all duration-300 shadow-lg hover:shadow-xl active:shadow-md"
-										>
-											<span className="text-base font-semibold sm:text-lg lg:text-xl whitespace-nowrap">
-												{text}
-											</span>
-											<svg
-												className="w-5 h-5 sm:w-6 sm:h-6 transition-transform transform group-hover:translate-x-1"
-												fill="none"
-												stroke="currentColor"
-												viewBox="0 0 24 24"
+										<span className="relative z-10 flex items-center justify-center gap-2">
+											View Programs
+											<motion.span
+												initial={{ x: 0 }}
+												whileHover={{ x: shouldReduceMotion ? 0 : 4 }}
+												transition={{ duration: 0.2 }}
+												className="text-lg"
 											>
-												<path
-													strokeLinecap="round"
-													strokeLinejoin="round"
-													strokeWidth={2}
-													d="M17 8l4 4m0 0l-4 4m4-4H3"
-												/>
-											</svg>
-										</button>
+												→
+											</motion.span>
+										</span>
+										<div className="absolute inset-0 bg-gradient-to-r from-green-700 to-green-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+									</motion.button>
+
+									<motion.button
+										onClick={(e) => handleNavClick?.(e, "#overview")}
+										whileHover={{
+											scale: shouldReduceMotion ? 1 : 1.02,
+											backgroundColor: "#F0FDF4",
+										}}
+										whileTap={{ scale: shouldReduceMotion ? 1 : 0.98 }}
+										className="border-2 border-green-600 text-green-600 hover:text-green-700 px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold text-sm sm:text-base transition-all duration-300 w-full sm:w-auto hover:border-green-700 hover:shadow-md"
+									>
+										Watch Overview
+									</motion.button>
+								</motion.div>
+
+								{/* Enhanced Trust Indicators */}
+								<motion.div
+									variants={itemVariants}
+									className="flex items-center justify-center lg:justify-start gap-4 sm:gap-6 text-xs sm:text-sm text-gray-500 pt-4 sm:pt-6 flex-wrap"
+								>
+									<div className="flex items-center gap-2">
+										<div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
+										<span className="font-medium">#M+ Trees Planted</span>
+									</div>
+									<div className="flex items-center gap-2">
+										<div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse" />
+										<span className="font-medium">#+ Communities</span>
+									</div>
+									<div className="flex items-center gap-2">
+										<div className="w-2 h-2 bg-purple-500 rounded-full animate-pulse" />
+										<span className="font-medium">Global Impact</span>
+									</div>
+								</motion.div>
+							</motion.div>
+
+							{/* Enhanced Visual Elements - Mobile Optimized */}
+							<motion.div
+								variants={slideInRight}
+								className="relative order-1 lg:order-2 w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] xl:h-[700px] flex items-center justify-center"
+							>
+								{/* Optimized Image Container */}
+								<div className="relative w-full h-full max-w-lg lg:max-w-xl xl:max-w-2xl mx-auto">
+									<Image
+										src="/green-for-life.svg"
+										alt="Sustainable Community Innovation"
+										fill
+										priority
+										className="object-contain object-center drop-shadow-2xl"
+										quality={85}
+										sizes="(max-width: 640px) 90vw, (max-width: 768px) 80vw, (max-width: 1024px) 50vw, 45vw"
+										placeholder="blur"
+										blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
+									/>
+								</div>
+								
+								{icons.map((icon, index) => (
+									<motion.div
+										key={index}
+										initial={{ opacity: 0, scale: 0 }}
+										animate={{
+											opacity: [0, 1, 0],
+											scale: [0, icon.scale, 0],
+										}}
+										transition={{
+											duration: 2,
+											delay: icon.delay,
+											repeat: Infinity,
+										}}
+										className="absolute"
+										style={{
+											left: `${50 + Math.random() * 20}%`,
+											top: `${30 + Math.random() * 20}%`,
+										}}
+									>
+										{icon.icon}
 									</motion.div>
 								))}
+
+								{/* Enhanced Decorative Elements - Responsive */}
+								<div className="absolute -top-4 sm:-top-8 -right-4 sm:-right-8 w-16 sm:w-24 lg:w-32 xl:w-40 h-16 sm:h-24 lg:h-32 xl:h-40 bg-emerald-200/30 rounded-full blur-xl sm:blur-2xl opacity-60" />
+								<div className="absolute -bottom-6 sm:-bottom-12 -left-6 sm:-left-12 w-20 sm:w-36 lg:w-48 xl:w-56 h-20 sm:h-36 lg:h-48 xl:h-56 bg-emerald-100/40 rounded-full blur-xl sm:blur-2xl opacity-70" />
+
+								{/* Enhanced Animated Floating Elements */}
+								<motion.div
+									animate={
+										shouldReduceMotion
+											? {}
+											: {
+													y: [0, -10, 0],
+													rotate: [0, 2, 0],
+													scale: [1, 1.05, 1],
+											  }
+									}
+									transition={{
+										duration: 6,
+										repeat: Infinity,
+										ease: "easeInOut",
+									}}
+									className="absolute top-10 sm:top-20 -right-8 sm:-right-16 w-20 sm:w-32 lg:w-40 xl:w-48 h-20 sm:h-32 lg:h-40 xl:h-48 bg-emerald-100/30 rounded-full blur-xl opacity-50"
+								/>
+								<motion.div
+									animate={
+										shouldReduceMotion
+											? {}
+											: {
+													y: [0, 8, 0],
+													rotate: [0, -2, 0],
+													scale: [1, 1.03, 1],
+											  }
+									}
+									transition={{
+										duration: 8,
+										repeat: Infinity,
+										ease: "easeInOut",
+										delay: 1,
+									}}
+									className="absolute bottom-10 sm:bottom-20 -left-8 sm:-left-16 w-18 sm:w-28 lg:w-36 xl:w-44 h-18 sm:h-28 lg:h-36 xl:h-44 bg-emerald-200/20 rounded-full blur-xl opacity-60"
+								/>
+
+								{/* Additional Mobile-Optimized Decorative Elements */}
+								<motion.div
+									animate={
+										shouldReduceMotion
+											? {}
+											: {
+													scale: [1, 1.1, 1],
+													opacity: [0.3, 0.6, 0.3],
+											  }
+									}
+									transition={{
+										duration: 4,
+										repeat: Infinity,
+										ease: "easeInOut",
+										delay: 2,
+									}}
+									className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 sm:w-48 lg:w-64 xl:w-80 h-32 sm:h-48 lg:h-64 xl:h-80 bg-gradient-to-r from-emerald-100/20 to-green-100/20 rounded-full blur-3xl -z-10"
+								/>
 							</motion.div>
-						</div>
+						</motion.div>
 					</div>
-					{/* ScrollIndicator Component */}
+
+					{/* Enhanced Scroll Indicator */}
 					<ScrollIndicator />
+
+					{/* Custom Styles for Enhanced Animations */}
+					<style jsx>{`
+						@keyframes float {
+							0%,
+							100% {
+								transform: translateY(0px) rotate(0deg);
+							}
+							25% {
+								transform: translateY(-10px) rotate(1deg);
+							}
+							50% {
+								transform: translateY(-5px) rotate(-0.5deg);
+							}
+							75% {
+								transform: translateY(-15px) rotate(0.5deg);
+							}
+						}
+
+						@keyframes float-delay {
+							0%,
+							100% {
+								transform: translateY(0px) rotate(0deg);
+							}
+							25% {
+								transform: translateY(-8px) rotate(-1deg);
+							}
+							50% {
+								transform: translateY(-3px) rotate(0.5deg);
+							}
+							75% {
+								transform: translateY(-12px) rotate(-0.5deg);
+							}
+						}
+
+						.animate-float {
+							animation: float 6s ease-in-out infinite;
+						}
+
+						.animate-float-delay {
+							animation: float-delay 8s ease-in-out infinite;
+							animation-delay: 2s;
+						}
+
+						/* Enhanced responsive utilities */
+						@media (max-width: 640px) {
+							.container {
+								padding-left: 1rem;
+								padding-right: 1rem;
+							}
+						}
+
+						/* Performance optimizations */
+						@media (prefers-reduced-motion: reduce) {
+							.animate-float,
+							.animate-float-delay {
+								animation: none;
+							}
+						}
+					`}</style>
 				</section>
 
 				{/* Introduction to Green For Life Section */}
@@ -587,8 +945,8 @@ export default function Home() {
 								</h2>
 
 								<p className="text-[clamp(1.125rem,2vw,1.25rem)] text-gray-600 leading-relaxed max-w-2xl mx-auto mb-8">
-									Join us in helping prevent environmental crises and
-									build sustainable communities.{" "}
+									Join us in helping prevent environmental crises and build
+									sustainable communities.{" "}
 									<strong>Every contribution matters.</strong>
 								</p>
 							</div>

@@ -51,7 +51,7 @@ const NAV_ITEMS: NavItem[] = [
 		dropdown: [
 			{ label: "Who We Are", href: "/about-us" },
 			{ label: "History", href: "/about-us#history" },
-			{ label: "Team", href: "/about-us#team" },
+			// { label: "Team", href: "/about-us#team" },
 			{ label: "Core Values", href: "/about-us#values" },
 			{ label: "Theory of Change", href: "/about-us#theory-of-change" },
 		],

@@ -501,7 +501,7 @@ export default function About() {
 			</section>
 
 			{/* Team Section */}
-			<section
+			{/* <section
 				id="team"
 				className="py-16 container mx-auto px-4 sm:px-6 lg:px-8"
 			>
@@ -547,9 +547,9 @@ export default function About() {
 									width={400}
 									height={400}
 									className="w-full h-86 object-cover transition-transform duration-300 group-hover:scale-105"
-								/>
+								/> */}
 								{/* Social Icons Overlay with Slide-up Transition */}
-								<div className="absolute inset-0 bg-black/30 opacity-0 translate-y-full transition-all duration-300 ease-in-out group-hover:opacity-100 group-hover:translate-y-0 flex items-center justify-center gap-4">
+								{/* <div className="absolute inset-0 bg-black/30 opacity-0 translate-y-full transition-all duration-300 ease-in-out group-hover:opacity-100 group-hover:translate-y-0 flex items-center justify-center gap-4">
 									<motion.div
 										initial={{ scale: 0.5, opacity: 0 }}
 										animate={{ scale: 1, opacity: 1 }}
@@ -636,7 +636,7 @@ export default function About() {
 						</motion.div>
 					))}
 				</div>
-			</section>
+			</section> */}
 
 			{/* Theory of Change Section */}
 			<section id="theory-of-change" className="py-16 container mx-auto">
