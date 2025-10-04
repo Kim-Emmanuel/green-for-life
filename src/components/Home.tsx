@@ -22,32 +22,7 @@ const ScrollIndicator = dynamic(() => import("@/components/ScrollIndicator"), {
 	loading: () => null,
 });
 
-// Create a client-side only particles component
-const AnimatedParticles = () => (
-	<div className="absolute inset-0 z-10 opacity-40">
-		{[...Array(20)].map((_, i) => (
-			<motion.div
-				key={i}
-				initial={{ opacity: 0, scale: 0 }}
-				animate={{
-					opacity: [0, 0.5, 0],
-					scale: [0, 1, 0],
-					x: Math.random() * 100 - 50,
-				}}
-				transition={{
-					duration: 4 + Math.random() * 4,
-					repeat: Infinity,
-					delay: Math.random() * 2,
-				}}
-				className="absolute w-2 h-2 bg-emerald-300 rounded-full"
-				style={{
-					left: `${Math.random() * 100}%`,
-					top: `${Math.random() * 100}%`,
-				}}
-			/>
-		))}
-	</div>
-);
+// Client-side particles component removed - unused
 
 // ...existing code...
 
