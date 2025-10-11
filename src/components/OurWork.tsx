@@ -425,9 +425,12 @@ export default function OurWork() {
 			<section className="relative py-28 overflow-hidden">
       {/* Image Background with Overlay */}
       <div className="absolute inset-0 z-0">
-        <img
+        <Image
           src="https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=1920&q=80"
           alt="Green innovation and sustainability"
+					width={130}
+								height={80}
+								priority
           className="w-full h-full object-cover"
         />
         {/* Darker gradient overlay for better text readability */}

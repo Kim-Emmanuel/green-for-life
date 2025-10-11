@@ -104,26 +104,26 @@ export default function NewsResources() {
 		checkAuthStatus();
 	}, []);
 
-	// useEffect(() => {
-	// 	const fetchPosts = async () => {
-	// 		setIsLoading(true);
-	// 		setError(null);
-	// 		setImageErrors({});
+	useEffect(() => {
+		const fetchPosts = async () => {
+			setIsLoading(true);
+			setError(null);
+			setImageErrors({});
 
-	// 		try {
-	// 			const res = await fetch(`/api/posts?category=${activeCategory}`);
-	// 			if (!res.ok) throw new Error("Failed to fetch posts");
-	// 			const data = await res.json();
-	// 			setPosts(data.posts);
-	// 		} catch (err) {
-	// 			setError(err instanceof Error ? err.message : "Error fetching posts");
-	// 		} finally {
-	// 			setIsLoading(false);
-	// 		}
-	// 	};
+			try {
+				const res = await fetch(`/api/posts?category=${activeCategory}`);
+				if (!res.ok) throw new Error("Failed to fetch posts");
+				const data = await res.json();
+				setPosts(data.posts);
+			} catch (err) {
+				setError(err instanceof Error ? err.message : "Error fetching posts");
+			} finally {
+				setIsLoading(false);
+			}
+		};
 
-	// 	fetchPosts();
-	// }, [activeCategory]);
+		fetchPosts();
+	}, [activeCategory]);
 
 	useEffect(() => {
 		const fetchFeaturedPosts = async () => {
@@ -207,7 +207,7 @@ export default function NewsResources() {
 	return (
 		<div className="min-h-screen bg-white relative">
 			{/* Auth Section */}
-			{/* <div className="py-4 bg-green-50">
+			<div className="py-4 bg-green-50">
 				<div className="container mx-auto px-4 sm:px-6 lg:px-8 flex justify-end">
 					{user ? (
 						<div className="flex items-center gap-4 bg-white rounded-lg p-2 shadow-sm">
@@ -252,7 +252,7 @@ export default function NewsResources() {
 						</Button>
 					)}
 				</div>
-			</div> */}
+			</div>
 
 			{/* Hero Section */}
 			<section className="relative py-28 overflow-hidden">

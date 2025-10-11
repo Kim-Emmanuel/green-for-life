@@ -132,13 +132,6 @@ export default function Home() {
 		smoothScroll(target);
 	};
 
-	// Icon data
-  const icons = [
-    { icon: '🌱', delay: 0, scale: 1 },
-    { icon: '🌍', delay: 0.2, scale: 0.8 },
-    { icon: '♻️', delay: 0.4, scale: 0.6 },
-  ];
-
 	// Animation variants for better performance
 	const containerVariants = {
 		hidden: { opacity: 0 },
@@ -176,18 +169,6 @@ export default function Home() {
 		},
 	};
 
-	const slideInRight = {
-		hidden: { opacity: 0, x: 30 },
-		visible: {
-			opacity: 1,
-			x: 0,
-			transition: {
-				duration: 0.8,
-				ease: "easeOut",
-			},
-		},
-	};
-
 	return (
 		<div className="flex flex-col min-h-screen">
 			<main className="flex-grow relative">
@@ -207,9 +188,6 @@ export default function Home() {
         {/* Gradient Overlay - Using exact hero colors */}
         <div className="absolute inset-0 bg-gradient-to-b from-emerald-900/15 via-green-800/10 to-emerald-900/15" />
         <div className="absolute inset-0 bg-emerald-950/30" />
-        
-        {/* Additional overlay for better text readability */}
-        
       </div>
 
       {/* Main Content Container */}
