@@ -26,6 +26,7 @@ import {
 	useElements,
 } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
+import Image from "next/image";
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY!);
 
@@ -179,100 +180,82 @@ export default function GetInvolved() {
     return (
         <div className="min-h-screen">
             {/* Hero Section Get Involved */}
-            <section className="relative bg-gradient-to-b from-emerald-50/95 to-green-50/70 py-28 overflow-hidden">
-                {/* Modern Particle Background */}
-                <div className="absolute flex items-center justify-center inset-0 z-0">
-                    {[...Array(30)].map((_, i) => (
-                        <motion.div
-                            key={i}
-                            className="absolute bg-emerald-200/40 rounded-full"
-                            initial={{
-                                scale: 0,
-                                opacity: 0,
-                                x: Math.random() * 100 - 50 + "%",
-                                y: Math.random() * 100 - 50 + "%",
-                            }}
-                            animate={{
-                                scale: [0, Math.random() * 0.5 + 0.5, 0],
-                                opacity: [0, 0.4, 0],
-                                rotate: [0, 180],
-                            }}
-                            transition={{
-                                duration: Math.random() * 4 + 6,
-                                repeat: Infinity,
-                                ease: "easeInOut",
-                                delay: Math.random() * 2,
-                            }}
-                            style={{
-                                width: `${Math.random() * 20 + 10}px`,
-                                height: `${Math.random() * 20 + 10}px`,
-                            }}
-                        />
-                    ))}
-                </div>
+						<section className="relative py-28 overflow-hidden">
+      {/* Image Background with Overlay */}
+      <div className="absolute inset-0 z-0">
+        <Image
+          src="/images/background.jpg"
+          alt="Community engagement and environmental action"
+          width={130}
+													height={80}
+													priority
+          className="w-full h-full object-cover"
+        />
+        {/* Darker gradient overlay for better text readability */}
+        <div className="absolute inset-0 bg-gradient-to-b from-emerald-900/15 via-green-800/10 to-emerald-900/15" />
+        <div className="absolute inset-0 bg-emerald-950/20" />
+      </div>
 
-                {/* Dynamic Grid Pattern */}
-                <div className="absolute inset-0 z-0">
-                    <motion.div
-                        className="h-full w-full bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"
-                        animate={{ x: [0, -24], y: [0, 24] }}
-                        transition={{
-                            duration: 20,
-                            repeat: Infinity,
-                            ease: "linear",
-                        }}
-                    />
-                </div>
+      {/* Subtle Particle Background */}
+      <div className="absolute flex items-center justify-center inset-0 z-0">
+        {[...Array(30)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute bg-emerald-200/40 rounded-full"
+            initial={{
+              scale: 0,
+              opacity: 0,
+              x: Math.random() * 100 - 50 + "%",
+              y: Math.random() * 100 - 50 + "%",
+            }}
+            animate={{
+              scale: [0, Math.random() * 0.5 + 0.5, 0],
+              opacity: [0, 0.4, 0],
+              rotate: [0, 180],
+            }}
+            transition={{
+              duration: Math.random() * 4 + 6,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: Math.random() * 2,
+            }}
+            style={{
+              width: `${Math.random() * 20 + 10}px`,
+              height: `${Math.random() * 20 + 10}px`,
+            }}
+          />
+        ))}
+      </div>
 
-                <div className="mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-                    {/* Modern Scrolling Text */}
-                    <div className="overflow-hidden absolute top-8 left-0 w-full">
-                        <motion.div
-                            className="flex whitespace-nowrap"
-                            animate={{ x: ["100%", "-100%"] }}
-                            transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-                        >
-                            {[...Array(4)].map((_, i) => (
-                                <span
-                                    key={i}
-                                    className="text-5xl font-black text-emerald-900/5 mx-8"
-                                >
-                                    <span className="bg-clip-text text-transparent bg-gradient-to-r from-emerald-700/20 to-green-900/20">
-                                        Environmental Action •
-                                    </span>
-                                </span>
-                            ))}
-                        </motion.div>
-                    </div>
+      <div className="mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+        >
+          <motion.h1
+            initial={{ letterSpacing: "1.5rem", opacity: 0 }}
+            animate={{ letterSpacing: "0.3rem", opacity: 1 }}
+            transition={{ duration: 1.2, delay: 0.3 }}
+            className="text-[clamp(2.75rem,8vw,4.75rem)] font-black text-white mb-8 tracking-tight drop-shadow-2xl"
+          >
+            Engage with Green for Life
+          </motion.h1>
 
-                    <motion.div
-                        initial={{ opacity: 0, y: 40 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8 }}
-                    >
-                        <motion.h1
-                            initial={{ letterSpacing: "1.5rem", opacity: 0 }}
-                            animate={{ letterSpacing: "0.3rem", opacity: 1 }}
-                            transition={{ duration: 1.2, delay: 0.3 }}
-                            className="text-[clamp(2.75rem,8vw,4.75rem)] font-black bg-gradient-to-r from-green-900 to-emerald-800 bg-clip-text text-transparent mb-8 tracking-tight"
-                        >
-                            Engage with Green for Life
-                        </motion.h1>
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+            className="max-w-2xl mx-auto text-[clamp(1rem,1.5vw,1.25rem)] text-white/95 leading-relaxed mb-10 font-medium px-4 sm:px-0 drop-shadow-lg"
+          >
+            Join our ecosystem of sustainability through strategic
+            partnerships, impactful donations, and hands-on volunteering
+            opportunities.
+          </motion.p>
+        </motion.div>
 
-                        <motion.p
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            transition={{ duration: 0.8, delay: 0.5 }}
-                            className="max-w-2xl mx-auto text-[clamp(1rem,1.5vw,1.25rem)] text-green-800 leading-relaxed mb-10 font-medium px-4 sm:px-0"
-                        >
-                            Join our ecosystem of sustainability through strategic
-                            partnerships, impactful donations, and hands-on volunteering
-                            opportunities.
-                        </motion.p>
-                    </motion.div>
-
-                    {/* Animated Interactive Buttons */}
-                    <motion.div
+        {/* Program Navigation Dropdown */}
+        <motion.div
                         className="flex justify-center gap-4"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
@@ -312,49 +295,21 @@ export default function GetInvolved() {
                     </motion.div>
                 </div>
 
-                {/* Modern Scroll Indicator */}
-                <motion.div
-                    className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 1.2 }}
-                >
-                    <div className="w-px h-12 bg-gradient-to-b from-emerald-600/80 to-transparent" />
-                    <motion.div
-                        animate={{ y: [0, 10], opacity: [1, 0] }}
-                        transition={{ duration: 1.5, repeat: Infinity }}
-                        className="w-2.5 h-2.5 bg-emerald-700 rounded-full"
-                    />
-                </motion.div>
-
-                {/* Client-side only bottom marquee */}
-                {typeof window !== "undefined" && (
-                    <div className="absolute bottom-8 left-0 w-full overflow-hidden">
-                        <motion.div
-                            className="flex whitespace-nowrap"
-                            initial={{ x: "-100%" }}
-                            animate={{
-                                x: "100%",
-                                transition: {
-                                    duration: 30,
-                                    repeat: Infinity,
-                                    ease: "linear",
-                                },
-                            }}
-                        >
-                            {[...Array(2)].map((_, i) => (
-                                <span
-                                    key={i}
-                                    className="text-lg font-medium text-green-800/30 mx-6"
-                                >
-                                    Climate Action • Sustainability Reports • Green Technologies •
-                                    Conservation Efforts •
-                                </span>
-                            ))}
-                        </motion.div>
-                    </div>
-                )}
-            </section>
+      {/* Modern Scroll Indicator */}
+      <motion.div
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.2 }}
+      >
+        <div className="w-px h-12 bg-gradient-to-b from-emerald-300/80 to-transparent" />
+        <motion.div
+          animate={{ y: [0, 10], opacity: [1, 0] }}
+          transition={{ duration: 1.5, repeat: Infinity }}
+          className="w-2.5 h-2.5 bg-emerald-300 rounded-full shadow-lg"
+        />
+      </motion.div>
+    </section>
 
             <div className="space-y-12">
                 {/* Program Sections */}
@@ -541,9 +496,9 @@ export default function GetInvolved() {
                 <div className="absolute inset-0 z-0">
                     <div
                         className="w-full h-full bg-cover bg-center"
-                        style={{ backgroundImage: "url(/images/team-bg.webp)" }}
+                        style={{ backgroundImage: "url(/images/commitment.jpg)" }}
                     >
-                        <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
+                        <div className="absolute inset-0 bg-black/50" />
                     </div>
                 </div>
 

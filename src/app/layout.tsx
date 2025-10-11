@@ -11,6 +11,9 @@ const montserrat = Montserrat({
   subsets: ['latin'], 
   weight: ['400', '500', '600', '700'],
   variable: '--font-montserrat',
+  display: 'swap',
+  preload: true,
+  fallback: ['system-ui', '-apple-system', 'sans-serif'],
 });
 
 // Load the Geist Mono font for monospace text (optional)
@@ -18,6 +21,9 @@ const geistMono = Geist_Mono({
   subsets: ['latin'],
   weight: ['400', '500', '600', '700'],
   variable: '--font-geist-mono',
+  display: 'swap',
+  preload: true,
+  fallback: ['Consolas', 'Monaco', 'Courier New', 'monospace'],
 });
 
 <meta name="apple-mobile-web-app-title" content="Green For Life" />
